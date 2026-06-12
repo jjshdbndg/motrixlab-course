@@ -1324,124 +1324,20 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h2>01 课程导论：MotrixLab 能做什么</h2>
-<h3>课程信息</h3>
-<p>课程名称：MotrixLab 入门精品课程</p>
-<p>本章时长：30 分钟</p>
-<p>本章主题：课程导论，MotrixLab 能做什么</p>
-<h3>本章大纲</h3>
-<ul>
-<li>MotrixLab 的定位与应用场景</li>
-<li>机器人强化学习平台的核心价值</li>
-<li>课程学习路径与目标</li>
-</ul>
-<h3>讲授目标</h3>
-<p>讲完这一章，学生应该形成三个基本认识：</p>
-<ol>
-<li>MotrixLab 是面向机器人强化学习开发与训练的平台，不只是一个 Demo 集合。</li>
-<li>机器人强化学习平台的价值在于把环境、仿真、训练、奖励和结果分析组织成可维护的工程流程。</li>
-<li>后续课程会从整体框架逐步进入环境、奖励、配置、注册、训练流程和 Demo 分析。</li>
-</ol>
-<p>---</p>
-<h3>0-3 分钟：开场</h3>
-<p>大家好，欢迎来到 MotrixLab 入门精品课程。</p>
-<p>这门课面向的是想入门机器人强化学习、想读懂 MotrixLab 项目、并且希望后续能自己修改 Demo、调整奖励、开发新任务的同学。</p>
-<p>在开始之前，我想先说明这门课的学习方式。我们不会只停留在"概念介绍"，也不会一上来就直接跑一个 Demo，然后告诉大家命令是什么。真正重要的是：我们要知道一个机器人强化学习项目是怎么组织起来的。</p>
-<p>很多同学刚接触这类平台时，会遇到几个典型问题：</p>
-<ul>
-<li>训练脚本在哪里？</li>
-<li>环境代码在哪里？</li>
-<li>机器人模型在哪里？</li>
-<li>观测、动作和奖励分别在哪里定义？</li>
-<li>一个 Demo 跑起来以后，如果效果不好，应该从哪里查？</li>
-</ul>
-<p>这些问题如果没有系统方法，就很容易变成到处翻文件、靠猜理解代码。</p>
-<p>所以这门课的第一章，我们先不急着进入代码细节，而是先回答一个更基础的问题：MotrixLab 到底能做什么。</p>
-<p>---</p>
-<h3>3-12 分钟：MotrixLab 的定位与应用场景</h3>
-<p>MotrixLab 可以理解为一个面向机器人强化学习的开发平台。</p>
-<p>这里有两个关键词：机器人，强化学习。</p>
-<p>机器人任务和普通强化学习任务不太一样。普通教学案例里，我们可能看到 CartPole、Pendulum 这类简单环境，状态空间和动作空间都比较小。但机器人任务通常要复杂得多，它涉及：</p>
-<ul>
-<li>机器人模型</li>
-<li>关节和执行器</li>
-<li>物理仿真</li>
-<li>接触和碰撞</li>
-<li>控制频率</li>
-<li>动作约束</li>
-<li>奖励设计</li>
-<li>训练算法</li>
-<li>日志和模型保存</li>
-</ul>
-<p>这些东西加在一起，就不再是一个简单脚本能优雅解决的问题。</p>
-<p>MotrixLab 的定位，就是把这些环节组织起来，让我们能够在一个相对标准化的框架中完成机器人强化学习任务的开发、训练和分析。</p>
-<p>它的典型应用场景包括三类。</p>
-<p>第一类是学习和教学。</p>
-<p>如果你是初学者，MotrixLab 可以帮助你看到一个机器人强化学习项目应该如何拆分：环境怎么写，奖励怎么设计，配置怎么管理，训练怎么启动。</p>
-<p>第二类是 Demo 复现和分析。</p>
-<p>很多时候我们不是从零开始写任务，而是先看官方 Demo。比如基础控制任务、机械臂操作任务、运动机器人任务。MotrixLab 可以让我们用统一方法去分析这些 Demo：任务目标是什么，观测是什么，动作是什么，奖励是什么，终止条件是什么。</p>
-<p>第三类是任务改造和二次开发。</p>
-<p>当你理解了现有 Demo 以后，就可以开始做修改。比如改一个奖励项，换一个目标位置，调整动作尺度，或者基于已有任务开发一个新环境。</p>
-<p>所以，MotrixLab 不是只让我们"运行别人写好的案例"，更重要的是帮助我们从运行案例过渡到理解案例，再过渡到改造和开发案例。</p>
-<p>这里可以提醒学生：学 MotrixLab 的重点不是记住每一个文件名，而是掌握一套阅读和开发机器人强化学习项目的方法。</p>
-<p>---</p>
-<h3>12-21 分钟：机器人强化学习平台的核心价值</h3>
-<p>接下来我们讲 MotrixLab 这类平台的核心价值。</p>
-<p>机器人强化学习项目里，最难的往往不是某一个算法公式，而是工程组织。</p>
-<p>假设我们要训练一个机器人完成任务，比如机械臂到达目标点，或者四足机器人保持稳定行走。我们至少要解决几个问题。</p>
-<p>第一，环境怎么定义。</p>
-<p>环境要告诉智能体当前看到了什么，也就是观测；还要告诉智能体可以输出什么，也就是动作；还要告诉训练算法一步执行以后发生了什么。</p>
-<p>第二，奖励怎么设计。</p>
-<p>强化学习没有逐步标准答案，智能体主要依靠奖励判断行为好不好。如果奖励设计不合理，模型可能学不到任务，或者学到我们不想要的行为。</p>
-<p>第三，参数怎么管理。</p>
-<p>机器人任务里参数非常多，比如仿真步长、episode 长度、动作缩放、奖励权重、学习率、训练步数。如果这些参数散落在代码各处，实验很难复现。</p>
-<p>第四，训练流程怎么启动。</p>
-<p>一次训练并不是简单调用一个函数。它通常包括命令行参数解析、配置加载、环境创建、算法初始化、训练循环、日志记录和模型保存。</p>
-<p>第五，Demo 怎么分析。</p>
-<p>我们拿到一个官方 Demo，不能只看它能不能跑。我们要知道它为什么能跑，任务目标是什么，奖励项是什么，哪些设计可以复用，哪些地方可以修改。</p>
-<p>MotrixLab 的价值，就是把这些问题拆开处理。</p>
-<p>可以用一句话总结：</p>
-<p>MotrixLab 把机器人强化学习任务拆成环境、奖励、配置、注册和训练流程等模块，让项目更清晰、更容易扩展，也更适合教学。</p>
-<p>这里可以给学生一个类比。</p>
-<p>我们可以把 MotrixLab 看成一个机器人强化学习工作台。工作台上有不同区域：</p>
-<ul>
-<li>环境区域负责定义任务</li>
-<li>奖励区域负责给行为打分</li>
-<li>配置区域负责管理参数</li>
-<li>注册区域负责让框架找到任务</li>
-<li>训练入口负责启动完整流程</li>
-</ul>
-<p>当一个任务出问题时，我们就可以按模块排查，而不是在整个项目里乱找。</p>
-<p>---</p>
-<h3>21-28 分钟：课程学习路径与目标</h3>
-<p>这一门课的学习路径会按从整体到局部、从阅读到修改的顺序展开。</p>
-<p>第一步，先理解 MotrixLab 能做什么。</p>
-<p>这就是本章的内容。我们先建立整体印象，知道 MotrixLab 是一个机器人强化学习平台，而不是单个算法或单个 Demo。</p>
-<p>第二步，理解基础框架和分层架构。</p>
-<p>下一章我们会讲 MotrixLab 的整体分层：用户接口层、训练算法层、环境实现层、物理仿真层。理解分层以后，大家以后看代码就知道每个文件大概属于哪一层。</p>
-<p>第三步，理解训练环境。</p>
-<p>我们会重点讲 `EnvCfg`、`Env` 和 `Reward` 的关系。简单说，`EnvCfg` 管参数，`Env` 管任务逻辑，`Reward` 管学习信号。</p>
-<p>第四步，理解奖励函数。</p>
-<p>奖励函数是强化学习成败的关键。我们会讲奖励在训练中的作用、设计原则、常见结构，以及奖励不合理会带来什么问题。</p>
-<p>第五步，再进入配置系统、注册系统和训练流程。</p>
-<p>这部分会帮助大家理解一个任务如何被框架识别，训练命令如何一路走到环境创建和模型训练。</p>
-<p>第六步，分析官方 Demo。</p>
-<p>我们会用统一方法分析 Demo：任务目标、观测空间、动作空间、奖励设计、终止条件和可复用经验。</p>
-<p>最终目标是让大家具备三个能力：</p>
-<ul>
-<li>看懂 MotrixLab 的项目结构</li>
-<li>能分析和修改官方 Demo</li>
-<li>能基于框架开发简单的新任务</li>
-</ul>
-<p>---</p>
-<h3>28-30 分钟：本章总结</h3>
-<p>这一章我们主要讲了三个点。</p>
-<p>第一，MotrixLab 的定位是机器人强化学习开发平台，它把环境构建、物理仿真、训练和结果分析组织到一个工程框架中。</p>
-<p>第二，机器人强化学习平台的核心价值在于模块化。它帮助我们把环境、奖励、配置、注册和训练流程拆开理解。</p>
-<p>第三，这门课的学习路径是先建立整体认识，再进入框架、环境、奖励、配置、注册、训练流程和 Demo 实战。</p>
-<p>本章你只需要记住一句话：</p>
-<p>学习 MotrixLab，不要一开始就陷入代码细节，先建立整体地图。</p>
-<p>下一章我们进入基础框架总览，重点看 MotrixLab 的分层架构。</p>
+<div class="lecture-body">
+<h3>课程概述</h3>
+<p>建立 MotrixLab 整体认知，理解其作为机器人强化学习开发平台的定位与应用场景。掌握课程学习路径与目标。</p>
+<div class="lecture-links">
+<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/01-%E8%AF%BE%E7%A8%8B%E5%AF%BC%E8%AE%BA-MotrixLab%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88.md" target="_blank" class="btn btn-primary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+查看完整教案（MD）
+</a>
+<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+Bilibili 视频
+</a>
+</div>
+</div>
 </div>
           </div>
         </div>
@@ -1461,54 +1357,21 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h2>02 基础框架总览：分层架构怎么看</h2>
-<h3>课程信息</h3>
-<p>课程名称：MotrixLab 入门精品课程</p>
-<p>本章时长：30 分钟</p>
-<p>本章主题：基础框架总览，分层架构怎么看</p>
-<h3>本章大纲</h3>
-<ul>
-<li>MotrixLab 的整体分层设计</li>
-<li>用户接口层、训练算法层、环境实现层、物理仿真层</li>
-<li>各层之间的关系与职责划分</li>
-</ul>
-<h3>讲授目标</h3>
-<p>讲完这一章，学生应该能够：</p>
-<ol>
-<li>用分层视角理解 MotrixLab 的整体结构。</li>
-<li>说清楚用户接口层、训练算法层、环境实现层、物理仿真层分别负责什么。</li>
-<li>知道一次训练任务在各层之间大致如何流转。</li>
-</ol>
-<p>---</p>
-<h3>0-4 分钟：开场与承接</h3>
-<p>上一章我们讲了 MotrixLab 的定位：它是一个面向机器人强化学习的开发平台，帮助我们把环境、仿真、训练、奖励和 Demo 分析组织起来。</p>
-<p>这一章我们进一步看它的基础框架。</p>
-<p>学习一个工程框架，最重要的不是先记住所有类名，而是先知道系统分成哪些层。因为分层决定了我们以后怎么读代码、怎么定位问题、怎么扩展功能。</p>
-<p>如果没有分层视角，看到一个训练任务失败，我们可能会到处改：改训练脚本、改奖励、改模型文件、改算法参数。但如果有分层视角，我们会先判断问题属于哪一层。</p>
-<p>比如：</p>
-<ul>
-<li>命令行参数错了，可能是用户接口层的问题。</li>
-<li>PPO 配置不合理，可能是训练算法层的问题。</li>
-<li>奖励计算异常，可能是环境实现层的问题。</li>
-<li>机器人仿真不稳定，可能是物理仿真层的问题。</li>
-</ul>
-<p>所以这一章我们要建立一个非常实用的框架阅读方法：先看层，再看职责。</p>
-<p>---</p>
-<h3>4-10 分钟：MotrixLab 的整体分层设计</h3>
-<p>MotrixLab 的整体结构可以先概括成四层：</p>
-<ul>
-<li>用户接口层</li>
-<li>训练算法层</li>
-<li>环境实现层</li>
-<li>物理仿真层</li>
-</ul>
-<p>这四层不是孤立的，而是从上到下协作。</p>
-<p>用户接口层负责接收用户命令，比如训练、测试、查看模型。</p>
-<p>训练算法层负责策略学习，比如采样、计算损失、更新网络参数。</p>
-<p>环境实现层负责定义任务本身，比如观测、动作、奖励、终止条件。</p>
-<p>物理仿真层负责底层物理计算，比如机器人关节、碰撞、接触和动力学。</p>
-<p>可以在课堂上画一个从上到下的结构：</p>
-<div class="code-block"><div class="code-header"><span class="code-lang">plaintext</span><button class="code-copy" onclick="copyCode(this)">复制</button></div><pre>用户接口层
+<div class="lecture-body">
+<h3>课程概述</h3>
+<p>理解 MotrixLab 的四层分层架构：用户接口层、训练算法层、环境实现层、物理仿真层。掌握各层职责与协作关系。</p>
+<div class="lecture-links">
+<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/02-%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6%E6%80%BB%E8%A7%88-%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84%E6%80%8E%E4%B9%88%E7%9C%8B.md" target="_blank" class="btn btn-primary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+查看完整教案（MD）
+</a>
+<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+Bilibili 视频
+</a>
+</div>
+</div>
+</div><pre>用户接口层
 训练算法层
 环境实现层
 物理仿真层</pre></div>
@@ -1628,26 +1491,21 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h2>📚 课程概述</h2>
-<h3>学习目标</h3>
-<p>学完本课程后，你将能够：</p>
-<ol>
-<li>理解训练环境「三位一体」的核心概念</li>
-<li>掌握 EnvCfg、Env、Reward 的职责划分</li>
-<li>学会阅读 MotrixLab 环境代码的正确方法</li>
-<li>能够独立排查训练中的常见问题</li>
-</ol>
-<h3>前置知识</h3>
-<ul>
-<li>Python 基础（类、继承、装饰器）</li>
-<li>强化学习基本概念（agent、environment、reward）</li>
-<li>了解 PPO 算法（不需要深入）</li>
-</ul>
-<p>---</p>
-<h3>第一章：训练环境的「三位一体」</h3>
-<h4>1.1 核心概念</h4>
-<p>在机器人强化学习任务中，训练环境由<strong>三个模块</strong>组成：</p>
-<div class="code-block"><div class="code-header"><span class="code-lang">code</span><button class="code-copy" onclick="copyCode(this)">复制</button></div><pre>┌─────────────────────────────────────────────────────┐
+<div class="lecture-body">
+<h3>课程概述</h3>
+<p>掌握 EnvCfg、Env、Reward 三位一体的核心概念。理解参数配置与逻辑分离的设计思想。</p>
+<div class="lecture-links">
+<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/03-%E8%AE%AD%E7%BB%83%E7%8E%AF%E5%A2%83-EnvCfg-Env-Reward%E7%9A%84%E5%85%B3%E7%B3%BB.md" target="_blank" class="btn btn-primary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+查看完整教案（MD）
+</a>
+<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+Bilibili 视频
+</a>
+</div>
+</div>
+</div><pre>┌─────────────────────────────────────────────────────┐
 │                    训练环境                          │
 ├─────────────────────────────────────────────────────┤
 │  EnvCfg  │  定义环境参数                             │
@@ -1842,11 +1700,21 @@ Env 返回 observation / reward / done / info
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h2>📚 第四章：Reward——学习信号</h2>
-<h4>4.1 Reward 的本质</h4>
-<blockquote><p><strong>Reward 负责把任务目标转成数值信号。强化学习算法不会理解"真实目标"，只会优化 reward。</strong></p></blockquote>
-<h4>4.2 Reward 的输入和输出</h4>
-<div class="code-block"><div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">复制</button></div><pre>def _compute_reward(self):
+<div class="lecture-body">
+<h3>课程概述</h3>
+<p>深入理解奖励函数的设计原则：目标一致、信号密度、尺度合理、防止漏洞。掌握常见奖励结构与加权组合。</p>
+<div class="lecture-links">
+<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/04-%E5%A5%96%E5%8A%B1%E5%87%BD%E6%95%B0-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A5%96%E5%8A%B1%E5%86%B3%E5%AE%9A%E8%AE%AD%E7%BB%83%E6%88%90%E8%B4%A5.md" target="_blank" class="btn btn-primary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+查看完整教案（MD）
+</a>
+<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+Bilibili 视频
+</a>
+</div>
+</div>
+</div><pre>def _compute_reward(self):
     &quot;&quot;&quot;
     输入：
     - 当前状态（位置、速度、姿态）
@@ -2139,17 +2007,21 @@ Reward  不脱离任务目标</pre></div>
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h2>Demo分析方法：如何读懂一个案例</h2>
-<blockquote><p>MotrixLab 开源了多种强化学习 demo，涵盖了基础控制、运动、操作、导航等任务。</p></blockquote>
-<p>从本节开始，我们进入 MotrixLab 强化学习的案例讲解部分。我们将首先介绍通用的分析方法，然后讲解具体案例，带领大家逐渐深化对 Motrixlab 与强化学习的理解。</p>
-<p>---</p>
-<h3>一、分析一个 demo 的通用方法</h3>
-<h4>了解任务</h4>
-<p>了解任务，也就是首先我们要对 demo 做一个整体的了解，需要确定具体用什么机器人，在什么环境中，完成什么样的任务，实现怎么样的效果。</p>
-<p>在 motrixlab 的官方文档中，每一个 demo 都提供了任务的文字描述和预期效果视频，结合描述文字和预期视频对每个 demo 做整体的把握。</p>
-<div class="table-wrap"><table>
-<tr><th></th><th>任务名</th><th>任务描述</th><th>demo视频</th></tr><tr><td>1</td><td>复杂地形行走</td><td>训练机器人在具有挑战性的阶梯地形上实现稳定行走</td><td>go1_stairs_terrain_walk.mp4</td></tr><tr><td>2</td><td>抓取方块</td><td>训练机器人在桌面上抓取立方体并将其提升到指定目标位置</td><td>franka_lift_cube.mp4</td></tr>
-</table></div>
+<div class="lecture-body">
+<h3>课程概述</h3>
+<p>学会通用的 Demo 分析方法：从任务了解、要素分解到深入代码。掌握 MotrixLab 的模块化开发规范。</p>
+<div class="lecture-links">
+<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/05-Demo%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95-%E5%A6%82%E4%BD%95%E8%AF%BB%E6%87%82%E4%B8%80%E4%B8%AA%E6%A1%88%E4%BE%8B.md" target="_blank" class="btn btn-primary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+查看完整教案（MD）
+</a>
+<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+Bilibili 视频
+</a>
+</div>
+</div>
+</div>
 <h4>分解要素</h4>
 <p>读懂一个强化学习案例，最有效的方式就是按照强化学习的各个要素将案例进行分解。</p>
 <p>我们知道强化学习的要素首先包含5个基本元素：<strong>agent, env, obs, reward, action</strong>。除此之外，我们需要还关注<strong>初始状态和终止状态</strong>（终止条件）。因为这两点直接关乎任务完成，我们需要明确任务是从什么情况下开始的并在什么情况下结束。</p>
@@ -2265,26 +2137,21 @@ for i in range(total_timesteps):
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h2>基础控制 Demo 讲解：倒立摆 / 单摆 / 双连杆</h2>
-<blockquote><p>本节内容讲解基础控制任务：倒立摆 / 单摆 / 双连杆，剖析强化学习中"小规模状态空间与动作空间"的典型设计思路。</p></blockquote>
-<p>在强化学习与机器人控制领域，无论是机器狗灵活运动，还是灵巧手复杂操作，其底层的物理交互逻辑皆根植于经典力学。在迈向高维复杂系统之前，我们先回归基础任务，研究<strong>倒立摆</strong>（CartPole）、<strong>单摆</strong>（Pendulum）和<strong>双连杆</strong>（Acrobot）三个经典的入门案例。它们凭借"低维度、高效率"的特点，使我们很容易的理解强化学习的各个基础要素，梳理清楚 MotrixLab 强化学习的运行过程。</p>
-<h3>一、基础控制任务的特点</h3>
-<p>基础控制任务不涉及复杂的视觉信息（如 RGB 图像、点云）与复杂的机械结构，仅包含最简单的物理结构与纯粹的刚体动力学，初学者可以很容易理解这些系统的运行逻辑和任务目标，为后续研究更加复杂的机器人系统提供了很好的铺垫。整体来讲，作为强化学习与机器人领域的入门任务，基础控制任务具有低维度、高效率的特点。</p>
-<h3>二、任务环境详解</h3>
-<h4>倒立摆 (CartPole)</h4>
-<p>#### 1. 了解任务</p>
-<p><strong>任务描述</strong>：一根杆子通过铰链连接在小车上。智能体需要通过给小车施加左右方向的力，让杆子保持直立不倒。</p>
-<p>预期训练结果：</p>
-<ul>
-<li>杆子角度大部分时间保持在 ±5 度以内</li>
-<li>Episode 时长接近或超过 10 秒</li>
-<li>小车在合理范围内移动以保持平衡</li>
-</ul>
-<p>倒立摆任务可被称为 RL 界的 "Hello World"，是几乎所有强化学习研究人员接触的第一个环境。由于它的状态维度低、动力学极其简单且奖励机制非常密集，可以在极短的时间完成训练和测试。</p>
-<p>#### 2. 分解要素</p>
-<div class="table-wrap"><table>
-<tr><th>要素</th><th>说明</th></tr><tr><td>环境</td><td>一根紫色横杆作为小车的轨道，一根杆子通过铰链连接在小车上</td></tr><tr><td>agent</td><td>agent 输出一个浮点数，代表施加在小车水平方向上的力</td></tr><tr><td>观测</td><td>**(4D 连续)**：`Box(-inf, inf, (4,))`。包含：小车位置、杆子角度、小车速度、杆子角速度</td></tr><tr><td>动作</td><td>**(1D 连续)**：`Box(-3.0, 3.0, (1,))`。智能体输出一个浮点数，代表施加在小车水平方向上的力（最小值 -3.0，最大值 3.0）</td></tr><tr><td>奖励</td><td>每坚持 1 步不倒下，获得固定奖励 `+1.0`（存活奖励）</td></tr><tr><td>初始状态与终止条件</td><td>**初始状态**：小车初始位置 0.0 米（中心位置），杆子初始角度 0.0 弧度（直立），初始速度均为 0。&lt;br&gt;**提前终止**：杆子角度超过 ±0.2 弧度（约 ±11.5 度），小车位置超出 [-0.8, 0.8] 米范围，杆子角度出现 NaN 值&lt;br&gt;**时长限制**：Episode 最大时长 10 秒，控制频率 100hz，共 1000 步</td></tr><tr><td>域随机化</td><td>在初始状态上添加小幅随机噪声（`reset_noise_scale = 0.01`）</td></tr>
-</table></div>
+<div class="lecture-body">
+<h3>课程概述</h3>
+<p>剖析倒立摆、单摆、双连杆三个基础控制任务。掌握小规模状态空间与动作空间的设计思路。</p>
+<div class="lecture-links">
+<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/06-%E5%9F%BA%E7%A1%80%E6%8E%A7%E5%88%B6Demo%E8%AE%B2%E8%A7%A3-%E5%80%92%E7%AB%8B%E6%91%86%E5%8D%95%E6%91%86%E5%8F%8C%E8%BF%9E%E6%9D%86.md" target="_blank" class="btn btn-primary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+查看完整教案（MD）
+</a>
+<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+Bilibili 视频
+</a>
+</div>
+</div>
+</div>
 <p>#### 3. 代码分析</p>
 <p><strong>环境与 agent</strong>：使用 Motrixsim 自带的交互式查看器 `uv run python -m motrixsim.interactive_viewer` 将 xml 拖入界面中查看。</p>
 <p><strong>Agent</strong>：关节总数 2，执行器数目 1</p>
@@ -2534,16 +2401,21 @@ class CartPoleEnv(NpEnv):
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h2>机械臂与抓取 Demo 讲解</h2>
-<blockquote><p>在掌握了基础控制任务（如倒立摆、单摆）后，我们将进入强化学习在机器人领域的重要应用场景——<strong>机械臂控制</strong>。</p></blockquote>
-<p>---</p>
-<h3>一、机械臂控制任务</h3>
-<h4>（1）机械臂与控制任务</h4>
-<p>机械臂是一种模拟人类手臂动作的机械装置，通常由多个连杆和关节串联组成，并在最末端配备<strong>末端执行器</strong>（End-effector，如夹爪、吸盘）。</p>
-<p>以经典的科研级机械臂 Franka Emika Panda 为例，这是一个典型的 7 自由度（7-DoF）冗余机械臂系统：</p>
-<div class="table-wrap"><table>
-<tr><th>组成部分</th><th>说明</th></tr><tr><td>基座（Base）</td><td>固定在地面或工作台上的基准原点</td></tr><tr><td>7 个旋转关节（Joint 1-7）</td><td>Joint 1~4：构成肩部和臂部，负责大范围的空间移动；Joint 5~7：构成手腕部，负责末端姿态的精细调整</td></tr><tr><td>夹爪（Gripper）</td><td>双指平行夹爪，包含左、右两个平移关节（finger_joint1/2）；TCP 工具中心点位于夹爪的中心位置</td></tr>
-</table></div>
+<div class="lecture-body">
+<h3>课程概述</h3>
+<p>深入讲解 Franka 机械臂抓取立方体任务。理解机械臂控制中的观测空间、动作空间与多阶段奖励设计。</p>
+<div class="lecture-links">
+<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/07-%E6%9C%BA%E6%A2%B0%E8%87%82%E4%B8%8E%E6%8A%93%E5%8F%96Demo%E8%AE%B2%E8%A7%A3.md" target="_blank" class="btn btn-primary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+查看完整教案（MD）
+</a>
+<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+Bilibili 视频
+</a>
+</div>
+</div>
+</div>
 <p>Motrixlab 提供了从简单到复杂、涵盖不同机械臂本体和物理交互形式的任务环境：</p>
 <div class="table-wrap"><table>
 <tr><th>任务名</th><th>目标</th><th>机器人</th><th>任务特点</th></tr><tr><td>双关节到达</td><td>控制机械臂末端精确到达并停留在指定的空间坐标点</td><td>双关节机械臂</td><td>最基础的机械臂任务，仅涉及二维平面内的运动，无物理接触</td></tr><tr><td>乒乓球颠球</td><td>使用球拍将乒乓球连续向上击打，保持球在空中不落地</td><td>配天 AIR4-560 6自由度工业机械臂</td><td>强调高动态响应与速度/时序控制</td></tr><tr><td>抓取立方体</td><td>移动至方块上方，闭合夹爪抓取方块，并将其举起到指定高度</td><td>Franka 7轴机械臂</td><td>典型的刚体接触任务，包含到达、抓取、举起多个阶段</td></tr><tr><td>开抽屉</td><td>准确勾住或抓住抽屉把手，向外施力拉开抽屉至指定深度</td><td>RM65 六轴机械臂</td><td>运动轨迹必须符合抽屉的物理滑轨约束</td></tr>
@@ -2758,44 +2630,21 @@ tensorboard --logdir runs/</code></pre>
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h2>运动机器人 Demo 讲解：Walker / GO1 / Humanoid</h2>
-<h3>核心目标</h3>
-<p>在 MotrixLab 的 `motrix_envs` 中，提供了多种预置的运动机器人环境，最典型的是：</p>
-<ul>
-<li><strong>Walker</strong>（双足步行者）—— 来自 DeepMind Control Suite</li>
-<li><strong>GO1</strong>（Unitree Go1 四足机器人）</li>
-<li><strong>Humanoid</strong>（人形机器人）—— 来自 DeepMind Control Suite</li>
-</ul>
-<p>它们都依赖本体感受（关节位置、速度等）进行控制，目标是在平坦或者复杂地形上稳定、快速地前行，并且尽量避免摔倒。</p>
-<p>Walker 和 Humanoid 是来自 DeepMind Control Suite 的经典任务，包括了 stand、walk、run 三个难度递进的任务。</p>
-<p>本章节的目的是让大家能够详细深入了解这三类机器人的强化训练过程，了解三种不同形态的 agent 同样完成相同的 RL 训练行走过程中的相同点和不同点，并且由于形态、奖励设计、控制策略等的差异，训练难度和方法都会有些不同。</p>
-<p>---</p>
-<h3>11.1 机器人行走任务的共性与差异</h3>
-<h4>11.1.1 共性</h4>
-<p>三个任务无论是行走、稳定站立还是奔跑，这个训练过程都有一个统一确定的 RL 框架，并且是连续控制的过程，而不是离散的。</p>
-<p><strong>统一的 RL 训练框架</strong>概括为：先看周围（观测维度中的状态）→ 进行决策动作 → 这个动作在物理引擎算一步（仿真）→ 系统告诉你是否做得好（奖励）或是否失败了（终止）。</p>
-<p>在 MotrixLab 里，每一帧环境都会返回一个观测向量，这就是策略"看周围"的唯一信息来源。</p>
-<p>对于行走任务，观测通常不包含视觉，而是<strong>本体感受式</strong>的，比如：</p>
-<ul>
-<li>所有关节的当前位置</li>
-<li>关节速度</li>
-<li>身体基座的线速度和角速度</li>
-<li>重力方向在基座坐标系下的投影</li>
-<li>上一帧的动作，帮助感知自己刚才做了什么</li>
-<li>命令速度</li>
-</ul>
-<p>这些不同来源的信息会被拼接成一个一维浮点数数组，作为策略网络的输入。</p>
-<p>策略网络拿到观测向量后，会输出一个动作分布。因为我们做的是连续控制，所以策略通常输出的是一个多维高斯分布的均值与标准差，然后在这个分布里采样得到具体的动作向量。</p>
-<p>动作 action 被应用到机器人的关节上之后，MotrixSim 物理引擎就会执行一个仿真步，解算整个机器人的刚体动力学，算出下一时刻的身体位置、关节角度、接触力、碰撞情况等等。</p>
-<p>三个机器人的物理模型不一样，但 MotrixLab 对它们的仿真接口完全一致：都是"给定动作 → 推进仿真 → 返回新状态"。</p>
-<p>仿真结束后，环境会根据当前状态计算出一个即时奖励，并判断是否触发终止条件。</p>
-<p>整个"观测→动作→仿真→奖励"的循环，在不同机器人之间，只是维度数字和奖励权重不同，循环本身的代码结构与数据流动方向是完全统一的。正因为有这个统一，MotrixLab 才能用一个 `train.py` 脚本，只通过切换环境名 `--env walker`、`--env go1`、`--env humanoid`，就完成三个任务的训练。</p>
-<h4>11.1.2 差异</h4>
-<p>差异主要来自三件事：<strong>机器人形态、环境复杂度、奖励与终止设计</strong>。</p>
-<p><strong>1. 机器人形态差异（2D 双足 vs 3D 人形 vs 4足）</strong></p>
-<div class="table-wrap"><table>
-<tr><th>维度</th><th>Walker</th><th>Humanoid</th><th>GO1</th></tr><tr><td>自由度</td><td>6</td><td>21</td><td>12</td></tr><tr><td>动作维度</td><td>6</td><td>21</td><td>12</td></tr><tr><td>观测维度</td><td>24</td><td>59</td><td>48</td></tr><tr><td>形态</td><td>2D 平面</td><td>3D 空间</td><td>3D 空间四足</td></tr>
-</table></div>
+<div class="lecture-body">
+<h3>课程概述</h3>
+<p>对比 Walker、GO1、Humanoid 三种运动机器人的训练过程。理解形态差异、奖励结构与终止条件设计。</p>
+<div class="lecture-links">
+<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/08-%E8%BF%90%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BADemo%E8%AE%B2%E8%A7%A3-Walker-GO1-Humanoid.md" target="_blank" class="btn btn-primary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+查看完整教案（MD）
+</a>
+<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+Bilibili 视频
+</a>
+</div>
+</div>
+</div>
 <ul>
 <li>Walker 自由度少、观测少，动作维度固定，为最简单的行走任务</li>
 <li>Humanoid 自由度非常高（21维），动作多，目标姿态区域为强约束的非凸空间</li>
@@ -2862,10 +2711,21 @@ tensorboard --logdir runs/</code></pre>
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h2>训练流程：从 train.py 到模型保存</h2>
-<h3>命令行启动训练</h3>
-<p>典型命令：</p>
-<div class="code-block"><div class="code-header"><span class="code-lang">bash</span><button class="code-copy" onclick="copyCode(this)">复制</button></div><pre>uv run scripts/train.py --env cartpole
+<div class="lecture-body">
+<h3>课程概述</h3>
+<p>从 train.py 到模型保存的完整训练流程。理解配置解析、环境创建、SKRL 包装与 PPO 训练循环。</p>
+<div class="lecture-links">
+<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/09-%E8%AE%AD%E7%BB%83%E6%B5%81%E7%A8%8B-%E4%BB%8Etrain.py%E5%88%B0%E6%A8%A1%E5%9E%8B%E4%BF%9D%E5%AD%98.md" target="_blank" class="btn btn-primary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+查看完整教案（MD）
+</a>
+<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+Bilibili 视频
+</a>
+</div>
+</div>
+</div><pre>uv run scripts/train.py --env cartpole
 uv run scripts/train.py --env cartpole --render --num-envs</pre></div>
 <h4>入口与参数</h4>
 <p>`train.py` 用 absl.flags 定义 CLI 参数，包括 --env、--train-backend、--sim-backend、--num-envs、--seed、--render 等。</p>
@@ -3011,11 +2871,21 @@ uv run scripts/play.py --env cartpole --policy runs/cartpole/.../checkpoints/bes
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h2>配置系统：环境配置与训练配置怎么协作</h2>
-<h3>EnvCfg 与 RLCfg 的分工</h3>
-<h4>EnvCfg：环境与仿真</h4>
-<p>`EnvCfg` 在 `motrix_envs` 里，描述物理仿真与任务本身，和用哪种 RL 算法无关。</p>
-<div class="code-block"><div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)">复制</button></div><pre># motrix_envs/src/motrix_envs/base.py
+<div class="lecture-body">
+<h3>课程概述</h3>
+<p>理解环境配置与训练配置的协作机制。掌握双层注册表、配置覆盖与命令行参数解析。</p>
+<div class="lecture-links">
+<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/10-%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E8%AE%AD%E7%BB%83%E9%85%8D%E7%BD%AE%E6%80%8E%E4%B9%88%E5%8D%8F%E4%BD%9C.md" target="_blank" class="btn btn-primary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+查看完整教案（MD）
+</a>
+<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+Bilibili 视频
+</a>
+</div>
+</div>
+</div><pre># motrix_envs/src/motrix_envs/base.py
 @dataclass
 class EnvCfg:
     &quot;&quot;&quot;Config for the environment&quot;&quot;&quot;
@@ -3185,26 +3055,21 @@ self._rlcfg = rlcfg</pre></div>
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h2>注册系统：新环境如何接入框架</h2>
-<h3>注册系统的作用</h3>
-<p>MotrixLab 有两套注册表，分工不同：</p>
-<ol>
-<li><strong>`motrix_envs.registry`（仿真环境）</strong></li>
-</ol>
-<p>   - 用字符串 `name`（例如 `"cartpole"`）绑定：环境配置类（`EnvCfg` 子类）和环境实现类（`ABEnv` 子类）</p>
-<p>   - 对外统一入口是 `make(name, sim_backend=..., env_cfg_override=..., num_envs=...)`</p>
-<p>   - 作用：把「环境名字」解析成可运行的环境对象</p>
-<ol>
-<li><strong>`motrix_rl.registry`（RL 训练配置）</strong></li>
-</ol>
-<p>   - 用同一个环境名字 `env_name`，在框架名（当前固定为 `"skrl"`）和训练后端（`"jax"` / `"torch"`）下注册 PPO 等训练超参的 dataclass</p>
-<p>   - `default_rl_cfg(env_name, "skrl", backend=...)` 会按后端优先选专用配置</p>
-<p>   - 作用：把「环境名字 + 训练后端」解析成默认 RL 超参</p>
-<p>---</p>
-<h3>环境配置、环境实现、RL 配置的注册方式</h3>
-<p>以 `cartpole` 为最小闭环示例（名字在三处一致）：</p>
-<p><strong>推荐目录结构（与仓库一致）：</strong></p>
-<div class="code-block"><div class="code-header"><span class="code-lang">code</span><button class="code-copy" onclick="copyCode(this)">复制</button></div><pre>motrix_envs/src/motrix_envs/basic/cartpole/
+<div class="lecture-body">
+<h3>课程概述</h3>
+<p>掌握新环境接入框架的方法：注册装饰器、基类继承、环境实现规范与集成流程。</p>
+<div class="lecture-links">
+<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/11-%E6%B3%A8%E5%86%8C%E7%B3%BB%E7%BB%9F-%E6%96%B0%E7%8E%AF%E5%A2%83%E5%A6%82%E4%BD%95%E6%8E%A5%E5%85%A5%E6%A1%86%E6%9E%B6.md" target="_blank" class="btn btn-primary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+查看完整教案（MD）
+</a>
+<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+Bilibili 视频
+</a>
+</div>
+</div>
+</div><pre>motrix_envs/src/motrix_envs/basic/cartpole/
 ├── cfg.py              # ① 环境配置 + @registry.envcfg(&quot;cartpole&quot;)
 ├── cartpole_np.py      # ② 环境实现 + @registry.env(&quot;cartpole&quot;, &quot;np&quot;)
 ├── cartpole.xml        # MotrixSim 模型
@@ -3383,53 +3248,20 @@ uv run scripts/view.py --env my-task</pre></div>
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h2>总结：如何自己改 Demo、调奖励、做新任务</h2>
-<h3>12.1 修改现有 Demo 的思路（调整奖励和配置参数）</h3>
-<p>按照之前在第 11 部分讲的思路：</p>
-<h4>调整运动速度</h4>
-<p>可以修改 walker/humanoid 的运动速度，简单的调整 `move_speed` 就能实现。</p>
-<p>也可以修改 RL cfg 的内容，调整不同的超参数去体会训练效果的改变。不过对于简单的任务来说细微的改变对结果影响不会特别大，但是对于维度高的任务来说，调参更多像是经验主义的东西。</p>
-<h4>调整 GO1 的步态</h4>
-<p>可以把平稳的步态变成蹦蹦跳跳前进的。</p>
-<p><strong>核心思路</strong>：把"平稳约束"放松一点，把"腾空节奏"强化一点，但保留速度跟踪不丢。</p>
-<p><strong>为什么可以实现</strong>：减少策略对于 GO1 加速度变化、姿态变化的限制，允许姿态上高度更大的变化，但同时不是只是上下改变姿势，所以前进的速度的奖励不能丢，甚至要稍微增加这部分的权重，以及要考虑到有些关节的限制，不然会限制腿部的摆动幅度。</p>
-<p>---</p>
-<h3>12.2 如何基于框架开发新任务</h3>
-<p>以配置新环境 `go1-flat-terrain-hop` 实现上面修改 demo 的思路为例：</p>
-<p>在不新增 XML / 机器人模型的情况下，需要修改三个地方：</p>
-<h4>修改 1 —— 新增环境 cfg（命令与奖励）</h4>
-<p>添加 `@registry.envcfg("go1-flat-terrain-hop")` 的 `Go1HopNpEnvCfg`（继承自 `Go1WalkNpEnvCfg`）。</p>
-<h4>修改 2 —— 注册环境实现（复用现有类）</h4>
-<p>在现有环境类上也注册新名字，在类装饰器附近增加 `@registry.env("go1-flat-terrain-hop", sim_backend="np")`。说明：这样复用 `Go1WalkTask` 的实现，不改行为逻辑，只改变 cfg。</p>
-<h4>修改 3 —— 注册/配置训练（SKRL / RSLRL）</h4>
-<p>为 `go1-flat-terrain-hop` 增加 `@rlcfg("go1-flat-terrain-hop")` 的训练配置类（SKRL 与 RSLRL），可以复用 flat 的配置并微调（如增加训练步数、修改 experiment_name），方便直接训练和 play 训练结果。</p>
-<p>---</p>
-<h3>12.3 后续学习与实践建议</h3>
-<h4>做好记录和版本管理</h4>
-<p>在完成一个大的项目的时候不要怕出错，大胆尝试！但是在这个过程中一定要做好记录和版本管理。因为实际你去调试一些奖励或者调整超参，并不知道这些修改是否奏效，如果不奏效那之前的版本参数就很重要了。但这时候你修改太多根本无法记住之前的版本，所以做好版本管理很重要。</p>
-<p><strong>推荐一个小习惯</strong>：每次跑实验之前，在项目目录里建一个文件夹，随手写一个 `exp_log.md`——不一定很正式，就是记几行：</p>
-<ul>
-<li>今天改了什么参数（比如把速度奖励权重从 1.0 调到 2.0）</li>
-<li>预期会看到什么变化（希望机器人步幅变大）</li>
-<li>实际跑下来看到什么效果（1000步后开始同手同脚）</li>
-</ul>
-<p>这个简单的记录，积累几个星期，你对这个任务的直觉就会飞速增长。因为开始把参数改动和行为变化之间建立了因果映射，而不再是黑盒调参。</p>
-<h4>多写注释</h4>
-<p>多写注释帮助自己理解整体的项目框架。</p>
-<h4>训练技巧</h4>
-<p>训练时可以并行少量 env 渲染，观察单 env 行为以便调试。训练期间可以并行只开 1-2 个环境渲染出来，单独观察一个机器人的行为，看到训练过程中每一次尝试后的机器人是否朝着奖励策略的方向改进。</p>
-<h4>加载自己的机器人模型</h4>
-<p>当你对框架足够熟悉之后，下一步就可以大胆尝试：搭建自己的地图，加载自己的机器人模型。</p>
-<p>MotrixLab 内部有一个很大的优势——<strong>MotrixSim 引擎的优化极大降低了仿真的硬件门槛</strong>。它的算力消耗仅为国外同类产品的十分之一，所以即使你用的普通的电脑，也能跑得动训练任务。这就意味着你不需要一个 4090 才能做机器人仿真。</p>
-<p><strong>具体操作步骤：</strong></p>
-<ol>
-<li><strong>找一个现成的机器人 URDF</strong></li>
-<li><strong>复制一份距离你想要的目标最近的现有任务</strong>（比如你想做一个四足机器人，就从 GO1 或者 GO2 的任务文件开始改）</li>
-<li><strong>替换模型路径、关节名、默认姿态、PD 参数等信息</strong>，在注册表里用 `@registry.envcfg("my-robot")` 注册一个新名字</li>
-<li><strong>先别调奖励，先跑通环境</strong>，用 `view.py` 看一下模型能不能正常导入、关节能不能动、碰撞体对不对</li>
-<li><strong>等环境能稳定交互了，再开始奖励调参</strong>，逐步让机器人学会站立、行走</li>
-</ol>
-<p>这个路径一旦走通，你就不再是强化学习的"旁观者"，而是能独立设计和闭环的开发者了。MotrixLab 也会成为趁手的工具，后面就可以尝试 sim2real，将自己在仿真中设计的应用在真机中啦！</p>
+<div class="lecture-body">
+<h3>课程概述</h3>
+<p>综合运用所学知识，掌握修改 Demo、调整奖励、开发新任务的完整方法论。</p>
+<div class="lecture-links">
+<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/12-%E6%80%BB%E7%BB%93-%E5%A6%82%E4%BD%95%E8%87%AA%E5%B7%B1%E6%94%B9Demo%E8%B0%83%E5%A5%96%E5%8A%B1%E5%81%9A%E6%96%B0%E4%BB%BB%E5%8A%A1.md" target="_blank" class="btn btn-primary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+查看完整教案（MD）
+</a>
+<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+Bilibili 视频
+</a>
+</div>
+</div>
 </div>
           </div>
         </div>
