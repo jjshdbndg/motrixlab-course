@@ -3,2271 +3,617 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>xbotics 强化学习与仿真知识库</title>
-  <meta name="description" content="面向机器人学、强化学习与具身智能爱好者的开源训练营，聚焦真实仿真任务，帮助你从理论基础走到 MotrixLab 落地实践。">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>MotrixLab 课程 - 首页</title>
   <style>
-    /* ============================================
-       CSS VARIABLES & RESET
-       ============================================ */
     :root {
-      --bg: #fafbfc;
-      --bg-elevated: #ffffff;
-      --bg-sunken: #f3f4f6;
-      --bg-code: #0d1117;
-      --text-primary: #111827;
-      --text-secondary: #4b5563;
-      --text-tertiary: #9ca3af;
-      --accent: #2563eb;
-      --accent-light: #3b82f6;
-      --accent-glow: rgba(37, 99, 235, 0.15);
-      --accent-glow-strong: rgba(37, 99, 235, 0.3);
-      --border: #e5e7eb;
-      --border-light: #f3f4f6;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --radius-xl: 24px;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
-      --shadow-glow: 0 0 40px var(--accent-glow);
-      --header-h: 72px;
-      --sidebar-w: 280px;
-      --transition: cubic-bezier(0.4, 0, 0.2, 1);
+      --primary: #2563eb;
+      --primary-light: #3b82f6;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-secondary: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; -webkit-font-smoothing: antialiased; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
       background: var(--bg);
-      color: var(--text-primary);
-      line-height: 1.7;
-      overflow-x: hidden;
+      color: var(--text);
+      line-height: 1.6;
     }
-    ::selection { background: var(--accent-glow-strong); color: var(--text-primary); }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
-
-    /* ============================================
-       ANIMATIONS
-       ============================================ */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes scaleIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes slideInLeft {
-      from { opacity: 0; transform: translateX(-20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(0.9); }
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-    @keyframes countUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    @keyframes borderGlow {
-      0%, 100% { border-color: rgba(37,99,235,0.2); }
-      50% { border-color: rgba(37,99,235,0.5); }
-    }
-
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s var(--transition), transform 0.6s var(--transition);
-    }
-    .animate-on-scroll.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .animate-delay-1 { transition-delay: 0.1s; }
-    .animate-delay-2 { transition-delay: 0.2s; }
-    .animate-delay-3 { transition-delay: 0.3s; }
-    .animate-delay-4 { transition-delay: 0.4s; }
-    .animate-delay-5 { transition-delay: 0.5s; }
-
-    /* ============================================
-       PARTICLE CANVAS
-       ============================================ */
-    #particle-canvas {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* ============================================
-       READING PROGRESS
-       ============================================ */
-    .reading-progress {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: transparent;
-      z-index: 9999;
-    }
-    .reading-progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-light));
-      transition: width 0.1s linear;
-      box-shadow: 0 0 10px var(--accent-glow-strong);
-    }
-
-    /* ============================================
-       HEADER
-       ============================================ */
-    .site-header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--header-h);
-      background: rgba(250, 251, 252, 0.8);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid transparent;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      padding: 0 2rem;
-      transition: all 0.3s var(--transition);
-    }
-    .site-header.scrolled {
-      border-bottom-color: var(--border);
-      box-shadow: var(--shadow-sm);
-    }
-    .header-left { display: flex; align-items: center; gap: 1rem; }
-    .menu-toggle {
-      display: none;
-      width: 40px; height: 40px;
-      border: none; background: none;
-      cursor: pointer;
-      border-radius: var(--radius-sm);
-      color: var(--text-secondary);
-      transition: background 0.2s;
-    }
-    .menu-toggle:hover { background: var(--bg-sunken); }
-    .logo {
-      display: flex; align-items: center; gap: 0.75rem;
-      font-weight: 800; font-size: 1.125rem;
-      color: var(--text-primary);
-      text-decoration: none;
-    }
-    .logo-mark {
-      width: 38px; height: 38px;
-      background: linear-gradient(135deg, var(--accent), #7c3aed);
-      border-radius: var(--radius-md);
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 1.25rem;
-      box-shadow: 0 0 20px var(--accent-glow-strong);
-      position: relative;
-      overflow: hidden;
-    }
-    .logo-mark::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
-      animation: shimmer 3s infinite;
-      background-size: 200% 100%;
-    }
-    .header-center { flex: 1; display: flex; justify-content: center; max-width: 420px; margin: 0 auto; }
-    .search-box { position: relative; width: 100%; }
-    .search-box input {
-      width: 100%;
-      padding: 0.625rem 1rem 0.625rem 2.75rem;
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      background: var(--bg-sunken);
-      font-size: 0.875rem;
-      color: var(--text-primary);
-      transition: all 0.2s;
-      outline: none;
-    }
-    .search-box input:focus {
-      border-color: var(--accent);
-      background: var(--bg-elevated);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-    }
-    .search-box input::placeholder { color: var(--text-tertiary); }
-    .search-icon {
-      position: absolute; left: 1rem; top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-tertiary);
-      pointer-events: none;
-    }
-    .search-results {
-      position: absolute; top: calc(100% + 0.5rem); left: 0; right: 0;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-lg);
-      max-height: 400px; overflow-y: auto;
-      z-index: 1001; display: none;
-    }
-    .search-results.active { display: block; animation: scaleIn 0.2s var(--transition); }
-    .search-result-item {
-      padding: 0.875rem 1rem;
-      border-bottom: 1px solid var(--border-light);
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    .search-result-item:hover { background: var(--bg-sunken); }
-    .search-result-item:last-child { border-bottom: none; }
-    .search-result-title { font-size: 0.875rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem; }
-    .search-result-preview { font-size: 0.75rem; color: var(--text-tertiary); line-height: 1.4; }
-    .header-right { display: flex; align-items: center; gap: 0.5rem; }
-    .header-btn {
-      display: flex; align-items: center; justify-content: center;
-      width: 40px; height: 40px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      background: var(--bg-elevated);
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-    }
-    .header-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-    }
-
-    /* ============================================
-       SIDEBAR
-       ============================================ */
-    .sidebar {
-      position: fixed;
-      top: var(--header-h); left: 0;
-      width: var(--sidebar-w);
-      height: calc(100vh - var(--header-h));
-      background: var(--bg-elevated);
-      border-right: 1px solid var(--border);
-      overflow-y: auto;
-      z-index: 900;
-      transition: transform 0.3s var(--transition);
-    }
-    .sidebar-overlay {
-      display: none;
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.3);
-      z-index: 899;
-      backdrop-filter: blur(4px);
-    }
-    .sidebar-progress {
-      padding: 1.5rem;
-      border-bottom: 1px solid var(--border-light);
-    }
-    .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
-    .progress-title { font-size: 0.8125rem; font-weight: 700; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em; }
-    .progress-percent { font-size: 0.8125rem; font-weight: 800; color: var(--accent); }
-    .progress-bar { height: 4px; background: var(--bg-sunken); border-radius: 2px; overflow: hidden; }
-    .progress-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), #7c3aed);
-      border-radius: 2px;
-      transition: width 0.5s var(--transition);
-      box-shadow: 0 0 8px var(--accent-glow-strong);
-    }
-    .sidebar-nav { padding: 1rem 0; }
-    .nav-section { margin-bottom: 0.25rem; }
-    .nav-section-title {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.5rem 1.25rem;
-      font-size: 0.6875rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.08em;
-      color: var(--text-tertiary);
-      cursor: pointer; user-select: none;
-      transition: color 0.2s;
-    }
-    .nav-section-title:hover { color: var(--text-secondary); }
-    .nav-section-toggle { transition: transform 0.2s var(--transition); }
-    .nav-section.collapsed .nav-section-toggle { transform: rotate(-90deg); }
-    .nav-section.collapsed .nav-items { display: none; }
-    .nav-items { list-style: none; }
-    .nav-item a {
-      display: flex; align-items: center; gap: 0.625rem;
-      padding: 0.5rem 1.25rem 0.5rem 1.5rem;
-      color: var(--text-secondary);
-      font-size: 0.8125rem;
-      transition: all 0.15s;
-      border-left: 2px solid transparent;
-      text-decoration: none;
-    }
-    .nav-item a:hover {
-      background: var(--bg-sunken);
-      color: var(--text-primary);
-      border-left-color: var(--border);
-    }
-    .nav-item.active a {
-      background: var(--accent-glow);
-      color: var(--accent);
-      border-left-color: var(--accent);
-      font-weight: 600;
-    }
-    .nav-item.completed a { color: var(--success); }
-    .nav-item-number {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-width: 22px; height: 22px;
-      background: var(--bg-sunken);
-      border-radius: 6px;
-      font-size: 0.6875rem; font-weight: 700;
-      color: var(--text-tertiary);
-      transition: all 0.2s;
-    }
-    .nav-item.active .nav-item-number {
-      background: linear-gradient(135deg, var(--accent), #7c3aed);
-      color: white;
-    }
-    .nav-item.completed .nav-item-number { background: var(--success); color: white; }
-
-    /* ============================================
-       MAIN LAYOUT
-       ============================================ */
-    .main-content { flex: 1; margin-left: var(--sidebar-w); padding-top: var(--header-h); }
-    .content-container { max-width: 880px; margin: 0 auto; padding: 0 2.5rem; }
-
-    /* ============================================
-       HERO SECTION
-       ============================================ */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-      background: linear-gradient(180deg, #eef2ff 0%, #fafbfc 60%, var(--bg) 100%);
-    }
-    .hero-content {
-      position: relative; z-index: 1;
-      text-align: center;
-      max-width: 800px;
-      padding: 0 1.5rem;
-      animation: fadeInUp 1s var(--transition) both;
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: rgba(37, 99, 235, 0.08);
-      border: 1px solid rgba(37, 99, 235, 0.15);
-      border-radius: 100px;
-      font-size: 0.8125rem; font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 2rem;
-      backdrop-filter: blur(8px);
-      animation: fadeInUp 0.8s 0.2s var(--transition) both;
-    }
-    .hero-badge .pulse-dot {
-      width: 8px; height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    .hero-title {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.25rem;
-      background: linear-gradient(135deg, #111827 0%, #2563eb 50%, #7c3aed 100%);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: fadeInUp 0.8s 0.3s var(--transition) both, gradientShift 8s ease infinite;
-    }
-    .hero-subtitle {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      color: var(--text-secondary);
-      max-width: 560px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.8;
-      font-weight: 400;
-      animation: fadeInUp 0.8s 0.4s var(--transition) both;
-    }
-    .hero-cta {
-      display: flex; gap: 1rem; justify-content: center;
-      flex-wrap: wrap;
-      animation: fadeInUp 0.8s 0.5s var(--transition) both;
-    }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.875rem 1.75rem;
-      font-size: 0.9375rem; font-weight: 600;
-      border-radius: 100px;
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+    header { text-align: center; margin-bottom: 3rem; }
+    h1 { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-secondary); font-size: 1.1rem; }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .tab-btn {
+      padding: 0.75rem 1.5rem;
       border: none;
-      cursor: pointer;
-      transition: all 0.25s var(--transition);
-      text-decoration: none;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), #7c3aed);
-      color: white;
-      box-shadow: 0 4px 20px var(--accent-glow-strong), 0 0 0 1px rgba(255,255,255,0.1) inset;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px var(--accent-glow-strong), 0 0 0 1px rgba(255,255,255,0.1) inset;
-    }
-    .btn-secondary {
-      background: var(--bg-elevated);
-      color: var(--text-primary);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-    }
-    .btn-secondary:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-    }
-    .hero-stats {
-      display: flex; justify-content: center; gap: 3rem;
-      margin-top: 3.5rem;
-      animation: fadeInUp 0.8s 0.6s var(--transition) both;
-    }
-    .hero-stat { text-align: center; }
-    .hero-stat-value {
-      font-size: 2.5rem; font-weight: 800;
-      background: linear-gradient(135deg, var(--accent), #7c3aed);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-    }
-    .hero-stat-label {
-      font-size: 0.6875rem; font-weight: 600;
-      color: var(--text-tertiary);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-top: 0.5rem;
-    }
-    .scroll-indicator {
-      position: absolute; bottom: 2rem; left: 50%;
-      transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center;
-      gap: 0.5rem;
-      color: var(--text-tertiary);
-      font-size: 0.75rem;
-      animation: fadeIn 1s 1s var(--transition) both, float 3s ease-in-out infinite;
-      cursor: pointer;
-    }
-
-    /* ============================================
-       SECTIONS
-       ============================================ */
-    .section {
-      padding: 5rem 0;
-      scroll-margin-top: calc(var(--header-h) + 1rem);
-    }
-    .section-header {
-      margin-bottom: 2.5rem;
-    }
-    .section-label {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-size: 0.75rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.1em;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-    }
-    .section-label::before {
-      content: '';
-      width: 24px; height: 2px;
-      background: linear-gradient(90deg, var(--accent), #7c3aed);
-      border-radius: 1px;
-    }
-    .section-title {
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
-      font-weight: 800;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-    }
-    .section-desc {
-      font-size: 1.0625rem;
+      background: var(--card-bg);
       color: var(--text-secondary);
-      max-width: 600px;
-      line-height: 1.7;
-    }
-
-    /* ============================================
-       CARDS
-       ============================================ */
-    .card {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.75rem;
-      transition: all 0.35s var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-    .card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), #7c3aed);
-      opacity: 0;
-      transition: opacity 0.35s;
-    }
-    .card:hover {
-      border-color: rgba(37,99,235,0.3);
-      box-shadow: var(--shadow-lg), 0 0 40px var(--accent-glow);
-      transform: translateY(-3px);
-    }
-    .card:hover::before { opacity: 1; }
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.25rem;
-    }
-    .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
-    .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
-    @media (max-width: 768px) {
-      .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
-    }
-
-    .info-card {
-      display: flex; flex-direction: column; gap: 1rem;
-    }
-    .info-card-icon {
-      width: 48px; height: 48px;
-      background: linear-gradient(135deg, var(--accent-glow), rgba(124,58,237,0.1));
-      border-radius: var(--radius-md);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--accent);
-      font-size: 1.5rem;
-    }
-    .info-card-title { font-size: 1.125rem; font-weight: 700; color: var(--text-primary); }
-    .info-card-text { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.7; }
-
-    /* ============================================
-       TABS
-       ============================================ */
-    .tabs { display: flex; gap: 0.25rem; margin-bottom: 2rem; flex-wrap: wrap; }
-    .tab {
-      padding: 0.625rem 1.25rem;
       border-radius: 100px;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--text-secondary);
-      font-size: 0.875rem; font-weight: 600;
       cursor: pointer;
+      font-weight: 500;
       transition: all 0.2s;
+      box-shadow: var(--shadow);
     }
-    .tab:hover { color: var(--text-primary); background: var(--bg-sunken); }
-    .tab.active {
-      background: var(--bg-elevated);
-      color: var(--accent);
-      border-color: var(--border);
-      box-shadow: var(--shadow-sm);
-    }
+    .tab-btn:hover { color: var(--primary); }
+    .tab-btn.active { background: var(--primary); color: white; }
     .tab-panel { display: none; }
-    .tab-panel.active { display: block; animation: fadeIn 0.4s var(--transition); }
-
-    /* ============================================
-       TIMELINE
-       ============================================ */
-    .timeline { position: relative; padding-left: 2rem; }
-    .timeline::before {
-      content: '';
-      position: absolute; left: 0; top: 0; bottom: 0;
-      width: 2px;
-      background: linear-gradient(180deg, var(--accent), #7c3aed);
-      border-radius: 1px;
-    }
-    .timeline-item { position: relative; padding-bottom: 2rem; }
-    .timeline-item:last-child { padding-bottom: 0; }
-    .timeline-dot {
-      position: absolute; left: -2rem; top: 0.375rem;
-      width: 12px; height: 12px;
-      background: var(--bg-elevated);
-      border: 3px solid var(--accent);
-      border-radius: 50%;
-      transform: translateX(-5px);
-      box-shadow: 0 0 0 4px var(--accent-glow);
-    }
-    .timeline-content {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
+    .tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
       padding: 1.5rem;
-      transition: all 0.3s;
-    }
-    .timeline-content:hover {
-      border-color: rgba(37,99,235,0.3);
-      box-shadow: var(--shadow-md);
-    }
-    .timeline-title { font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.0625rem; }
-    .timeline-text { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.7; }
-    .timeline-meta { display: flex; gap: 1rem; margin-top: 0.75rem; font-size: 0.75rem; color: var(--text-tertiary); }
-
-    /* ============================================
-       LECTURE CARDS
-       ============================================ */
-    .lecture-card {
-      margin-bottom: 0.875rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      background: var(--bg-elevated);
-      overflow: hidden;
-      transition: all 0.35s var(--transition);
     }
-    .lecture-card:hover { border-color: rgba(37,99,235,0.25); }
-    .lecture-card.expanded {
-      border-color: rgba(37,99,235,0.4);
-      box-shadow: var(--shadow-lg), 0 0 30px var(--accent-glow);
-    }
-    .lecture-header {
-      display: flex; align-items: center; gap: 1rem;
-      padding: 1.25rem 1.5rem;
-      cursor: pointer; user-select: none;
-      transition: background 0.2s;
-    }
-    .lecture-header:hover { background: var(--bg-sunken); }
-    .lecture-number {
-      display: flex; align-items: center; justify-content: center;
-      width: 44px; height: 44px;
-      background: linear-gradient(135deg, var(--accent), #7c3aed);
-      border-radius: var(--radius-md);
-      color: white; font-weight: 800; font-size: 0.9375rem;
-      flex-shrink: 0;
-      box-shadow: 0 0 16px var(--accent-glow-strong);
-      position: relative;
-      overflow: hidden;
-    }
-    .lecture-number::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
-      animation: shimmer 3s infinite;
-      background-size: 200% 100%;
-    }
-    .lecture-info { flex: 1; min-width: 0; }
-    .lecture-title { font-size: 1.0625rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
-    .lecture-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.8125rem; color: var(--text-tertiary); }
-    .lecture-meta svg { flex-shrink: 0; }
-    .lecture-toggle {
-      width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: var(--radius-sm);
-      color: var(--text-tertiary);
-      transition: all 0.3s var(--transition);
-      flex-shrink: 0;
-    }
-    .lecture-card.expanded .lecture-toggle {
-      transform: rotate(180deg);
-      color: var(--accent);
-    }
-    .lecture-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s var(--transition), padding 0.5s var(--transition);
-    }
-    .lecture-card.expanded .lecture-content {
-      max-height: 30000px;
-      padding: 0 1.5rem 1.5rem;
-    }
-    .lecture-body {
-      border-top: 1px solid var(--border-light);
-      padding-top: 1.5rem;
-    }
-    .lecture-body h4 { margin: 1.5rem 0 0.75rem; color: var(--text-primary); font-size: 1.0625rem; font-weight: 700; }
-    .lecture-body h5 { margin: 1.25rem 0 0.5rem; color: var(--text-secondary); font-size: 0.9375rem; font-weight: 600; }
-    .lecture-body p { margin-bottom: 0.75rem; font-size: 0.9375rem; color: var(--text-secondary); line-height: 1.8; }
-    .lecture-body ul, .lecture-body ol { margin: 0.75rem 0; padding-left: 1.5rem; }
-    .lecture-body li { margin-bottom: 0.5rem; color: var(--text-secondary); line-height: 1.7; }
-    .lecture-body strong { color: var(--text-primary); font-weight: 600; }
-    .lecture-body a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
-    .lecture-body a:hover { border-bottom-color: var(--accent); }
-    .lecture-body table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; margin: 1rem 0; }
-    .lecture-body th { background: var(--bg-sunken); padding: 0.625rem 0.875rem; text-align: left; font-weight: 600; color: var(--text-primary); border-bottom: 1px solid var(--border); }
-    .lecture-body td { padding: 0.625rem 0.875rem; border-bottom: 1px solid var(--border-light); color: var(--text-secondary); }
-    .lecture-body tr:hover td { background: var(--bg-sunken); }
-
-    /* ============================================
-       CODE BLOCKS
-       ============================================ */
-    .code-block {
-      position: relative;
-      background: var(--bg-code);
-      border-radius: var(--radius-md);
+    .card h3 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--primary); }
+    .card h4 { font-size: 1.1rem; margin: 1rem 0 0.5rem; color: var(--text); }
+    .card h5 { font-size: 1rem; margin: 0.75rem 0 0.5rem; color: var(--text-secondary); }
+    .card p { margin-bottom: 0.75rem; color: var(--text-secondary); }
+    .card ul, .card ol { margin: 0.5rem 0 1rem 1.25rem; color: var(--text-secondary); }
+    .card li { margin-bottom: 0.5rem; }
+    .card a { color: var(--primary); text-decoration: none; }
+    .card a:hover { text-decoration: underline; }
+    .card table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.875rem; }
+    .card th, .card td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+    .card th { background: var(--bg); font-weight: 600; color: var(--text); }
+    .card td { color: var(--text-secondary); }
+    .card tr:hover td { background: #f8fafc; }
+    .card pre {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.875rem;
       margin: 1rem 0;
-      overflow: hidden;
-      border: 1px solid #21262d;
     }
-    .code-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.5rem 1rem;
-      background: #161b22;
-      border-bottom: 1px solid #21262d;
+    .card code {
+      background: var(--bg);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      color: var(--primary);
     }
-    .code-lang { font-size: 0.6875rem; font-weight: 700; color: #8b949e; text-transform: uppercase; letter-spacing: 0.05em; }
-    .code-copy {
-      display: flex; align-items: center; gap: 0.375rem;
-      padding: 0.25rem 0.75rem;
-      background: #21262d;
-      border: 1px solid #30363d;
-      border-radius: 6px;
-      color: #8b949e;
-      font-size: 0.6875rem; font-weight: 600;
-      cursor: pointer;
+    .lecture-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+    .lecture-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
       transition: all 0.2s;
     }
-    .code-copy:hover { background: #30363d; color: #c9d1d9; }
-    .code-copy.copied { background: rgba(46, 160, 67, 0.2); color: #3fb950; border-color: rgba(46, 160, 67, 0.3); }
-    .code-block pre {
-      padding: 1rem;
-      overflow-x: auto;
-      font-size: 0.8125rem;
-      line-height: 1.7;
-      color: #c9d1d9;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .code-keyword { color: #ff7b72; }
-    .code-string { color: #a5d6ff; }
-    .code-comment { color: #8b949e; }
-    .code-function { color: #d2a8ff; }
-    .code-number { color: #79c0ff; }
-    .code-class { color: #ffa657; }
-    .code-decorator { color: #d2a8ff; }
-
-    /* ============================================
-       TAGS
-       ============================================ */
-    .tag {
-      display: inline-flex; align-items: center;
-      padding: 0.25rem 0.75rem;
-      background: var(--accent-glow);
-      border: 1px solid rgba(37,99,235,0.15);
-      border-radius: 100px;
-      font-size: 0.75rem; font-weight: 600;
-      color: var(--accent);
-    }
-    .tag-group { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.25rem 0; }
-
-    /* ============================================
-       BACK TO TOP
-       ============================================ */
-    .back-to-top {
-      position: fixed;
-      bottom: 2rem; right: 2rem;
-      width: 48px; height: 48px;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
+    .lecture-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .lecture-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      color: white;
       border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-secondary);
-      cursor: pointer;
-      opacity: 0; transform: translateY(10px) scale(0.9);
-      transition: all 0.3s var(--transition);
-      z-index: 800;
-      box-shadow: var(--shadow-lg);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
     }
-    .back-to-top.visible { opacity: 1; transform: translateY(0) scale(1); }
-    .back-to-top:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-glow), var(--shadow-lg);
-      transform: translateY(-2px);
+    .lecture-title { font-weight: 600; margin-bottom: 0.5rem; }
+    .lecture-desc { font-size: 0.875rem; color: var(--text-secondary); }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: #dbeafe;
+      color: var(--primary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 0.75rem;
     }
-
-    /* ============================================
-       FOOTER
-       ============================================ */
-    .site-footer {
-      border-top: 1px solid var(--border);
-      background: var(--bg-elevated);
-      padding: 3rem 0;
-      margin-top: 4rem;
-    }
-    .footer-content {
-      max-width: 880px; margin: 0 auto;
-      padding: 0 2.5rem;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 1.5rem;
-    }
-    .footer-left { font-size: 0.875rem; color: var(--text-tertiary); }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a { font-size: 0.875rem; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--accent); }
-
-    /* ============================================
-       RESPONSIVE
-       ============================================ */
-    @media (max-width: 1024px) {
-      .main-content { margin-left: 0; }
-      .sidebar { transform: translateX(-100%); }
-      .sidebar.open { transform: translateX(0); }
-      .sidebar-overlay.active { display: block; }
-      .menu-toggle { display: flex; }
-      .content-container { padding: 0 1.25rem; }
-    }
+    .footer { text-align: center; margin-top: 3rem; padding: 2rem; color: var(--text-secondary); font-size: 0.875rem; }
     @media (max-width: 768px) {
-      .hero-stats { flex-direction: column; gap: 1.5rem; }
-      .hero-stat-value { font-size: 2rem; }
-      .section { padding: 3rem 0; }
-      .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
-      .lecture-header { padding: 1rem; }
-      .lecture-number { width: 36px; height: 36px; font-size: 0.875rem; }
-      .lecture-title { font-size: 0.9375rem; }
-      .header-center { display: none; }
-      .footer-content { flex-direction: column; text-align: center; }
-      .hero-cta { flex-direction: column; align-items: center; }
-      .btn { width: 100%; max-width: 280px; }
+      .lecture-grid { grid-template-columns: 1fr; }
     }
-
-    /* ============================================
-       UTILITY
-       ============================================ */
-    .text-gradient {
-      background: linear-gradient(135deg, var(--accent), #7c3aed);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .mb-1 { margin-bottom: 0.5rem; }
-    .mb-2 { margin-bottom: 1rem; }
-    .mb-3 { margin-bottom: 1.5rem; }
-    .mb-4 { margin-bottom: 2rem; }
-    .mt-2 { margin-top: 1rem; }
-    .mt-3 { margin-top: 1.5rem; }
-    .mt-4 { margin-top: 2rem; }
-    .hidden { display: none !important; }
-
-    /* Stats Section */
-    .stats-section { padding: 4rem 0; background: linear-gradient(135deg, rgba(37,99,235,0.03) 0%, rgba(124,58,237,0.03) 100%); }
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-    .stat-card { text-align: center; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); transition: var(--transition); }
-    .stat-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow-md); }
-    .stat-number { font-size: 2.5rem; font-weight: 800; color: var(--accent); font-family: var(--font-mono); margin-bottom: 0.5rem; }
-    .stat-label { font-size: 0.875rem; color: var(--text-secondary); font-weight: 500; }
-    @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
-    
-    /* Tab Buttons */
-    .tab-buttons { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
-    .tab-btn { padding: 0.625rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); background: var(--bg-card); color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: var(--transition); }
-    .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-    
   </style>
 </head>
 <body>
-  <!-- Reading Progress -->
-  <div class="reading-progress">
-    <div class="reading-progress-bar"></div>
+  <div class="container">
+    <header>
+      <h1>MotrixLab 强化学习与仿真训练营</h1>
+      <p class="subtitle">从理论基础到平台实战，四期完整学习路径</p>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('phase4')">第四期</button>
+      <button class="tab-btn" onclick="switchTab('phase3')">第三期</button>
+      <button class="tab-btn" onclick="switchTab('phase2')">第二期</button>
+      <button class="tab-btn" onclick="switchTab('phase1')">第一期</button>
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="tab-panel active" id="panel-phase1">
+      <div class="card">
+        <h3>第一期学习路径</h3>
+        <p>先完成机器人学与强化学习基础，再进入 MotrixLab 平台实战，最后沉淀项目实践成果。</p>
+        <table>
+          <thead>
+            <tr><th>阶段</th><th>核心目标</th><th>状态</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>阶段一：理论基础</td><td>坐标系变换、轨迹规划、FK/IK、深度强化学习 (PPO/A3C)</td><td>✅</td></tr>
+            <tr><td>阶段二：平台实战</td><td>熟悉 MotrixLab、完成任务理解、配置与训练实操</td><td>✅</td></tr>
+            <tr><td>项目实践</td><td>Unitree Go2 平地行走任务实践</td><td>✅</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h4>阶段一：理论基础（Beta 公测版）</h4>
+        <p>本阶段聚焦机器人学与强化学习基础，系统掌握坐标系与位姿变换、轨迹规划、机器人运动学以及深度强化学习知识。</p>
+        <h5>学习目录</h5>
+        <table>
+          <thead><tr><th>周次</th><th>内容</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>第1周</td><td>坐标系与位姿变换（笛卡尔坐标系、齐次变换矩阵、欧拉角、四元数）</td><td>✅</td></tr>
+            <tr><td>第2周</td><td>轨迹规划（插值方法、笛卡尔/关节空间轨迹、时间参数化）</td><td>✅</td></tr>
+            <tr><td>第3周</td><td>机器人运动学（FK 正运动学、IK 逆运动学、奇异性与冗余度）</td><td>✅</td></tr>
+            <tr><td>第4周</td><td>深度强化学习（RL 框架、策略梯度、PPO/A3C）</td><td>✅</td></tr>
+            <tr><td>第5周</td><td>机器人仿真实操（机械臂控制）</td><td>🚧</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h4>阶段二：平台实战</h4>
+        <p>熟悉 MotrixLab 平台的任务结构、训练流程与调试方法，完成四足机器人任务的配置、训练与结果复现。</p>
+        <h5>详细学习路线</h5>
+        <ul>
+          <li><strong>第1周</strong>：熟悉平台 & 跑通基础任务（GO1 示例训练与推理）</li>
+          <li><strong>第2周</strong>：深入理解 MotrixLab 任务结构（Actions、Observations、Rewards、Commands、Terminations）</li>
+          <li><strong>第3周</strong>：开始搭建任务框架（目录结构、资产准备、配置类、环境类框架）</li>
+          <li><strong>第4周</strong>：完整调试 & 复现结果（功能调试、PPO 训练、TensorBoard 分析）</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>结营作业：优秀成果</h4>
+        <p><strong>张恒 — Unitree Go2 平地行走任务实践</strong></p>
+        <p>基于 Motrix 框架完成环境配置参数、奖励函数设计以及动作空间定义。核心修正了 action space 定义错误：将动作空间边界从物理限位改为固定归一化范围 [-1, 1]。</p>
+        <p>代码仓库：<a href="https://github.com/cotton365/MotrixLab-go2" target="_blank">cotton365/MotrixLab-go2</a></p>
+      </div>
+    <div class="card mt-4 animate-on-scroll"><h4 style="margin-bottom:1rem;font-size:1.0625rem;">📚 线上视频教案</h4><h3 style="margin-top:1.5rem;margin-bottom:0.75rem;color:var(--text-primary);">学习路径总览</h3>
+<p style="border-left:2px solid var(--accent);padding-left:0.75rem;color:var(--text-secondary);margin:0.75rem 0;">当前训练营采用阶段式组织，先完成机器人学与强化学习基础，再进入 MotrixLab 平台实战，最后沉淀项目实践成果。</p>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">学习路线</h4>
+<table style="width:100%;border-collapse:collapse;font-size:0.875rem;margin:1rem 0;"><thead><tr><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">阶段</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">核心目标</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">详细指引</th></tr></thead><tbody><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><strong>阶段一：理论基础</strong></td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">坐标系变换、轨迹规划、FK/IK、深度强化学习 (PPO/A3C)</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><a href="/第一期/month1/" target="_blank">查看详情</a></td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><strong>阶段二：平台实战</strong></td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">熟悉 MotrixLab、完成任务理解、配置与训练实操</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><a href="/第一期/month2/" target="_blank">查看详情</a></td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><strong>项目实践</strong></td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">汇总作业、代码、周报与实践成果</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><a href="/第一期/结营作业/" target="_blank">查看详情</a></td></tr></tbody></table></div><div class="card mt-4 animate-on-scroll"><h4 style="margin-bottom:1rem;font-size:1.0625rem;">📚 阶段一：理论基础</h4><h3 style="margin-top:1.5rem;margin-bottom:0.75rem;color:var(--text-primary);">阶段一：理论基础（🧪 Beta 公测版）</h3>
+<p style="border-left:2px solid var(--accent);padding-left:0.75rem;color:var(--text-secondary);margin:0.75rem 0;"><strong>Beta 公测版本提示</strong>：阶段一教程主体已完成，正在优化学习资料与作业细节，欢迎大家提 Issue 反馈。</p>
+<p style="margin-bottom:0.75rem;color:var(--text-secondary);">本阶段聚焦机器人学与强化学习基础，帮助学习者系统掌握坐标系与位姿变换、轨迹规划、机器人运动学以及深度强化学习知识。</p>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">学习目录与状态</h4>
+<table style="width:100%;border-collapse:collapse;font-size:0.875rem;margin:1rem 0;"><thead><tr><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">章节名</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">简介</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">状态</th></tr></thead><tbody><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第1周：坐标系与位姿变换</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">笛卡尔坐标系、齐次变换矩阵、平移与旋转（欧拉角、四元数）</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">✅</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第2周：轨迹规划</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">插值方法、笛卡尔/关节空间轨迹、时间参数化、基础规划算法</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">✅</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第3周：机器人运动学</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">FK（正运动学）与 IK（逆运动学）、奇异性与冗余度分析</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">✅</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第4周：深度强化学习</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">RL基本框架、策略梯度、PPO/A3C进阶及 Deep RL 结合</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">✅</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第5周：机器人仿真实操</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">结合前四周理论，在仿真环境中完成机械臂控制</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">🚧</td></tr></tbody></table>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">详细学习路线</h4>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第一周：坐标系与位姿变换</h5>
+<ul>
+<li><strong>学习目标</strong>：理解机器人运动的空间表示，掌握齐次变换矩阵的使用</li>
+<li><strong>核心内容</strong>：笛卡尔坐标系与关节坐标系、齐次矩阵（4×4）表示位姿、平移旋转（欧拉角、四元数）、坐标系之间的转换与链式计算</li>
+<li><strong>学习资料</strong>：<code>机器人基础——坐标系与位姿变换.docx</code></li>
+<li><strong>本周作业</strong>：齐次矩阵表示位姿的原因、坐标系转换、多关节坐标系变换链</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第二周：轨迹规划</h5>
+<ul>
+<li><strong>学习目标</strong>：理解机器人从起点到终点的运动方式和路径生成</li>
+<li><strong>核心内容</strong>：插值方法（直线插值、多项式插值）、笛卡尔空间轨迹 vs 关节空间轨迹、时间参数化与速度/加速度约束、基本规划算法（RRT、PRM 简介）</li>
+<li><strong>学习资料</strong>：<code>具身智能基础——机器人轨迹规划.docx</code></li>
+<li><strong>本周作业</strong>：限制速度和加速度的原因、两秒完成动作的轨迹安排</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第三周：机器人运动学</h5>
+<ul>
+<li><strong>学习目标</strong>：建立关节运动与末端位姿的数学关系，理解 IK/FK</li>
+<li><strong>核心内容</strong>：FK（正运动学）、IK（逆运动学）、奇异性与冗余度问题</li>
+<li><strong>学习资料</strong>：IK/FK 视频课、理论教材《机器人学导论》</li>
+<li><strong>本周作业</strong>：正/逆运动学输入输出、平面两关节机械臂解的个数、工作范围超出问题</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第四周：深度强化学习</h5>
+<ul>
+<li><strong>学习目标</strong>：掌握强化学习基础概念、学会结合强化学习与深度学习</li>
+<li><strong>核心内容</strong>：RL基本框架（状态、动作、奖励、策略、价值函数）、策略梯度方法（REINFORCE、Actor-Critic）、进阶算法（PPO、A3C）、Deep RL</li>
+<li><strong>学习资料</strong>：<code>具身智能基础——强化学习.docx</code>、王树森深度强化学习课程</li>
+<li><strong>本周作业</strong>：RL目标、DQN vs Q-learning、PPO稳定性、A3C优势</li>
+</ul></div><div class="card mt-4 animate-on-scroll"><h4 style="margin-bottom:1rem;font-size:1.0625rem;">📚 阶段二：平台实战</h4><h3 style="margin-top:1.5rem;margin-bottom:0.75rem;color:var(--text-primary);">阶段二：平台实战</h3>
+<p style="border-left:2px solid var(--accent);padding-left:0.75rem;color:var(--text-secondary);margin:0.75rem 0;"><strong>阶段目标</strong>：熟悉 MotrixLab 平台的任务结构、训练流程与调试方法，完成四足机器人任务的配置、训练与结果复现。</p>
+<p style="margin-bottom:0.75rem;color:var(--text-secondary);">通过本月的实操，你将深入理解 MotrixLab 的文件结构、配置机制、强化学习奖励设计与训练调试流程。</p>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">详细学习路线</h4>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第1周：熟悉平台 & 跑通基础任务</h5>
+<ul>
+<li><strong>学习目标</strong>：搞懂 MotrixLab 的基本使用方式，跑通示例任务</li>
+<li><strong>核心内容</strong>：了解 MotrixLab 仓库目录结构、GO1 环境结构与核心模块关系</li>
+<li><strong>实操任务</strong>：完成 Unitree GO1 示例任务的训练和推理；熟悉常见训练、推理命令与参数配置方式</li>
+<li><strong>本周周报</strong>：GO1 示例任务跑通截图、仓库目录结构说明、任务相关文件结构说明</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第2周：深入理解 MotrixLab 任务结构</h5>
+<ul>
+<li><strong>学习目标</strong>：拆解并完全理解 MotrixLab 中任务的执行流程、配置组织与奖励机制</li>
+<li><strong>核心内容</strong>：环境配置（cfg.py 参数组织）、环境逻辑（Actions、Observations、Rewards、Commands、Terminations）、策略与控制、奖励与命令</li>
+<li><strong>深入实操</strong>：研究动作与观测的输入输出关系、修改奖励函数权重、修改命令生成范围</li>
+<li><strong>本周周报</strong>：动作空间定义、关键观测项来源、目标速度修改方法、奖励函数关键项、episode 完整数据流示意图</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第3周：开始搭建任务框架</h5>
+<ul>
+<li><strong>学习目标</strong>：搭建最小可运行任务环境</li>
+<li><strong>核心内容</strong>：创建标准任务目录结构（<code><strong>init</strong>.py</code>, <code>cfg.py</code>, <code>*_np.py</code>, <code>xmls/</code> 等）、从 MuJoCo Menagerie 下载资产、配置类搭建、环境类框架搭建</li>
+<li><strong>核心方法</strong>：<code>apply_action</code>、<code>_compute_observation</code>、<code>_compute_reward</code>、<code>_check_termination</code>、<code>reset</code> 与 <code>update_state</code></li>
+<li><strong>本周周报</strong>：提交环境框架及核心方法的代码文件</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第4周：完整调试 & 复现结果</h5>
+<ul>
+<li><strong>学习目标</strong>：完成任务调试、跑 RL 训练、复现目标行为</li>
+<li><strong>核心内容</strong>：功能调试、训练测试（PPO 默认超参数）、数据分析（TensorBoard 训练曲线）</li>
+<li><strong>本周周报</strong>：完整代码文件、训练日志或 TensorBoard 曲线截图与解释</li>
+</ul>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">学习资源</h4>
+<ul>
+<li><strong>官方文档</strong>：<a href="https://motrixlab.readthedocs.io/zh-cn/latest/" target="_blank">MotrixLab 官方文档</a></li>
+<li><strong>MuJoCo 资产库</strong>：<a href="https://github.com/google-deepmind/mujoco_menagerie" target="_blank">Google DeepMind Menagerie</a></li>
+<li><strong>核心任务资料</strong>：MotrixLab 奖励设计讲解、迁移任务代码和详细文档</li>
+</ul></div><div class="card mt-4 animate-on-scroll"><h4 style="margin-bottom:1rem;font-size:1.0625rem;">📚 结营作业</h4><h3 style="margin-top:1.5rem;margin-bottom:0.75rem;color:var(--text-primary);">第一批实践成果</h3>
+<p style="margin-bottom:0.75rem;color:var(--text-secondary);">本页汇总当前阶段的项目实践成果，内容聚焦基于 MotrixLab 平台完成的四足机器人任务实践。</p>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">成果列表</h4>
+<table style="width:100%;border-collapse:collapse;font-size:0.875rem;margin:1rem 0;"><thead><tr><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">学员</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">任务</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">代码仓库</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">详情</th></tr></thead><tbody><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><strong>张恒</strong></td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">Unitree Go2 平地行走任务实践（MotrixLab）</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><a href="https://github.com/cotton365/MotrixLab-go2" target="_blank">cotton365/MotrixLab-go2</a></td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><a href="/第一期/结营作业/张恒/" target="_blank">查看</a></td></tr></tbody></table>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">核心修正点</h4>
+<p style="margin-bottom:0.75rem;color:var(--text-secondary);">原版 Motrix 以 <code>actuator_ctrl_limits</code>（物理限位）作为动作空间边界，配合 <code>action_scale=0.05</code>。后续调参时将 <code>action_scale</code> 改为 <code>0.25</code>，但未同步修改动作空间边界。</p>
+<p style="margin-bottom:0.75rem;color:var(--text-secondary);"><strong>修正方案</strong>：将 <code>_init_action_space</code> 中的动作空间边界改为固定的 <code>[-1, 1]</code>，使其与归一化动作空间完全对齐。</p></div>
+</div>
+
+    <!-- Phase 2 -->
+    <div class="tab-panel" id="panel-phase2">
+      <div class="card">
+        <h3>第二期学习路径</h3>
+        <p>当前训练营采用阶段式组织，先完成机器人学与强化学习基础，再进入 MotrixLab 平台实战。</p>
+        <table>
+          <thead><tr><th>阶段</th><th>核心目标</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>阶段一：理论基础</td><td>坐标系变换、轨迹规划、FK/IK、深度强化学习</td><td>✅</td></tr>
+            <tr><td>阶段二：平台实战</td><td>熟悉 MotrixLab、完成任务理解、配置与训练实操</td><td>✅</td></tr>
+            <tr><td>项目实践</td><td>正在整理中</td><td>🚧</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h4>阶段一：理论基础</h4>
+        <p>内容与第一期阶段一相同，包含坐标系与位姿变换、轨迹规划、机器人运动学、深度强化学习四周完整内容。</p>
+        <ul>
+          <li><strong>第一周</strong>：坐标系与位姿变换（齐次矩阵、欧拉角、四元数）</li>
+          <li><strong>第二周</strong>：轨迹规划（插值、笛卡尔/关节空间轨迹）</li>
+          <li><strong>第三周</strong>：机器人运动学（FK/IK、奇异性与冗余度）</li>
+          <li><strong>第四周</strong>：深度强化学习（PPO、A3C、策略梯度）</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>阶段二：平台实战</h4>
+        <p>深入理解 MotrixLab 的文件结构、配置机制、奖励设计与训练调试流程。</p>
+        <ul>
+          <li><strong>第1周</strong>：熟悉平台 & 跑通基础任务（Unitree GO1 示例训练与推理）</li>
+          <li><strong>第2周</strong>：深入理解任务结构（cfg.py 参数、动作/观测/奖励机制）</li>
+          <li><strong>第3周</strong>：搭建任务框架（目录结构、MuJoCo Menagerie 资产）</li>
+          <li><strong>第4周</strong>：完整调试 & 复现结果（PPO 训练、TensorBoard 曲线分析）</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>学习资源</h4>
+        <ul>
+          <li>MotrixLab 官方文档：<a href="https://motrixlab.readthedocs.io/zh-cn/latest/" target="_blank">访问</a></li>
+          <li>MuJoCo 资产库：<a href="https://github.com/google-deepmind/mujoco_menagerie" target="_blank">Google DeepMind Menagerie</a></li>
+          <li>Robogo Cloud Desktop（云平台实操）</li>
+        </ul>
+      </div>
+    <div class="card mt-4 animate-on-scroll"><h4 style="margin-bottom:1rem;font-size:1.0625rem;">📚 线上视频教案</h4><h3 style="margin-top:1.5rem;margin-bottom:0.75rem;color:var(--text-primary);">学习路径总览</h3>
+<p style="border-left:2px solid var(--accent);padding-left:0.75rem;color:var(--text-secondary);margin:0.75rem 0;">当前训练营采用阶段式组织，先完成机器人学与强化学习基础，再进入 MotrixLab 平台实战，最后沉淀项目实践成果。</p>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">学习路线</h4>
+<table style="width:100%;border-collapse:collapse;font-size:0.875rem;margin:1rem 0;"><thead><tr><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">阶段</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">核心目标</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">详细指引</th></tr></thead><tbody><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><strong>阶段一：理论基础</strong></td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">坐标系变换、轨迹规划、FK/IK、深度强化学习 (PPO/A3C)</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><a href="/第二期/month1/" target="_blank">查看详情</a></td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><strong>阶段二：平台实战</strong></td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">熟悉 MotrixLab、完成任务理解、配置与训练实操</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><a href="/第二期/month2/" target="_blank">查看详情</a></td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><strong>项目实践</strong></td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">当前暂无归档成果，后续补充</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">建设中</td></tr></tbody></table></div><div class="card mt-4 animate-on-scroll"><h4 style="margin-bottom:1rem;font-size:1.0625rem;">📚 阶段一：理论基础</h4><h3 style="margin-top:1.5rem;margin-bottom:0.75rem;color:var(--text-primary);">阶段一：理论基础（🧪 Beta 公测版）</h3>
+<p style="border-left:2px solid var(--accent);padding-left:0.75rem;color:var(--text-secondary);margin:0.75rem 0;"><strong>Beta 公测版本提示</strong>：阶段一教程主体已完成，正在优化学习资料与作业细节。</p>
+<p style="margin-bottom:0.75rem;color:var(--text-secondary);">本阶段聚焦机器人学与强化学习基础，系统掌握坐标系与位姿变换、轨迹规划、机器人运动学以及深度强化学习知识。</p>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">学习目录与状态</h4>
+<table style="width:100%;border-collapse:collapse;font-size:0.875rem;margin:1rem 0;"><thead><tr><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">章节名</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">简介</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">状态</th></tr></thead><tbody><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第1周：坐标系与位姿变换</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">笛卡尔坐标系、齐次变换矩阵、平移与旋转</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">✅</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第2周：轨迹规划</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">插值方法、笛卡尔/关节空间轨迹、时间参数化</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">✅</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第3周：机器人运动学</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">FK 与 IK、奇异性与冗余度分析</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">✅</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第4周：深度强化学习</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">RL框架、策略梯度、PPO/A3C</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">✅</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第5周：机器人仿真实操</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">仿真环境中机械臂控制</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">🚧</td></tr></tbody></table>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">详细学习路线</h4>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第一周：坐标系与位姿变换</h5>
+<ul>
+<li>笛卡尔坐标系与关节坐标系、齐次矩阵（4×4）表示位姿、平移旋转（欧拉角、四元数）、坐标系转换与链式计算</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第二周：轨迹规划</h5>
+<ul>
+<li>插值方法（直线插值、多项式插值）、笛卡尔空间轨迹 vs 关节空间轨迹、时间参数化与速度/加速度约束</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第三周：机器人运动学</h5>
+<ul>
+<li>FK（正运动学）、IK（逆运动学）、奇异性与冗余度问题</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第四周：深度强化学习</h5>
+<ul>
+<li>RL基本框架、策略梯度（REINFORCE、Actor-Critic）、PPO、A3C、Deep RL</li>
+</ul></div><div class="card mt-4 animate-on-scroll"><h4 style="margin-bottom:1rem;font-size:1.0625rem;">📚 阶段二：平台实战</h4><h3 style="margin-top:1.5rem;margin-bottom:0.75rem;color:var(--text-primary);">阶段二：平台实战</h3>
+<p style="border-left:2px solid var(--accent);padding-left:0.75rem;color:var(--text-secondary);margin:0.75rem 0;"><strong>阶段目标</strong>：熟悉 MotrixLab 平台的任务结构、训练流程与调试方法，完成四足机器人任务的配置、训练与结果复现。</p>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">详细学习路线</h4>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第1周：熟悉平台 & 跑通基础任务</h5>
+<ul>
+<li>了解 MotrixLab 仓库目录结构、GO1 环境结构</li>
+<li>完成 Unitree GO1 示例任务的训练和推理</li>
+<li>熟悉常见训练、推理命令与参数配置方式</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第2周：深入理解 MotrixLab 任务结构</h5>
+<ul>
+<li>环境配置（cfg.py 参数组织）、环境逻辑（Actions、Observations、Rewards、Commands、Terminations）</li>
+<li>研究动作与观测的输入输出关系、修改奖励函数权重</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第3周：开始搭建任务框架</h5>
+<ul>
+<li>创建标准任务目录结构、从 MuJoCo Menagerie 下载资产</li>
+<li>实现核心方法：<code>apply_action</code>、<code>_compute_observation</code>、<code>_compute_reward</code>、<code>_check_termination</code></li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第4周：完整调试 & 复现结果</h5>
+<ul>
+<li>功能调试、PPO 训练测试、TensorBoard 数据分析</li>
+</ul>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">学习资源</h4>
+<ul>
+<li><strong>官方文档</strong>：<a href="https://motrixlab.readthedocs.io/zh-cn/latest/" target="_blank">MotrixLab 官方文档</a></li>
+<li><strong>MuJoCo 资产库</strong>：<a href="https://github.com/google-deepmind/mujoco_menagerie" target="_blank">Google DeepMind Menagerie</a></li>
+<li><strong>云平台</strong>：Robogo Cloud Desktop（镜像 xbotics-full-v2.5.1）</li>
+</ul></div>
+</div>
+
+    <!-- Phase 3 -->
+    <div class="tab-panel" id="panel-phase3">
+      <div class="card">
+        <h3>第三期学习路径</h3>
+        <p>先完成机器人学与强化学习基础，再进入 MotrixLab 平台实战，最后沉淀项目实践成果。</p>
+        <table>
+          <thead><tr><th>阶段</th><th>核心目标</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>阶段一：理论基础</td><td>坐标系变换、轨迹规划、FK/IK、深度强化学习</td><td>✅</td></tr>
+            <tr><td>阶段二：平台实战</td><td>熟悉 MotrixLab、完成任务理解、配置与训练实操</td><td>✅</td></tr>
+            <tr><td>项目实践</td><td>结营作业归档中</td><td>🚧</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h4>阶段一：理论基础（Beta 公测版）</h4>
+        <p>聚焦机器人学与强化学习基础，系统掌握坐标系与位姿变换、轨迹规划、机器人运动学以及深度强化学习知识。</p>
+        <h5>学习目录</h5>
+        <table>
+          <thead><tr><th>章节</th><th>简介</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>第1周：坐标系与位姿变换</td><td>笛卡尔坐标系、齐次变换矩阵、平移与旋转</td><td>✅</td></tr>
+            <tr><td>第2周：轨迹规划</td><td>插值方法、笛卡尔/关节空间轨迹、时间参数化</td><td>✅</td></tr>
+            <tr><td>第3周：机器人运动学</td><td>FK 与 IK、奇异性与冗余度分析</td><td>✅</td></tr>
+            <tr><td>第4周：深度强化学习</td><td>RL 基本框架、策略梯度、PPO/A3C</td><td>✅</td></tr>
+            <tr><td>第5周：机器人仿真实操</td><td>结合前四周理论，在仿真环境中完成机械臂控制</td><td>🚧</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h4>阶段二：平台实战</h4>
+        <p>熟悉 MotrixLab 平台的任务结构、训练流程与调试方法，完成四足机器人任务的配置、训练与结果复现。</p>
+        <ul>
+          <li><strong>第1周</strong>：熟悉平台 & 跑通基础任务（ANYmal C 示例训练与推理）</li>
+          <li><strong>第2周</strong>：深入理解任务结构（cfg.py 参数组织、动作/观测/奖励机制）</li>
+          <li><strong>第3周</strong>：搭建任务框架（目录结构、MuJoCo Menagerie 资产下载）</li>
+          <li><strong>第4周</strong>：完整调试 & 复现结果（PPO 训练、TensorBoard 分析）</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>第三期结营作业</h4>
+        <p>结营作业正在整理中，后续将补充学员、任务和代码仓库信息。</p>
+        <table>
+          <thead><tr><th>学员</th><th>任务</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>待补充</td><td>结营作业</td><td>归档中</td></tr>
+            <tr><td>待补充</td><td>MotrixArena S1 越障导航</td><td>归档中</td></tr>
+          </tbody>
+        </table>
+      </div>
+    <div class="card mt-4 animate-on-scroll"><h4 style="margin-bottom:1rem;font-size:1.0625rem;">📚 线上视频教案</h4><h3 style="margin-top:1.5rem;margin-bottom:0.75rem;color:var(--text-primary);">学习路径总览</h3>
+<p style="border-left:2px solid var(--accent);padding-left:0.75rem;color:var(--text-secondary);margin:0.75rem 0;">当前训练营采用阶段式组织，先完成机器人学与强化学习基础，再进入 MotrixLab 平台实战，最后沉淀项目实践成果。</p>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">学习路线</h4>
+<table style="width:100%;border-collapse:collapse;font-size:0.875rem;margin:1rem 0;"><thead><tr><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">阶段</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">核心目标</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">详细指引</th></tr></thead><tbody><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><strong>阶段一：理论基础</strong></td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">坐标系变换、轨迹规划、FK/IK、深度强化学习 (PPO/A3C)</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><a href="./month1/index.md" target="_blank">👉 查看详情</a></td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><strong>阶段二：平台实战</strong></td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">熟悉 MotrixLab、完成任务理解、配置与训练实操</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><a href="./month2/index.md" target="_blank">👉 查看详情</a></td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><strong>项目实践</strong></td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">归档结营作业、代码仓库与优秀实践成果</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);"><a href="./结营作业/index.md" target="_blank">👉 查看详情</a></td></tr></tbody></table>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">项目实践</h4>
+<p style="margin-bottom:0.75rem;color:var(--text-secondary);">当前阶段的项目实践成果正在整理中，后续将在第三期结营作业页面补充归档。</p></div><div class="card mt-4 animate-on-scroll"><h4 style="margin-bottom:1rem;font-size:1.0625rem;">📚 阶段一：理论基础</h4><h3 style="margin-top:1.5rem;margin-bottom:0.75rem;color:var(--text-primary);">阶段一：理论基础（🧪 Beta 公测版）</h3>
+<p style="border-left:2px solid var(--accent);padding-left:0.75rem;color:var(--text-secondary);margin:0.75rem 0;"><strong>Beta 公测版本提示</strong>：阶段一教程主体已完成，正在优化学习资料与作业细节。</p>
+<p style="margin-bottom:0.75rem;color:var(--text-secondary);">本阶段聚焦机器人学与强化学习基础，系统掌握坐标系与位姿变换、轨迹规划、机器人运动学以及深度强化学习知识。</p>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">学习目录与状态</h4>
+<table style="width:100%;border-collapse:collapse;font-size:0.875rem;margin:1rem 0;"><thead><tr><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">章节名</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">简介</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">状态</th></tr></thead><tbody><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第1周：坐标系与位姿变换</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">笛卡尔坐标系、齐次变换矩阵、平移与旋转</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">✅</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第2周：轨迹规划</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">插值方法、笛卡尔/关节空间轨迹、时间参数化</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">✅</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第3周：机器人运动学</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">FK 与 IK、奇异性与冗余度分析</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">✅</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第4周：深度强化学习</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">RL基本框架、策略梯度、PPO/A3C</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">✅</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">第5周：机器人仿真实操</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">仿真环境中机械臂控制</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">🚧</td></tr></tbody></table>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">详细学习路线</h4>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第一周：坐标系与位姿变换</h5>
+<ul>
+<li>笛卡尔坐标系与关节坐标系、齐次矩阵（4×4）表示位姿、平移旋转（欧拉角、四元数）、坐标系转换与链式计算</li>
+<li><strong>作业</strong>：齐次矩阵表示位姿的原因、坐标系转换、多关节坐标系变换链</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第二周：轨迹规划</h5>
+<ul>
+<li>插值方法、笛卡尔空间轨迹 vs 关节空间轨迹、时间参数化与速度/加速度约束</li>
+<li><strong>作业</strong>：限制速度和加速度的原因、两秒完成动作的轨迹安排</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第三周：机器人运动学</h5>
+<ul>
+<li>FK（正运动学）、IK（逆运动学）、奇异性与冗余度问题</li>
+<li><strong>作业</strong>：正/逆运动学输入输出、平面两关节机械臂解的个数、工作范围超出问题</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第四周：深度强化学习</h5>
+<ul>
+<li>RL基本框架、策略梯度（REINFORCE、Actor-Critic）、PPO、A3C、Deep RL</li>
+<li><strong>作业</strong>：RL目标、DQN vs Q-learning、PPO稳定性、A3C优势</li>
+</ul></div><div class="card mt-4 animate-on-scroll"><h4 style="margin-bottom:1rem;font-size:1.0625rem;">📚 阶段二：平台实战</h4><h3 style="margin-top:1.5rem;margin-bottom:0.75rem;color:var(--text-primary);">阶段二：平台实战</h3>
+<p style="border-left:2px solid var(--accent);padding-left:0.75rem;color:var(--text-secondary);margin:0.75rem 0;"><strong>阶段目标</strong>：熟悉 MotrixLab 平台的任务结构、训练流程与调试方法，完成四足机器人任务的配置、训练与结果复现。</p>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">详细学习路线</h4>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第1周：熟悉平台 & 跑通基础任务</h5>
+<ul>
+<li>了解 MotrixLab 仓库目录结构、GO1 环境结构</li>
+<li>完成 Unitree GO1 示例任务的训练和推理</li>
+<li>熟悉常见训练、推理命令与参数配置方式</li>
+<li><strong>周报</strong>：GO1 示例任务跑通截图、仓库目录结构说明、任务相关文件结构说明</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第2周：深入理解 MotrixLab 任务结构</h5>
+<ul>
+<li>环境配置（cfg.py 参数组织）、环境逻辑（Actions、Observations、Rewards、Commands、Terminations）</li>
+<li>研究动作与观测的输入输出关系、修改奖励函数权重、修改命令生成范围</li>
+<li><strong>周报</strong>：动作空间定义、关键观测项来源、目标速度修改方法、奖励函数关键项、episode 数据流示意图</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第3周：开始搭建任务框架</h5>
+<ul>
+<li>创建标准任务目录结构、从 MuJoCo Menagerie 下载资产</li>
+<li>配置类搭建、环境类框架搭建</li>
+<li>核心方法实现：<code>apply_action</code>、<code>_compute_observation</code>、<code>_compute_reward</code>、<code>_check_termination</code></li>
+<li><strong>周报</strong>：提交环境框架及核心方法的代码文件</li>
+</ul>
+<h5 style="margin-top:1rem;margin-bottom:0.5rem;color:var(--text-secondary);">第4周：完整调试 & 复现结果</h5>
+<ul>
+<li>功能调试、PPO 训练测试、TensorBoard 数据分析</li>
+<li><strong>周报</strong>：完整代码文件、训练日志或 TensorBoard 曲线截图与解释</li>
+</ul>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">学习资源</h4>
+<ul>
+<li><strong>官方文档</strong>：<a href="https://motrixlab.readthedocs.io/zh-cn/latest/" target="_blank">MotrixLab 官方文档</a></li>
+<li><strong>MuJoCo 资产库</strong>：<a href="https://github.com/google-deepmind/mujoco_menagerie" target="_blank">Google DeepMind Menagerie</a></li>
+<li><strong>核心任务资料</strong>：MotrixLab 奖励设计讲解、迁移任务代码和详细文档</li>
+</ul></div><div class="card mt-4 animate-on-scroll"><h4 style="margin-bottom:1rem;font-size:1.0625rem;">📚 结营作业</h4><h3 style="margin-top:1.5rem;margin-bottom:0.75rem;color:var(--text-primary);">第三期结营作业</h3>
+<p style="margin-bottom:0.75rem;color:var(--text-secondary);">本页用于归档第三期结营作业与优秀实践成果。</p>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">成果列表</h4>
+<table style="width:100%;border-collapse:collapse;font-size:0.875rem;margin:1rem 0;"><thead><tr><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">学员</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">任务</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">代码仓库</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">详情</th></tr></thead><tbody><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">待补充</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">结营作业</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">待补充</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">归档中</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">待补充</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">MotrixArena S1 越障导航</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">待补充</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">归档中</td></tr></tbody></table>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">优秀结营作业</h4>
+<p style="margin-bottom:0.75rem;color:var(--text-secondary);">优秀结营作业待补充。后续确认优秀作品后，可从上方成果列表中筛选并补充到本节。</p></div>
+</div>
+
+    <!-- Phase 4 -->
+    <div class="tab-panel" id="panel-phase4">
+      <div class="card">
+        <h3>第四期：强化学习与 MotrixLab 入门</h3>
+        <p>本课程适合作为训练营前置学习、平台实战预习和作业提交参考。先建立强化学习基本概念，再理解 MotrixLab 的平台架构、配置系统、注册系统、训练流程和 Demo 分析方法。</p>
+        <p><strong>视频合集</strong>：<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank">强化学习与 MotrixLab 入门课程（Bilibili）</a></p>
+        <h4>强化学习基础课程</h4>
+        <table>
+          <thead><tr><th>模块</th><th>学习重点</th><th>资料</th></tr></thead>
+          <tbody>
+            <tr><td>强化学习入门</td><td>基本概念与马尔可夫模型</td><td>强化学习入门：基本概念与马尔可夫模型.pptx</td></tr>
+            <tr><td>贝尔曼方程</td><td>价值函数、状态转移与 Bellman Equation</td><td>BellmanEquation.pptx</td></tr>
+            <tr><td>强化学习核心求解方法</td><td>策略迭代、值迭代、蒙特卡洛方法</td><td>强化学习核心求解方法.pptx</td></tr>
+            <tr><td>时序差分算法入门</td><td>TD 学习、Bootstrapping 与采样更新</td><td>时序差分算法.pptx</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin: 2rem 0 1rem;">12 讲精品课程</h3>
+      <div class="lecture-grid">
+        <div class="lecture-card">
+          <div class="lecture-num">01</div>
+          <div class="lecture-title">课程导论：MotrixLab 能做什么</div>
+          <div class="lecture-desc">MotrixLab 的定位与应用场景、机器人强化学习平台的核心价值、课程学习路径与目标。</div>
+          <span class="badge">30 分钟</span>
+        </div>
+        <div class="lecture-card">
+          <div class="lecture-num">02</div>
+          <div class="lecture-title">基础框架总览：分层架构怎么看</div>
+          <div class="lecture-desc">用户接口层、训练算法层、环境实现层、物理仿真层的职责划分与关系。</div>
+          <span class="badge">30 分钟</span>
+        </div>
+        <div class="lecture-card">
+          <div class="lecture-num">03</div>
+          <div class="lecture-title">训练环境：EnvCfg、Env、Reward 的关系</div>
+          <div class="lecture-desc">EnvCfg 管参数、Env 管流程、Reward 管目标的分离设计思想。</div>
+          <span class="badge">30 分钟</span>
+        </div>
+        <div class="lecture-card">
+          <div class="lecture-num">04</div>
+          <div class="lecture-title">奖励函数：为什么奖励决定训练成败</div>
+          <div class="lecture-desc">奖励设计六大原则、稀疏/稠密奖励对比、常见奖励结构模板。</div>
+          <span class="badge">30 分钟</span>
+        </div>
+        <div class="lecture-card">
+          <div class="lecture-num">05</div>
+          <div class="lecture-title">Demo 分析方法：如何读懂一个案例</div>
+          <div class="lecture-desc">强化学习 8 要素分析、通用流程与 MotrixLab 封装、代码与要素对应关系。</div>
+          <span class="badge">30 分钟</span>
+        </div>
+        <div class="lecture-card">
+          <div class="lecture-num">06</div>
+          <div class="lecture-title">基础控制 Demo：倒立摆 / 单摆 / 双连杆</div>
+          <div class="lecture-desc">低维状态空间与动作空间设计、经典控制任务要素剖析、代码分析。</div>
+          <span class="badge">60 分钟</span>
+        </div>
+        <div class="lecture-card">
+          <div class="lecture-num">07</div>
+          <div class="lecture-title">机械臂与抓取 Demo 讲解</div>
+          <div class="lecture-desc">Franka 抓取立方体任务、多阶段奖励设计、机械臂控制核心难点。</div>
+          <span class="badge">60 分钟</span>
+        </div>
+        <div class="lecture-card">
+          <div class="lecture-num">08</div>
+          <div class="lecture-title">运动机器人 Demo：Walker / GO1 / Humanoid</div>
+          <div class="lecture-desc">行走任务共性与差异、奖励结构对比、训练挑战与调参技巧。</div>
+          <span class="badge">60 分钟</span>
+        </div>
+        <div class="lecture-card">
+          <div class="lecture-num">09</div>
+          <div class="lecture-title">训练流程：从 train.py 到模型保存</div>
+          <div class="lecture-desc">CLI 解析、双层注册表、SKRL PPO 循环、模型保存与 TensorBoard。</div>
+          <span class="badge">30 分钟</span>
+        </div>
+        <div class="lecture-card">
+          <div class="lecture-num">10</div>
+          <div class="lecture-title">配置系统：环境配置与训练配置怎么协作</div>
+          <div class="lecture-desc">EnvCfg 与 RLCfg 解耦、参数继承与覆盖、运行时灵活控制实验。</div>
+          <span class="badge">30 分钟</span>
+        </div>
+        <div class="lecture-card">
+          <div class="lecture-num">11</div>
+          <div class="lecture-title">注册系统：新环境如何接入框架</div>
+          <div class="lecture-desc">两套注册表分工、环境配置/实现/RL 配置注册、import 链修改。</div>
+          <span class="badge">30 分钟</span>
+        </div>
+        <div class="lecture-card">
+          <div class="lecture-num">12</div>
+          <div class="lecture-title">总结：如何自己改 Demo、调奖励、做新任务</div>
+          <div class="lecture-desc">修改 Demo 完整流程、开发新任务步骤、版本管理与训练技巧。</div>
+          <span class="badge">30 分钟</span>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 2rem;">
+        <h4>课程资料汇总</h4>
+        <ul>
+          <li>官方文档：<a href="https://motrixlab.readthedocs.io/zh-cn/latest/user_guide/tutorial/basic_frame.html" target="_blank">MotrixLab 基础框架教程</a></li>
+          <li>GitHub 仓库：<a href="https://github.com/Motphys/MotrixLab" target="_blank">Motphys/MotrixLab</a></li>
+          <li>PPT 资料：强化学习入门、贝尔曼方程、核心求解方法、时序差分算法（待上传）</li>
+        </ul>
+      </div>
+    <div class="card mt-4 animate-on-scroll"><h4 style="margin-bottom:1rem;font-size:1.0625rem;">📚 课程总览</h4><h3 style="margin-top:1.5rem;margin-bottom:0.75rem;color:var(--text-primary);">第四期实训营（强化学习与MotrixLab入门课程）</h3>
+<p style="border-left:2px solid var(--accent);padding-left:0.75rem;color:var(--text-secondary);margin:0.75rem 0;">本页整理强化学习基础与 MotrixLab 入门精品课程，适合作为训练营前置学习、平台实战预习和作业提交参考。</p>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">课程定位</h4>
+<ul>
+<li><strong>学习目标</strong>：先建立强化学习基本概念，再理解 MotrixLab 的平台架构、配置系统、注册系统、训练流程和 Demo 分析方法</li>
+<li><strong>适合人群</strong>：准备进入机器人强化学习实战、希望系统理解 MotrixLab 工作流的学习者</li>
+<li><strong>交付形式</strong>：每节课建议形成学习文档，包含概念理解、实验记录、代码分析、视频或截图等成果</li>
+<li><strong>视频合集</strong>：<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank">强化学习与 MotrixLab 入门课程</a></li>
+</ul>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">强化学习基础课程</h4>
+<table style="width:100%;border-collapse:collapse;font-size:0.875rem;margin:1rem 0;"><thead><tr><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">模块</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">学习重点</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">资料</th></tr></thead><tbody><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">强化学习入门</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">基本概念与马尔可夫模型</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">强化学习入门：基本概念与马尔可夫模型.pptx</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">贝尔曼方程</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">价值函数、状态转移与 Bellman Equation</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">BellmanEquation.pptx</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">强化学习核心求解方法</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">策略迭代、值迭代、蒙特卡洛方法</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">强化学习核心求解方法.pptx</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">时序差分算法入门</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">TD 学习、Bootstrapping 与采样更新</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">时序差分算法.pptx</td></tr></tbody></table>
+<h4 style="margin-top:1.25rem;margin-bottom:0.5rem;color:var(--text-primary);">MotrixLab 入门精品课程</h4>
+<table style="width:100%;border-collapse:collapse;font-size:0.875rem;margin:1rem 0;"><thead><tr><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">课次</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">主题</th><th style="background:var(--bg-sunken);padding:0.625rem 0.875rem;text-align:left;font-weight:600;color:var(--text-primary);border-bottom:1px solid var(--border);">核心产出</th></tr></thead><tbody><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">1</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">课程导论：MotrixLab 能做什么</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">说明 MotrixLab 的定位、平台价值与个人学习目标</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">2</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">基础框架总览：分层架构怎么看</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">画出四层架构，并解释各层职责</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">3</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">训练环境：EnvCfg、Env、Reward 的关系</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">理解环境配置、任务逻辑和奖励驱动之间的关系</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">4</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">奖励函数：为什么奖励决定训练成败</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">对比稀疏/稠密奖励，并设计一个奖励函数框架</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">5</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">配置系统：环境配置与训练配置怎么协作</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">理解 EnvCfg 与 RLCfg 的解耦和协作</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">6</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">注册系统：新环境如何接入框架</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">写出新环境注册、实现与 import 链修改思路</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">7</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">训练流程：从 train.py 到模型保存</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">梳理 CLI 到 Trainer 执行的完整训练流程</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">8</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">Demo 分析方法：如何读懂一个案例</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">用强化学习 8 个要素分析 CartPole</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">9</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">基础控制 Demo 讲解：倒立摆 / 单摆 / 双连杆</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">跑通基础控制 Demo，并比较任务要素</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">10</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">机械臂与抓取 Demo 讲解</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">修改 Franka 抓取奖励，并分析抓取类任务</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">11</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">运动机器人 Demo 讲解：Walker / GO1 / Humanoid</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">跑通运动机器人 baseline，理解奖励与动作表现</td></tr><tr><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">12</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">总结：如何自己改 Demo、调奖励、做新任务</td><td style="padding:0.625rem 0.875rem;border-bottom:1px solid var(--border-light);color:var(--text-secondary);">完成一个新 GO1 步态训练与记录</td></tr></tbody></table></div>
+</div>
+
+    <div class="footer">
+      <p> MotrixLab 强化学习与仿真训练营 · Xbotics 具身智能实验室</p>
+      <p>本作品采用 CC BY-NC-SA 4.0 进行许可</p>
+    </div>
   </div>
 
-  <!-- Header -->
-  <header class="site-header">
-    <div class="header-left">
-      <button class="menu-toggle" aria-label="打开菜单">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-      <a href="#" class="logo">
-        <div class="logo-mark">M</div>
-        <span>xbotics 强化学习与仿真知识库</span>
-      </a>
-    </div>
-    <div class="header-center">
-      <div class="search-box">
-        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" placeholder="搜索课程、任务、资料..." aria-label="搜索" id="search-input">
-        <div class="search-results" id="search-results"></div>
-      </div>
-    </div>
-    <div class="header-right">
-      <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp" target="_blank" class="header-btn" aria-label="GitHub" title="GitHub">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-      </a>
-    </div>
-  </header>
-
-  <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
-  <!-- Sidebar -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-progress">
-      <div class="progress-header">
-        <span class="progress-title">学习进度</span>
-        <span class="progress-percent" id="progress-percent">0%</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-bar-fill" id="progress-bar-fill" style="width:0%"></div>
-      </div>
-    </div>
-    <nav class="sidebar-nav">
-      <div class="nav-section">
-        <div class="nav-section-title" onclick="toggleNavSection(this)">
-          <span>概览</span>
-          <svg class="nav-section-toggle" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <ul class="nav-items">
-          <li class="nav-item active"><a href="#overview"><span class="nav-item-number">01</span> 课程简介</a></li>
-          <li class="nav-item"><a href="#stats"><span class="nav-item-number">02</span> 数据概览</a></li>
-          <li class="nav-item"><a href="#phases"><span class="nav-item-number">03</span> 四期路径</a></li>
-        </ul>
-      </div>
-      <div class="nav-section">
-        <div class="nav-section-title" onclick="toggleNavSection(this)">
-          <span>第四期 · 精品课程</span>
-          <svg class="nav-section-toggle" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <ul class="nav-items">
-          <li class="nav-item"><a href="#lecture-01"><span class="nav-item-number">01</span> 课程导论</a></li>
-          <li class="nav-item"><a href="#lecture-02"><span class="nav-item-number">02</span> 基础框架总览</a></li>
-          <li class="nav-item"><a href="#lecture-03"><span class="nav-item-number">03</span> 训练环境</a></li>
-          <li class="nav-item"><a href="#lecture-04"><span class="nav-item-number">04</span> 奖励函数</a></li>
-          <li class="nav-item"><a href="#lecture-05"><span class="nav-item-number">05</span> Demo 分析</a></li>
-          <li class="nav-item"><a href="#lecture-06"><span class="nav-item-number">06</span> 基础控制</a></li>
-          <li class="nav-item"><a href="#lecture-07"><span class="nav-item-number">07</span> 机械臂抓取</a></li>
-          <li class="nav-item"><a href="#lecture-08"><span class="nav-item-number">08</span> 运动机器人</a></li>
-          <li class="nav-item"><a href="#lecture-09"><span class="nav-item-number">09</span> 训练流程</a></li>
-          <li class="nav-item"><a href="#lecture-10"><span class="nav-item-number">10</span> 配置系统</a></li>
-          <li class="nav-item"><a href="#lecture-11"><span class="nav-item-number">11</span> 注册系统</a></li>
-          <li class="nav-item"><a href="#lecture-12"><span class="nav-item-number">12</span> 总结</a></li>
-        </ul>
-      </div>
-      <div class="nav-section">
-        <div class="nav-section-title" onclick="toggleNavSection(this)">
-          <span>往期训练营</span>
-          <svg class="nav-section-toggle" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <ul class="nav-items">
-          <li class="nav-item"><a href="#phases"><span class="nav-item-number">1</span> 第一期</a></li>
-          <li class="nav-item"><a href="#phases"><span class="nav-item-number">2</span> 第二期</a></li>
-          <li class="nav-item"><a href="#phases"><span class="nav-item-number">3</span> 第三期</a></li>
-        </ul>
-      </div>
-      <div class="nav-section">
-        <div class="nav-section-title" onclick="toggleNavSection(this)">
-          <span>更多</span>
-          <svg class="nav-section-toggle" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <ul class="nav-items">
-          <li class="nav-item"><a href="#projects"><span class="nav-item-number">P</span> 项目实践</a></li>
-          <li class="nav-item"><a href="#community"><span class="nav-item-number">C</span> 社区共建</a></li>
-        </ul>
-      </div>
-    </nav>
-  </aside>
-
-  <main class="main-content">
-    <!-- HERO -->
-    <section class="hero" id="overview">
-      <canvas id="particle-canvas"></canvas>
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span class="pulse-dot"></span>
-          开源训练营 · 四期持续迭代中
-        </div>
-        <h1 class="hero-title">Xbotics &amp;Motphys<br>强化学习与仿真软件实训营</h1>
-        <p class="hero-subtitle">
-          面向机器人学、强化学习与具身智能爱好者的开源训练营。从坐标系变换到 MotrixLab 平台实战，从 PPO 算法到四足机器人行走任务，系统掌握机器人强化学习的完整链路。
-        </p>
-        <div class="hero-cta">
-          <a href="#phases" class="btn btn-primary">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            开始学习
-          </a>
-          <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp" target="_blank" class="btn btn-secondary">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-            GitHub 仓库
-          </a>
-        </div>
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <div class="hero-stat-value" data-count="12">12</div>
-            <div class="hero-stat-label">精品课程</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-value" data-count="4">4</div>
-            <div class="hero-stat-label">训练周期</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-value" data-count="30">30+</div>
-            <div class="hero-stat-label">天学习路径</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-value">∞</div>
-            <div class="hero-stat-label">社区共建</div>
-          </div>
-        </div>
-      </div>
-      <div class="scroll-indicator" onclick="document.getElementById('stats').scrollIntoView({behavior:'smooth'})">
-        <span>向下滚动探索</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </section>
-
-    <!-- STATS SECTION -->
-    <section class="section stats-section" id="stats" data-section>
-      <div class="content-container">
-        <div class="section-header animate-on-scroll">
-          <div class="section-label">数据概览</div>
-          <h2 class="section-title">训练营核心数据</h2>
-          <p class="section-desc">四期持续迭代，沉淀完整学习路径与项目实践</p>
-        </div>
-        <div class="stats-grid">
-          <div class="stat-card animate-on-scroll">
-            <div class="stat-number" data-count="12">12</div>
-            <div class="stat-label">精品课程</div>
-          </div>
-          <div class="stat-card animate-on-scroll animate-delay-1">
-            <div class="stat-number" data-count="4">4</div>
-            <div class="stat-label">训练周期</div>
-          </div>
-          <div class="stat-card animate-on-scroll animate-delay-2">
-            <div class="stat-number" data-count="30">30+</div>
-            <div class="stat-label">天学习路径</div>
-          </div>
-          <div class="stat-card animate-on-scroll animate-delay-3">
-            <div class="stat-number">∞</div>
-            <div class="stat-label">社区共建</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PHASES SECTION -->
-    <section class="section" id="phases" data-section>
-      <div class="content-container">
-        <div class="section-header animate-on-scroll">
-          <div class="section-label">学习路径</div>
-          <h2 class="section-title">四期训练营完整路径</h2>
-          <p class="section-desc">从入门到进阶，系统掌握机器人强化学习仿真训练</p>
-        </div>
-        <div class="tab-buttons animate-on-scroll">
-          <button class="tab-btn active" onclick="switchTab('phase4')">第四期</button>
-          <button class="tab-btn" onclick="switchTab('phase3')">第三期</button>
-          <button class="tab-btn" onclick="switchTab('phase1')">第一期</button>
-          <button class="tab-btn" onclick="switchTab('phase2')">第二期</button>
-        </div>
-
-<div class="tab-panel active" id="panel-phase4">
-          <div class="timeline">
-            <div class="timeline-item animate-on-scroll">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">阶段一：理论基础</div>
-                <div class="timeline-text">覆盖坐标系变换、轨迹规划、FK/IK、深度强化学习 PPO/A3C。先建立强化学习基本概念，再理解 MotrixLab 的平台架构、配置系统、注册系统、训练流程和 Demo 分析方法。</div>
-                <div class="timeline-meta">
-                  <span>4 周</span>
-                  <span>12 讲课程</span>
-                  <span>Bilibili 视频</span>
-                </div>
-              </div>
-            </div>
-            <div class="timeline-item animate-on-scroll animate-delay-1">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">阶段二：平台实战</div>
-                <div class="timeline-text">聚焦 MotrixLab 平台的任务理解、配置与复现。通过官方 Demo 学习平台架构、环境配置、奖励设计与训练流程，逐步具备独立开发新任务的能力。</div>
-                <div class="timeline-meta">
-                  <span>4 周</span>
-                  <span>GO1 / Walker / Humanoid</span>
-                  <span>Franka 抓取</span>
-                </div>
-              </div>
-            </div>
-            <div class="timeline-item animate-on-scroll animate-delay-2">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">结营实践</div>
-                <div class="timeline-text">提交代码、周报、结果分析和结营作业，沉淀可复用的工程经验。训练一个新的 GO1 步态，跑通修改 Demo 的完整流程。</div>
-                <div class="timeline-meta">
-                  <span>作业提交</span>
-                  <span>视频记录</span>
-                  <span>奖励函数修改文档</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card mt-4 animate-on-scroll">
-            <h4 style="margin-bottom:1rem;font-size:1.0625rem;">第四期课程资料</h4>
-            <table style="width:100%;border-collapse:collapse;font-size:0.8125rem;">
-              <thead><tr><th style="text-align:left;padding:0.625rem;background:var(--bg-sunken);border-bottom:1px solid var(--border);font-weight:600;">类型</th><th style="text-align:left;padding:0.625rem;background:var(--bg-sunken);border-bottom:1px solid var(--border);font-weight:600;">内容</th></tr></thead>
-              <tbody>
-                <tr><td style="padding:0.625rem;border-bottom:1px solid var(--border-light);">视频合集</td><td style="padding:0.625rem;border-bottom:1px solid var(--border-light);"><a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank">强化学习与 MotrixLab 入门课程（Bilibili）</a></td></tr>
-                <tr><td style="padding:0.625rem;border-bottom:1px solid var(--border-light);">官方文档</td><td style="padding:0.625rem;border-bottom:1px solid var(--border-light);"><a href="https://motrixlab.readthedocs.io/zh-cn/latest/user_guide/tutorial/basic_frame.html" target="_blank">MotrixLab 基础框架教程</a></td></tr>
-                <tr><td style="padding:0.625rem;border-bottom:1px solid var(--border-light);">GitHub 仓库</td><td style="padding:0.625rem;border-bottom:1px solid var(--border-light);"><a href="https://github.com/Motphys/MotrixLab" target="_blank">Motphys/MotrixLab（官方源码）</a></td></tr>
-                <tr><td style="padding:0.625rem;border-bottom:1px solid var(--border-light);">课程教案</td><td style="padding:0.625rem;border-bottom:1px solid var(--border-light);">12 讲课程教案（详见下方各讲卡片）</td></tr>
-                <tr><td style="padding:0.625rem;">PPT 资料</td><td style="padding:0.625rem;">强化学习入门、贝尔曼方程、核心求解方法、时序差分算法（待上传）</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Phase 3 Panel -->
-        <div class="tab-panel" id="panel-phase3">
-          <div class="timeline">
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">阶段一：理论基础（Beta 公测版）</div>
-                <div class="timeline-text">聚焦机器人学与强化学习基础，系统掌握坐标系与位姿变换、轨迹规划、机器人运动学以及深度强化学习知识。包含第1-4周完整内容：坐标系与位姿变换、轨迹规划、机器人运动学（FK/IK）、深度强化学习（PPO/A3C）。</div>
-                <div class="timeline-meta"><span>5 周</span><span>在线文档</span></div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">阶段二：平台实战</div>
-                <div class="timeline-text">熟悉 MotrixLab 平台的任务结构、训练流程与调试方法，完成四足机器人任务的配置、训练与结果复现。包含：熟悉平台与跑通基础任务、深入理解任务结构、搭建任务框架、完整调试与复现结果。</div>
-                <div class="timeline-meta"><span>4 周</span><span>云平台实操</span></div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">项目实践</div>
-                <div class="timeline-text">第三期结营作业正在整理中，包含越障导航等任务实践成果。</div>
-                <div class="timeline-meta"><span>结营作业归档中</span></div>
-              </div>
-            </div>
-          </div>
-          <div class="card mt-4">
-            <h4 style="margin-bottom:1rem;font-size:1.0625rem;">第三期学习资源</h4>
-            <ul style="font-size:0.875rem;color:var(--text-secondary);line-height:1.8;padding-left:1.25rem;">
-              <li>云平台：<a href="https://robogo.d-robotics.cc/cloud-desktop" target="_blank">Robogo Cloud Desktop</a>（镜像 xbotics-full-v2.5.1）</li>
-              <li>官方文档：<a href="https://motrixlab.readthedocs.io/zh-cn/latest/" target="_blank">MotrixLab 文档</a></li>
-              <li>MuJoCo 资产库：<a href="https://github.com/google-deepmind/mujoco_menagerie" target="_blank">Google DeepMind Menagerie</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Phase 1 Panel -->
-        <div class="tab-panel" id="panel-phase1">
-          <div class="timeline">
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">阶段一：理论基础</div>
-                <div class="timeline-text">坐标系变换、轨迹规划、FK/IK、深度强化学习 PPO/A3C。为后续的 MotrixLab 平台实战打下坚实的理论与算法基础。</div>
-                <div class="timeline-meta"><span>4 周</span><span>已结营</span></div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">阶段二：平台实战</div>
-                <div class="timeline-text">熟悉 MotrixLab、完成任务理解、配置与训练实操。深入理解 MotrixLab 的文件结构、配置机制、强化学习奖励设计与训练调试流程。</div>
-                <div class="timeline-meta"><span>4 周</span><span>已结营</span></div>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <div class="timeline-content">
-                <div class="timeline-title">结营作业：张恒</div>
-                <div class="timeline-text">Unitree Go2 平地行走任务实践（MotrixLab）。基于 Motrix 框架完成环境配置参数、奖励函数设计以及动作空间定义。核心修正了 action space 定义错误，将动作空间边界从物理限位改为固定归一化范围 [-1, 1]。</div>
-                <div class="timeline-meta"><span>代码仓库</span><span>周报文档</span></div>
-              </div>
-            </div>
-          </div>
-          <div class="card mt-4">
-            <h4 style="margin-bottom:1rem;font-size:1.0625rem;">第一期优秀成果</h4>
-            <table style="width:100%;border-collapse:collapse;font-size:0.8125rem;">
-              <thead><tr><th style="text-align:left;padding:0.625rem;background:var(--bg-sunken);border-bottom:1px solid var(--border);font-weight:600;">学员</th><th style="text-align:left;padding:0.625rem;background:var(--bg-sunken);border-bottom:1px solid var(--border);font-weight:600;">任务</th><th style="text-align:left;padding:0.625rem;background:var(--bg-sunken);border-bottom:1px solid var(--border);font-weight:600;">代码仓库</th></tr></thead>
-              <tbody>
-                <tr><td style="padding:0.625rem;border-bottom:1px solid var(--border-light);font-weight:600;">张恒</td><td style="padding:0.625rem;border-bottom:1px solid var(--border-light);">Unitree Go2 平地行走任务实践</td><td style="padding:0.625rem;border-bottom:1px solid var(--border-light);"><a href="https://github.com/cotton365/MotrixLab-go2" target="_blank">cotton365/MotrixLab-go2</a></td></tr>
-              </tbody>
-            </table>
-            <div style="margin-top:1rem;padding:1rem;background:var(--bg-sunken);border-radius:var(--radius-md);font-size:0.8125rem;color:var(--text-secondary);line-height:1.7;">
-              <strong style="color:var(--text-primary);">核心修正点：</strong>原版 Motrix 以 actuator_ctrl_limits（物理限位）作为动作空间边界，配合 action_scale=0.05。后续调参时将 action_scale 改为 0.25，但未同步修改动作空间边界。修正方案：将 _init_action_space 中的动作空间边界改为固定的 [-1, 1]，使其与归一化动作空间完全对齐。
-            </div>
-          </div>
-        </div>
-
-        <!-- Phase 2 Panel -->
-        <div class="tab-panel" id="panel-phase2">
-          <div class="card" style="text-align:center;padding:3rem;">
-            <div style="font-size:3rem;margin-bottom:1rem;">🚧</div>
-            <h3 style="margin-bottom:0.75rem;">第二期暂无归档</h3>
-            <p style="color:var(--text-secondary);font-size:0.9375rem;">第二期结营作业尚未归档到仓库中。欢迎第二期学员补充提交学习成果与项目实践。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-<!-- LECTURES SECTION -->
-    <section class="section" id="lectures" data-section>
-      <div class="content-container">
-        <div class="section-header animate-on-scroll">
-          <div class="section-label">精品课程</div>
-          <h2 class="section-title">第四期：强化学习与 MotrixLab 入门</h2>
-          <p class="section-desc">12 讲完整课程，从理论到实战，点击卡片展开查看详细内容、课程资料与作业要求</p>
-        </div>
-
-        <!-- Lecture 01 -->
-        <div class="lecture-card animate-on-scroll" id="lecture-01" data-lecture="lecture-01">
-          <div class="lecture-header" onclick="toggleLecture(this)">
-            <div class="lecture-number">01</div>
-            <div class="lecture-info">
-              <div class="lecture-title">课程导论：MotrixLab 能做什么</div>
-              <div class="lecture-meta">
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30 分钟</span>
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> 导论</span>
-              </div>
-            </div>
-            <div class="lecture-toggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-          </div>
-          <div class="lecture-content">
-            <div class="lecture-body">
-              <h4>学习重点</h4>
-              <ul>
-                <li>MotrixLab 的定位与应用场景</li>
-                <li>机器人强化学习平台的核心价值</li>
-                <li>课程学习路径与目标</li>
-              </ul>
-              <h4>MotrixLab 的定位</h4>
-              <p>MotrixLab 是面向机器人强化学习的开发平台。机器人任务和普通强化学习任务不太一样，它涉及：机器人模型、关节和执行器、物理仿真、接触和碰撞、控制频率、动作约束、奖励设计、训练算法、日志和模型保存。</p>
-              <p>典型应用场景包括三类：<strong>学习和教学</strong>、<strong>Demo 复现和分析</strong>、<strong>任务改造和二次开发</strong>。</p>
-              <h4>平台核心价值</h4>
-              <p>MotrixLab 把机器人强化学习任务拆成环境、奖励、配置、注册和训练流程等模块，让项目更清晰、更容易扩展，也更适合教学。可以把 MotrixLab 看成一个机器人强化学习工作台：</p>
-              <ul>
-                <li>环境区域负责定义任务</li>
-                <li>奖励区域负责给行为打分</li>
-                <li>配置区域负责管理参数</li>
-                <li>注册区域负责让框架找到任务</li>
-                <li>训练入口负责启动完整流程</li>
-              </ul>
-              <h4>课程资料</h4>
-              <ul>
-                
-                <li>课程 PPT：MotrixLab_框架介绍.pptx</li>
-                <li>学习视频：<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank">MotrixLab 入门课程 第 1 讲——框架介绍</a></li>
-              </ul>
-              <h4>课程作业</h4>
-              <ol>
-                <li>结合课程内容，用自己的话解释 MotrixLab 的定位：它是一个什么样的平台？主要解决什么问题？</li>
-                <li>说明机器人强化学习平台相比从零写训练代码的核心价值，至少列出 3 点</li>
-                <li>结合课程学习路径图，简要规划自己的学习目标和预期产出</li>
-              </ol>
-              <p><strong>交付要求：</strong>形成一份学习文档，包含以上问题的回答和本节课程总结。</p>
-            </div>
-          </div>
-        </div>
-
-<div class="lecture-card animate-on-scroll" id="lecture-02" data-lecture="lecture-02">
-          <div class="lecture-header" onclick="toggleLecture(this)">
-            <div class="lecture-number">02</div>
-            <div class="lecture-info">
-              <div class="lecture-title">基础框架总览：分层架构怎么看</div>
-              <div class="lecture-meta">
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30 分钟</span>
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg> 架构</span>
-              </div>
-            </div>
-            <div class="lecture-toggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-          </div>
-          <div class="lecture-content">
-            <div class="lecture-body">
-              <h4>四层架构</h4>
-              <div class="code-block"><div class="code-header"><span class="code-lang">架构</span></div><pre>用户接口层    ← train.py / play.py / view.py
-训练算法层    ← PPO / A3C / SKRL / RSLRL
-环境实现层    ← EnvCfg / Env / Reward
-物理仿真层    ← 机器人模型 / 关节 / 碰撞 / 动力学</pre></div>
-              <h4>各层职责</h4>
-              <ul>
-                <li><strong>用户接口层</strong>：读取命令行参数、选择训练框架、加载配置、创建环境、启动训练</li>
-                <li><strong>训练算法层</strong>：数据采样、优势估计、策略损失、价值损失、熵奖励、参数更新</li>
-                <li><strong>环境实现层</strong>：EnvCfg 定义参数，Env 实现任务逻辑，Reward 生成学习信号</li>
-                <li><strong>物理仿真层</strong>：处理机器人模型、关节、碰撞、接触、质量、惯性、动力学</li>
-              </ul>
-              <h4>训练流程</h4>
-              <div class="code-block"><div class="code-header"><span class="code-lang">流程</span></div><pre>用户命令 → 训练入口 → 配置和注册 → 环境创建
-  → 算法采样 → 物理仿真 → 奖励反馈 → 策略更新</pre></div>
-              <h4>课程资料</h4>
-              <ul>
-                
-                <li>学习视频：<a href="https://www.bilibili.com/video/BV1T9Vm6UEiw" target="_blank">MotrixLab 入门课程 第 2 讲——分层结构</a></li>
-              </ul>
-              <h4>课程作业</h4>
-              <ol>
-                <li>画出 MotrixLab 的四层分层架构示意图，并用文字描述每一层的职责</li>
-                <li>思考为什么要把架构分成多层，说明分层设计的至少 2 个好处</li>
-                <li>选择一个熟悉的机器人任务，分析它在架构各层中如何被支持</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-<div class="lecture-card animate-on-scroll" id="lecture-03" data-lecture="lecture-03">
-          <div class="lecture-header" onclick="toggleLecture(this)">
-            <div class="lecture-number">03</div>
-            <div class="lecture-info">
-              <div class="lecture-title">训练环境：EnvCfg、Env、Reward 的关系</div>
-              <div class="lecture-meta">
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30 分钟</span>
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg> 环境</span>
-              </div>
-            </div>
-            <div class="lecture-toggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-          </div>
-          <div class="lecture-content">
-            <div class="lecture-body">
-              <h4>三个类的角色</h4>
-              <table>
-                <thead><tr><th>类</th><th>角色</th><th>核心职责</th></tr></thead>
-                <tbody>
-                  <tr><td><strong>EnvCfg</strong></td><td>环境配置类</td><td>定义环境参数：观测维度、动作维度、仿真步长、episode 长度等</td></tr>
-                  <tr><td><strong>Env</strong></td><td>环境实现类</td><td>实现任务逻辑：接收动作、推进仿真、构造观测、判断终止</td></tr>
-                  <tr><td><strong>Reward</strong></td><td>奖励计算类</td><td>根据环境状态计算奖励，驱动智能体学习</td></tr>
-                </tbody>
-              </table>
-              <h4>分离设计的好处</h4>
-              <ul>
-                <li>让配置可复用，同一套配置可以对应不同的实现变体</li>
-                <li>让实验参数集中管理，方便调参和复现</li>
-                <li>降低环境实现的复杂度，Env 只关心逻辑，不关心参数默认值</li>
-              </ul>
-              <h4>课程资料</h4>
-              <ul>
-                
-                <li>学习视频：<a href="https://www.bilibili.com/video/BV1NfVm6LE82" target="_blank">MotrixLab 入门课程 第 3 讲——训练环境</a></li>
-              </ul>
-              <h4>课程作业</h4>
-              <ol>
-                <li>分别说明 EnvCfg、Env、Reward 三个类在 MotrixLab 中的角色，并用一句话概括每个类的核心职责</li>
-                <li>以 CartPole 为例，尝试写出 EnvCfg 中至少需要定义哪些参数</li>
-                <li>思考为什么要把环境配置和环境实现分开设计</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-<div class="lecture-card animate-on-scroll" id="lecture-04" data-lecture="lecture-04">
-          <div class="lecture-header" onclick="toggleLecture(this)">
-            <div class="lecture-number">04</div>
-            <div class="lecture-info">
-              <div class="lecture-title">奖励函数：为什么奖励决定训练成败</div>
-              <div class="lecture-meta">
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30 分钟</span>
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> 奖励</span>
-              </div>
-            </div>
-            <div class="lecture-toggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-          </div>
-          <div class="lecture-content">
-            <div class="lecture-body">
-              <h4>奖励设计三原则</h4>
-              <ol>
-                <li><strong>可区分性</strong>：好的奖励应该能区分不同行为的质量</li>
-                <li><strong>可达成性</strong>：奖励信号应该引导智能体逐步接近目标</li>
-                <li><strong>鲁棒性</strong>：奖励设计应该对环境的随机性和扰动具有容忍度</li>
-              </ol>
-              <h4>稀疏奖励 vs 稠密奖励</h4>
-              <table>
-                <thead><tr><th>类型</th><th>特点</th><th>适用场景</th></tr></thead>
-                <tbody>
-                  <tr><td>稀疏奖励</td><td>只在关键节点给奖励，其他时刻为0</td><td>目标明确、探索空间小的任务</td></tr>
-                  <tr><td>稠密奖励</td><td>每一步都有奖励信号，引导性强</td><td>复杂任务、需要精细控制的场景</td></tr>
-                </tbody>
-              </table>
-              <h4>课程资料</h4>
-              <ul>
-                
-                <li>学习视频：<a href="https://www.bilibili.com/video/BV1NfVm6LE3m" target="_blank">MotrixLab 入门课程 第 4 讲——奖励函数</a></li>
-              </ul>
-              <h4>课程作业</h4>
-              <ol>
-                <li>列举奖励函数的 3 个常见设计原则，并说明每条原则为什么重要</li>
-                <li>对比"奖励稀疏"和"奖励稠密"。如果倒立摆任务只在倒下时给 -1、不倒时给 0，训练会有什么问题？</li>
-                <li>为一个简单任务设计奖励函数框架，例如让机器人走到目标点</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-<div class="lecture-card animate-on-scroll" id="lecture-05" data-lecture="lecture-05">
-          <div class="lecture-header" onclick="toggleLecture(this)">
-            <div class="lecture-number">05</div>
-            <div class="lecture-info">
-              <div class="lecture-title">Demo 分析方法：如何读懂一个案例</div>
-              <div class="lecture-meta">
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30 分钟</span>
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> 分析</span>
-              </div>
-            </div>
-            <div class="lecture-toggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-          </div>
-          <div class="lecture-content">
-            <div class="lecture-body">
-              <h4>强化学习 8 个要素</h4>
-              <table>
-                <thead><tr><th>要素</th><th>说明</th><th>CartPole 示例</th></tr></thead>
-                <tbody>
-                  <tr><td><strong>智能体</strong></td><td>做决策的主体</td><td>控制小车的策略网络</td></tr>
-                  <tr><td><strong>环境</strong></td><td>智能体交互的外部世界</td><td>CartPole 物理系统</td></tr>
-                  <tr><td><strong>状态</strong></td><td>环境的完整描述</td><td>小车位置、速度、杆角度、角速度</td></tr>
-                  <tr><td><strong>观测</strong></td><td>智能体能看到的信息</td><td>4维向量 [x, x_dot, theta, theta_dot]</td></tr>
-                  <tr><td><strong>动作</strong></td><td>智能体的输出</td><td>向左或向右施加力</td></tr>
-                  <tr><td><strong>奖励</strong></td><td>行为的反馈信号</td><td>每步 +1，倒下时终止</td></tr>
-                  <tr><td><strong>策略</strong></td><td>状态到动作的映射</td><td>PPO 训练的策略网络</td></tr>
-                  <tr><td><strong>目标</strong></td><td>任务最终目的</td><td>保持杆直立尽可能长时间</td></tr>
-                </tbody>
-              </table>
-              <h4>课程资料</h4>
-              <ul>
-                
-                <li>学习视频：<a href="https://www.bilibili.com/video/BV1fGVU6vEA3" target="_blank">MotrixLab 入门课程 第 8 讲——Demo 分析方法</a></li>
-                <li>参考文档：<a href="https://motrixlab.readthedocs.io/zh-cn/latest/user_guide/demo/cartpole.html" target="_blank">CartPole 官方 Demo</a></li>
-              </ul>
-              <h4>课程作业</h4>
-              <ol>
-                <li>整理强化学习通用流程和 8 个要素，研究 MotrixLab 的对应实现方法</li>
-                <li>结合官方文档，独立完成对 CartPole 任务环境的 8 个强化学习要素分析和对应 MotrixLab 实现的代码分析</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-<div class="lecture-card animate-on-scroll" id="lecture-06" data-lecture="lecture-06">
-          <div class="lecture-header" onclick="toggleLecture(this)">
-            <div class="lecture-number">06</div>
-            <div class="lecture-info">
-              <div class="lecture-title">基础控制 Demo：倒立摆 / 单摆 / 双连杆</div>
-              <div class="lecture-meta">
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 分钟</span>
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg> 控制</span>
-              </div>
-            </div>
-            <div class="lecture-toggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-          </div>
-          <div class="lecture-content">
-            <div class="lecture-body">
-              <h4>三个基础控制 Demo</h4>
-              <table>
-                <thead><tr><th>任务</th><th>状态空间</th><th>动作空间</th><th>核心挑战</th></tr></thead>
-                <tbody>
-                  <tr><td><strong>倒立摆</strong></td><td>4维连续</td><td>2维离散</td><td>保持杆直立，平衡控制</td></tr>
-                  <tr><td><strong>单摆</strong></td><td>3维连续</td><td>1维连续</td><td>能量控制，摆动到竖直</td></tr>
-                  <tr><td><strong>双连杆</strong></td><td>6维连续</td><td>1维连续</td><td>混沌系统，复杂动力学</td></tr>
-                </tbody>
-              </table>
-              <h4>单摆奖励修改实验</h4>
-              <p>修改 MotrixLab 源代码中单摆任务奖励函数的能量部分，对比修改前后单摆最后竖直的效果。可以尝试：</p>
-              <ul>
-                <li>增大角度权重，让竖直位置的奖励更显著</li>
-                <li>加入能量项，利用能量守恒原理引导摆动</li>
-                <li>修改奖励的稀疏/稠密程度</li>
-              </ul>
-              <h4>课程资料</h4>
-              <ul>
-                
-                <li>学习视频：<a href="https://www.bilibili.com/video/BV1hKVm6DE5q?p=1" target="_blank">9.1 基础控制 Demo 讲解</a>、<a href="https://www.bilibili.com/video/BV1hKVm6DE5q?p=2" target="_blank">9.2 基础控制 Demo 讲解</a></li>
-                <li>参考文档：<a href="https://motrixlab.readthedocs.io/zh-cn/latest/user_guide/demo/dm_reacher.html" target="_blank">双关节机械臂控制任务</a></li>
-              </ul>
-              <h4>课程作业</h4>
-              <ol>
-                <li>跑通三个基础控制 Demo，整理三个任务强化学习 8 个要素的相同点和不同点</li>
-                <li>修改 MotrixLab 源代码中单摆任务奖励函数的能量部分，对比修改前后效果</li>
-                <li>自行探索双关节机械臂控制任务，整理强化学习 8 个要素</li>
-              </ol>
-              <p><strong>交付要求：</strong>三个经典任务跑通视频、单摆奖励函数修改前后对比视频、三个 Demo 对比文档和双关节机械臂控制任务分析文档。</p>
-            </div>
-          </div>
-        </div>
-
-<div class="lecture-card animate-on-scroll" id="lecture-07" data-lecture="lecture-07">
-          <div class="lecture-header" onclick="toggleLecture(this)">
-            <div class="lecture-number">07</div>
-            <div class="lecture-info">
-              <div class="lecture-title">机械臂与抓取 Demo 讲解</div>
-              <div class="lecture-meta">
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 分钟</span>
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> 机械臂</span>
-              </div>
-            </div>
-            <div class="lecture-toggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-          </div>
-          <div class="lecture-content">
-            <div class="lecture-body">
-              <h4>Franka 抓取任务</h4>
-              <p><strong>franka-lift-cube</strong> 任务：控制 Franka 机械臂抓取并抬起一个立方体。核心难点：</p>
-              <ul>
-                <li>末端执行器的精确位置控制</li>
-                <li>抓取时的接触力控制</li>
-                <li>多关节协调运动</li>
-                <li>奖励设计需要同时考虑"到达"、"抓取"和"抬起"三个阶段</li>
-              </ul>
-              <h4>奖励设计思路</h4>
-              <ul>
-                <li><strong>到达奖励</strong>：末端执行器接近立方体的距离奖励</li>
-                <li><strong>抓取奖励</strong>：夹爪闭合且接触立方体</li>
-                <li><strong>抬起奖励</strong>：立方体高度提升</li>
-                <li><strong>稳定奖励</strong>：保持立方体在空中</li>
-              </ul>
-              <h4>Franka 打开抽屉任务对比</h4>
-              <table>
-                <thead><tr><th>要素</th><th>franka-lift-cube</th><th>打开抽屉</th></tr></thead>
-                <tbody>
-                  <tr><td>任务目标</td><td>抓取并抬起立方体</td><td>拉开抽屉</td></tr>
-                  <tr><td>接触类型</td><td>夹持接触</td><td>滑动接触</td></tr>
-                  <tr><td>奖励结构</td><td>到达+抓取+抬起</td><td>接近+抓取+拉动</td></tr>
-                </tbody>
-              </table>
-              <h4>课程资料</h4>
-              <ul>
-                
-                <li>学习视频：<a href="https://www.bilibili.com/video/BV1F2V26vExQ" target="_blank">MotrixLab 入门课程 第 10 讲——机械臂与抓取 Demo 讲解</a></li>
-              </ul>
-              <h4>课程作业</h4>
-              <ol>
-                <li>修改 MotrixLab 源代码中 franka-lift-cube 任务奖励函数，并尝试增大训练步数</li>
-                <li>自行研究 Franka 打开抽屉任务，整理强化学习 8 个要素，并和 franka-lift-cube 做对比分析</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-<div class="lecture-card animate-on-scroll" id="lecture-08" data-lecture="lecture-08">
-          <div class="lecture-header" onclick="toggleLecture(this)">
-            <div class="lecture-number">08</div>
-            <div class="lecture-info">
-              <div class="lecture-title">运动机器人 Demo：Walker / GO1 / Humanoid</div>
-              <div class="lecture-meta">
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 60 分钟</span>
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> 运动</span>
-              </div>
-            </div>
-            <div class="lecture-toggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-          </div>
-          <div class="lecture-content">
-            <div class="lecture-body">
-              <h4>三个运动机器人任务</h4>
-              <table>
-                <thead><tr><th>机器人</th><th>构型</th><th>自由度</th><th>训练难度</th></tr></thead>
-                <tbody>
-                  <tr><td><strong>Walker</strong></td><td>2D 双足</td><td>约 6 个</td><td>中等</td></tr>
-                  <tr><td><strong>GO1</strong></td><td>3D 四足</td><td>12 个</td><td>较高</td></tr>
-                  <tr><td><strong>Humanoid</strong></td><td>3D 双足人形</td><td>约 21 个</td><td>高</td></tr>
-                </tbody>
-              </table>
-              <h4>奖励设计对策略的影响</h4>
-              <ul>
-                <li><strong>速度奖励为主</strong>：机器人会学习快速奔跑，但可能牺牲稳定性</li>
-                <li><strong>能量惩罚为主</strong>：机器人会学习节能步态，动作幅度小</li>
-                <li><strong>平衡奖励为主</strong>：机器人会学习保守步态，避免摔倒</li>
-                <li><strong>综合奖励</strong>：需要仔细调权重，才能得到自然步态</li>
-              </ul>
-              <h4>课程资料</h4>
-              <ul>
-                
-                <li>学习视频：<a href="https://www.bilibili.com/video/BV1ZQV26cEUS?p=1" target="_blank">第 11 讲 part11 上</a>、<a href="https://www.bilibili.com/video/BV1ZQV26cEUS?p=2" target="_blank">第 11 讲 part11 下</a></li>
-              </ul>
-              <h4>课程作业</h4>
-              <p>理解不同奖励设计对策略的影响，理解不同机器人构型导致的训练难度差异，逐步建立奖励函数到训练后动作的大致映射感。</p>
-              <p><strong>交付要求：</strong>三个任务的 baseline 跑通视频，以及观测空间、奖励函数、训练超参数的理解文档。</p>
-            </div>
-          </div>
-        </div>
-
-<div class="lecture-card animate-on-scroll" id="lecture-09" data-lecture="lecture-09">
-          <div class="lecture-header" onclick="toggleLecture(this)">
-            <div class="lecture-number">09</div>
-            <div class="lecture-info">
-              <div class="lecture-title">训练流程：从 train.py 到模型保存</div>
-              <div class="lecture-meta">
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30 分钟</span>
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> 训练</span>
-              </div>
-            </div>
-            <div class="lecture-toggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-          </div>
-          <div class="lecture-content">
-            <div class="lecture-body">
-              <h4>训练流程图</h4>
-              <div class="code-block"><div class="code-header"><span class="code-lang">流程</span></div><pre>CLI 解析 (argparse)
-  -> 确定 env_name = "cartpole"
-  -> 加载 RLCfg (默认配置 + 命令行覆盖)
-  -> 通过注册表找到 EnvCfg
-  -> 创建 Env (根据 EnvCfg 参数)
-  -> SKRL 包装 (VecEnv 等)
-  -> 构建 Agent (PPO 等算法)
-  -> 创建 Trainer
-  -> trainer.train() 执行训练循环
-  -> 定期保存模型 checkpoint
-  -> 训练结束，保存最终模型</pre></div>
-              <h4>训练命令示例</h4>
-              <div class="code-block">
-                <div class="code-header"><span class="code-lang">bash</span><button class="code-copy" onclick="copyCode(this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 复制</button></div>
-                <pre><code><span class="code-comment"># 训练 CartPole</span>
-uv run scripts/train.py --env cartpole
-
-<span class="code-comment"># 启动 TensorBoard 查看训练曲线</span>
-tensorboard --logdir runs/</code></pre>
-              </div>
-              <h4>TensorBoard 分析要点</h4>
-              <ul>
-                <li><strong>episode_reward_mean</strong>：平均奖励，应该随训练逐步上升</li>
-                <li><strong>episode_length_mean</strong>：平均 episode 长度，反映智能体存活能力</li>
-                <li><strong>loss/policy</strong> 和 <strong>loss/value</strong>：策略和价值损失，应该稳定下降</li>
-                <li><strong>entropy</strong>：策略熵，反映探索程度，不应过快降到0</li>
-              </ul>
-              <h4>课程资料</h4>
-              <ul>
-                
-                <li>学习视频：<a href="https://www.bilibili.com/video/BV1xfVm6LETE" target="_blank">MotrixLab 入门课程 第 7 讲——训练流程</a></li>
-              </ul>
-              <h4>课程作业</h4>
-              <ol>
-                <li>绘制从 train.py 执行到 trainer.train() 的简化流程图</li>
-                <li>使用默认配置训练 CartPole，并分析训练结果</li>
-                <li>写出完整训练命令，训练完成后启动 TensorBoard 并分析曲线</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-<div class="lecture-card animate-on-scroll" id="lecture-10" data-lecture="lecture-10">
-          <div class="lecture-header" onclick="toggleLecture(this)">
-            <div class="lecture-number">10</div>
-            <div class="lecture-info">
-              <div class="lecture-title">配置系统：环境配置与训练配置怎么协作</div>
-              <div class="lecture-meta">
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30 分钟</span>
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> 配置</span>
-              </div>
-            </div>
-            <div class="lecture-toggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-          </div>
-          <div class="lecture-content">
-            <div class="lecture-body">
-              <h4>EnvCfg 与 RLCfg 的职责分工</h4>
-              <table>
-                <thead><tr><th>配置类</th><th>职责</th><th>示例参数</th></tr></thead>
-                <tbody>
-                  <tr><td><strong>EnvCfg</strong></td><td>环境相关配置</td><td>仿真步长、episode长度、观测维度、动作维度、奖励权重</td></tr>
-                  <tr><td><strong>RLCfg</strong></td><td>训练算法配置</td><td>学习率、批量大小、训练步数、网络结构、PPO参数</td></tr>
-                </tbody>
-              </table>
-              <h4>为什么解耦？</h4>
-              <ul>
-                <li>环境开发者和算法开发者可以独立工作，互不干扰</li>
-                <li>同一环境可以搭配不同算法做对比实验</li>
-                <li>配置更清晰，不会因为参数混在一起而难以调试</li>
-                <li>方便做超参数搜索，只需要改 RLCfg</li>
-              </ul>
-              <h4>课程资料</h4>
-              <ul>
-                
-                <li>学习视频：<a href="https://www.bilibili.com/video/BV1xfVm6LEVa" target="_blank">MotrixLab 入门课程 第 5 讲——配置系统</a></li>
-              </ul>
-              <h4>课程作业</h4>
-              <ol>
-                <li>阐明 EnvCfg 与 RLCfg 在 MotrixLab 框架中的职责分工，理解它们之间为什么是"解耦"的</li>
-                <li>思考为什么课程中强调"用配置类默认值 + 注册机制"来管理实验，而不是直接在训练脚本里写死参数</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-<div class="lecture-card animate-on-scroll" id="lecture-11" data-lecture="lecture-11">
-          <div class="lecture-header" onclick="toggleLecture(this)">
-            <div class="lecture-number">11</div>
-            <div class="lecture-info">
-              <div class="lecture-title">注册系统：新环境如何接入框架</div>
-              <div class="lecture-meta">
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30 分钟</span>
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> 注册</span>
-              </div>
-            </div>
-            <div class="lecture-toggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-          </div>
-          <div class="lecture-content">
-            <div class="lecture-body">
-              <h4>两套注册表的分工</h4>
-              <table>
-                <thead><tr><th>注册表</th><th>用途</th></tr></thead>
-                <tbody>
-                  <tr><td><code>motrix_envs.registry</code></td><td>注册环境配置（EnvCfg）和环境实现（Env）</td></tr>
-                  <tr><td><code>motrix_rl.registry</code></td><td>注册 RL 配置（RLCfg）和训练算法</td></tr>
-                </tbody>
-              </table>
-              <h4>新环境接入示例：simple_walker</h4>
-              <div class="code-block">
-                <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 复制</button></div>
-                <pre><code><span class="code-comment"># cfg.py</span>
-<span class="code-keyword">from</span> motrix_envs <span class="code-keyword">import</span> registry
-
-<span class="code-decorator">@registry.envcfg</span>(<span class="code-string">"simple_walker"</span>)
-<span class="code-keyword">class</span> <span class="code-class">SimpleWalkerCfg</span>:
-    robot_asset_path: <span class="code-class">str</span> = <span class="code-string">"assets/simple_walker.urdf"</span>
-    num_actions: <span class="code-class">int</span> = <span class="code-number">6</span>
-    num_observations: <span class="code-class">int</span> = <span class="code-number">24</span>
-    episode_length: <span class="code-class">int</span> = <span class="code-number">500</span></code></pre>
-              </div>
-              <div class="code-block">
-                <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 复制</button></div>
-                <pre><code><span class="code-decorator">@registry.env</span>(<span class="code-string">"simple_walker"</span>, backend=<span class="code-string">"np"</span>)
-<span class="code-keyword">class</span> <span class="code-class">SimpleWalkerNP</span>:
-    <span class="code-keyword">def</span> <span class="code-function">_get_observations</span>(self): ...
-    <span class="code-keyword">def</span> <span class="code-function">_compute_reward</span>(self): ...
-    <span class="code-keyword">def</span> <span class="code-function">_check_termination</span>(self): ...</code></pre>
-              </div>
-              <h4>课程资料</h4>
-              <ul>
-                
-                <li>学习视频：<a href="https://www.bilibili.com/video/BV1NfVm6LEv7" target="_blank">MotrixLab 入门课程 第 6 讲——注册系统</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-<div class="lecture-card animate-on-scroll" id="lecture-12" data-lecture="lecture-12">
-          <div class="lecture-header" onclick="toggleLecture(this)">
-            <div class="lecture-number">12</div>
-            <div class="lecture-info">
-              <div class="lecture-title">总结：如何自己改 Demo、调奖励、做新任务</div>
-              <div class="lecture-meta">
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30 分钟</span>
-                <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 总结</span>
-              </div>
-            </div>
-            <div class="lecture-toggle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-          </div>
-          <div class="lecture-content">
-            <div class="lecture-body">
-              <h4>修改 Demo 的完整流程</h4>
-              <ol>
-                <li><strong>理解原 Demo</strong>：用 8 要素法分析任务目标、观测、动作、奖励、终止条件</li>
-                <li><strong>确定修改点</strong>：明确要改什么（奖励？目标位置？动作尺度？）</li>
-                <li><strong>修改配置</strong>：在 EnvCfg 中调整相关参数</li>
-                <li><strong>修改实现</strong>：在 Env 或 Reward 中修改逻辑</li>
-                <li><strong>注册验证</strong>：确保修改后的环境能被框架正确识别</li>
-                <li><strong>训练测试</strong>：运行训练，观察效果</li>
-                <li><strong>迭代优化</strong>：根据训练结果继续调整</li>
-              </ol>
-              <h4>开发新任务的步骤</h4>
-              <ol>
-                <li>准备机器人模型文件（URDF/MJCF）</li>
-                <li>创建 EnvCfg，定义环境参数</li>
-                <li>创建 Env 类，实现任务逻辑</li>
-                <li>创建 Reward 类，设计奖励函数</li>
-                <li>注册到 motrix_envs.registry</li>
-                <li>创建 RLCfg，配置训练参数</li>
-                <li>注册到 motrix_rl.registry</li>
-                <li>修改 import 链，确保框架能自动加载</li>
-                <li>运行训练，调试优化</li>
-              </ol>
-              <h4>课程资料</h4>
-              <ul>
-                
-                <li>学习视频：<a href="https://www.bilibili.com/video/BV1ESV26YEzX" target="_blank">MotrixLab 入门课程 第 12 讲——总结</a></li>
-              </ul>
-              <h4>课程作业</h4>
-              <p>训练一个新的 GO1 步态，跑通修改 Demo 的完整流程。</p>
-              <p><strong>交付要求：</strong>输出训练新步态的视频，以及奖励函数修改记录文档。</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-<!-- PROJECTS SECTION -->
-    <section class="section" id="projects" data-section>
-      <div class="content-container">
-        <div class="section-header animate-on-scroll">
-          <div class="section-label">项目实践</div>
-          <h2 class="section-title">学员成果与结营作业</h2>
-          <p class="section-desc">四期训练营沉淀的项目实践成果，从四足机器人行走到机械臂抓取</p>
-        </div>
-        <div class="card-grid card-grid-2">
-          <div class="card animate-on-scroll animate-delay-1">
-            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
-              <div style="width:40px;height:40px;background:linear-gradient(135deg,var(--accent),#7c3aed);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;">1</div>
-              <div>
-                <div style="font-weight:700;color:var(--text-primary);">第一期</div>
-                <div style="font-size:0.75rem;color:var(--text-tertiary);">已结营</div>
-              </div>
-            </div>
-            <h4 style="margin-bottom:0.75rem;font-size:1rem;">张恒 — Unitree Go2 平地行走</h4>
-            <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.7;margin-bottom:1rem;">基于 Motrix 框架完成 Unitree Go2 平地行走任务实践，包括环境配置参数、奖励函数设计以及动作空间定义。核心修正了 action space 定义错误。</p>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-              <span class="tag">MotrixLab</span>
-              <span class="tag">GO2</span>
-              <span class="tag">四足机器人</span>
-            </div>
-            <div style="margin-top:1rem;display:flex;gap:0.75rem;">
-              <a href="https://github.com/cotton365/MotrixLab-go2" target="_blank" style="font-size:0.8125rem;color:var(--accent);text-decoration:none;font-weight:600;">代码仓库 →</a>
-            </div>
-          </div>
-          <div class="card animate-on-scroll animate-delay-2">
-            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
-              <div style="width:40px;height:40px;background:linear-gradient(135deg,#f59e0b,#ef4444);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;">3</div>
-              <div>
-                <div style="font-weight:700;color:var(--text-primary);">第三期</div>
-                <div style="font-size:0.75rem;color:var(--text-tertiary);">结营作业归档中</div>
-              </div>
-            </div>
-            <h4 style="margin-bottom:0.75rem;font-size:1rem;">第三期成果整理中</h4>
-            <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.7;margin-bottom:1rem;">包含越障导航等任务实践成果，正在整理归档中。涵盖 MotrixArena S1 越障导航等进阶任务。</p>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-              <span class="tag">越障导航</span>
-              <span class="tag">MotrixArena</span>
-              <span class="tag">归档中</span>
-            </div>
-          </div>
-        </div>
-        <div class="card mt-4 animate-on-scroll">
-          <h4 style="margin-bottom:1rem;font-size:1.0625rem;">第一期核心修正案例</h4>
-          <div style="background:var(--bg-sunken);border-radius:var(--radius-md);padding:1.25rem;font-size:0.875rem;color:var(--text-secondary);line-height:1.8;">
-            <p style="margin-bottom:0.75rem;"><strong style="color:var(--text-primary);">问题根源：</strong>原版 Motrix 以 <code>actuator_ctrl_limits</code>（物理限位）作为动作空间边界，配合 <code>action_scale=0.05</code>。后续调参时将 <code>action_scale</code> 改为 <code>0.25</code>，但未同步修改动作空间边界。</p>
-            <p style="margin-bottom:0.75rem;"><strong style="color:var(--text-primary);">实际影响：</strong>calf 关节动作空间异常（范围全为负值），与归一化动作空间语义不等价。</p>
-            <p style="margin-bottom:0;"><strong style="color:var(--text-primary);">修正方案：</strong></p>
-            <div class="code-block" style="margin-top:0.75rem;">
-              <div class="code-header"><span class="code-lang">python</span><button class="code-copy" onclick="copyCode(this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 复制</button></div>
-              <pre><code><span class="code-comment"># 修正前：以物理限位作为边界</span>
-gym.spaces.Box(actuator_ctrl_limits[0], actuator_ctrl_limits[1], ...)
-
-<span class="code-comment"># 修正后：固定归一化范围</span>
-gym.spaces.Box(-np.ones(n), np.ones(n), ...)</code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMMUNITY SECTION -->
-    <section class="section" id="community" data-section>
-      <div class="content-container">
-        <div class="section-header animate-on-scroll">
-          <div class="section-label">社区共建</div>
-          <h2 class="section-title">一起建设开源训练营</h2>
-          <p class="section-desc">欢迎通过 Issue、Pull Request 和学习笔记分享参与社区建设</p>
-        </div>
-        <div class="card-grid card-grid-3">
-          <div class="card info-card animate-on-scroll animate-delay-1">
-            <div class="info-card-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            </div>
-            <h3 class="info-card-title">提交 Issue</h3>
-            <p class="info-card-text">反馈问题、建议或勘误，帮助我们持续改进课程内容与教学体验。</p>
-          </div>
-          <div class="card info-card animate-on-scroll animate-delay-2">
-            <div class="info-card-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-            </div>
-            <h3 class="info-card-title">提交 Pull Request</h3>
-            <p class="info-card-text">完善文档、案例或排版，直接参与内容建设，成为核心贡献者。</p>
-          </div>
-          <div class="card info-card animate-on-scroll animate-delay-3">
-            <div class="info-card-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            </div>
-            <h3 class="info-card-title">补充学习笔记</h3>
-            <p class="info-card-text">分享踩坑总结与实验结果，帮助后来者少走弯路，沉淀社区知识。</p>
-          </div>
-        </div>
-        <div class="card mt-4 animate-on-scroll" style="text-align:center;padding:2.5rem;">
-          <h3 style="margin-bottom:1rem;font-size:1.25rem;">许可证</h3>
-          <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.7;margin-bottom:1.5rem;">本项目采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" style="color:var(--accent);font-weight:600;">CC BY-NC-SA 4.0</a> 进行许可。<br>知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议。</p>
-          <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
-            <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp" target="_blank" class="btn btn-primary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-              GitHub 仓库
-            </a>
-            <a href="https://motrixlab.readthedocs.io/zh-cn/latest/" target="_blank" class="btn btn-secondary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              官方文档
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    
-<footer class="site-footer">
-      <div class="footer-content">
-        <div class="footer-left">
-          <p> xbotics 强化学习与仿真知识库 · Xbotics 具身智能实验室</p>
-        </div>
-        <div class="footer-links">
-          <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp" target="_blank">GitHub</a>
-          <a href="https://motrixlab.readthedocs.io/zh-cn/latest/" target="_blank">官方文档</a>
-          <a href="#" onclick="resetProgress();return false;">重置进度</a>
-        </div>
-      </div>
-    </footer>
-  </main>
-
-  <button class="back-to-top" id="back-to-top" aria-label="回到顶部" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
-  </button>
-
   <script>
-  (function() {
-    'use strict';
-
-    // ============================================
-    // PARTICLE CANVAS BACKGROUND
-    // ============================================
-    const canvas = document.getElementById('particle-canvas');
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      let particles = [];
-      const PARTICLE_COUNT = 60;
-      const CONNECTION_DIST = 120;
-      const MOUSE_DIST = 150;
-      let mouse = { x: null, y: null };
-
-      function resizeCanvas() {
-        const hero = canvas.parentElement;
-        canvas.width = hero.offsetWidth;
-        canvas.height = hero.offsetHeight;
-      }
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
-
-      class Particle {
-        constructor() {
-          this.x = Math.random() * canvas.width;
-          this.y = Math.random() * canvas.height;
-          this.vx = (Math.random() - 0.5) * 0.5;
-          this.vy = (Math.random() - 0.5) * 0.5;
-          this.size = Math.random() * 2 + 1;
-        }
-        update() {
-          this.x += this.vx;
-          this.y += this.vy;
-          if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-          if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-          if (mouse.x != null) {
-            const dx = mouse.x - this.x;
-            const dy = mouse.y - this.y;
-            const dist = Math.sqrt(dx*dx + dy*dy);
-            if (dist < MOUSE_DIST) {
-              const force = (MOUSE_DIST - dist) / MOUSE_DIST;
-              this.vx += dx * force * 0.002;
-              this.vy += dy * force * 0.002;
-            }
-          }
-        }
-        draw() {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(37, 99, 235, 0.15)';
-          ctx.fill();
-        }
-      }
-
-      for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
-
-      canvas.parentElement.addEventListener('mousemove', e => {
-        const rect = canvas.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-      });
-      canvas.parentElement.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
-
-      function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx*dx + dy*dy);
-            if (dist < CONNECTION_DIST) {
-              ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.strokeStyle = 'rgba(37, 99, 235, ' + (1 - dist / CONNECTION_DIST) * 0.1 + ')';
-              ctx.stroke();
-            }
-          }
-        }
-        requestAnimationFrame(animateParticles);
-      }
-      animateParticles();
-    }
-
-    // ============================================
-    // TAB SWITCHING
-    // ============================================
-    window.switchTab = function(tabId) {
+    function switchTab(tabId) {
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
       const btn = document.querySelector('.tab-btn[onclick*="' + tabId + '"');
       const panel = document.getElementById('panel-' + tabId);
       if (btn) btn.classList.add('active');
       if (panel) panel.classList.add('active');
-    };
-
-    // ============================================
-    // LECTURE TOGGLE
-    // ============================================
-    window.toggleLecture = function(header) {
-      const card = header.closest('.lecture-card');
-      if (!card) return;
-      card.classList.toggle('expanded');
-      if (card.classList.contains('expanded') && card.id) {
-        markComplete(card.id);
-      }
-    };
-
-    // ============================================
-    // NAV SECTION TOGGLE
-    // ============================================
-    window.toggleNavSection = function(title) {
-      const section = title.closest('.nav-section');
-      if (section) section.classList.toggle('collapsed');
-    };
-
-    // ============================================
-    // CODE COPY
-    // ============================================
-    window.copyCode = function(btn) {
-      const block = btn.closest('.code-block')?.querySelector('code, pre');
-      if (!block) return;
-      const text = block.textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        const orig = btn.innerHTML;
-        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 已复制';
-        btn.classList.add('copied');
-        setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
-      });
-    };
-
-    // ============================================
-    // PROGRESS TRACKING
-    // ============================================
-    function getCompleted() {
-      try { return JSON.parse(localStorage.getItem('motrixlab_v2_completed') || '[]'); }
-      catch(e) { return []; }
     }
-    function markComplete(id) {
-      const completed = getCompleted();
-      if (!completed.includes(id)) {
-        completed.push(id);
-        localStorage.setItem('motrixlab_v2_completed', JSON.stringify(completed));
-        updateProgress();
-      }
-    }
-    function updateProgress() {
-      const completed = getCompleted();
-      const total = document.querySelectorAll('.lecture-card').length;
-      const pct = total > 0 ? Math.round(completed.length / total * 100) : 0;
-      const fill = document.getElementById('progress-bar-fill');
-      const percent = document.getElementById('progress-percent');
-      if (fill) fill.style.width = pct + '%';
-      if (percent) percent.textContent = pct + '%';
-      document.querySelectorAll('.nav-item').forEach(item => {
-        const link = item.querySelector('a');
-        if (!link) return;
-        const href = link.getAttribute('href');
-        if (href && completed.includes(href.replace('#', ''))) {
-          item.classList.add('completed');
-        }
-      });
-    }
-    window.resetProgress = function() {
-      localStorage.removeItem('motrixlab_v2_completed');
-      updateProgress();
-      location.reload();
-    };
-    updateProgress();
-
-    // ============================================
-    // SEARCH
-    // ============================================
-    const searchInput = document.getElementById('search-input');
-    const searchResults = document.getElementById('search-results');
-    let searchIndex = [];
-    document.querySelectorAll('.lecture-card').forEach(card => {
-      const id = card.id;
-      const title = card.querySelector('.lecture-title')?.textContent || '';
-      const content = card.querySelector('.lecture-body')?.textContent || '';
-      if (id) searchIndex.push({ id, title, content });
-    });
-    document.querySelectorAll('[data-section]').forEach(section => {
-      const id = section.id;
-      const title = section.querySelector('h2, h3')?.textContent || '';
-      const content = section.textContent || '';
-      if (id && !searchIndex.find(i => i.id === id)) searchIndex.push({ id, title, content });
-    });
-
-    function doSearch(query) {
-      if (!query || query.length < 2) { searchResults.classList.remove('active'); return; }
-      const q = query.toLowerCase();
-      const results = searchIndex.filter(i => i.title.toLowerCase().includes(q) || i.content.toLowerCase().includes(q)).slice(0, 8);
-      if (results.length === 0) {
-        searchResults.innerHTML = '<div class="search-result-item"><div class="search-result-title">无搜索结果</div></div>';
-      } else {
-        searchResults.innerHTML = results.map(r => {
-          const preview = r.content.substring(0, 120).replace(/\s+/g, ' ') + '...';
-          return '<div class="search-result-item" data-target="' + r.id + '"><div class="search-result-title">' + escapeHtml(r.title) + '</div><div class="search-result-preview">' + escapeHtml(preview) + '</div></div>';
-        }).join('');
-      }
-      searchResults.classList.add('active');
-      searchResults.querySelectorAll('.search-result-item').forEach(item => {
-        item.addEventListener('click', () => {
-          const targetId = item.dataset.target;
-          if (targetId) {
-            const target = document.getElementById(targetId);
-            if (target) {
-              const card = target.closest('.lecture-card');
-              if (card) card.classList.add('expanded');
-              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              searchResults.classList.remove('active');
-              searchInput.value = '';
-            }
-          }
-        });
-      });
-    }
-    let debounceTimer;
-    if (searchInput) {
-      searchInput.addEventListener('input', () => {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => doSearch(searchInput.value.trim()), 200);
-      });
-    }
-    document.addEventListener('click', e => { if (!e.target.closest('.search-box')) searchResults.classList.remove('active'); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') searchResults.classList.remove('active'); });
-    function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
-
-    // ============================================
-    // SCROLL ANIMATIONS
-    // ============================================
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
-
-    // ============================================
-    // SCROLL SPY
-    // ============================================
-    const sections = document.querySelectorAll('[data-section]');
-    const navItems = document.querySelectorAll('.nav-item a');
-    const spyObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navItems.forEach(link => {
-            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
-          });
-        }
-      });
-    }, { threshold: 0.3 });
-    sections.forEach(section => spyObserver.observe(section));
-
-    // ============================================
-    // READING PROGRESS
-    // ============================================
-    const progressBar = document.querySelector('.reading-progress-bar');
-    if (progressBar) {
-      window.addEventListener('scroll', () => {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-        progressBar.style.width = pct + '%';
-      });
-    }
-
-    // ============================================
-    // BACK TO TOP
-    // ============================================
-    const backToTop = document.getElementById('back-to-top');
-    if (backToTop) {
-      window.addEventListener('scroll', () => {
-        backToTop.classList.toggle('visible', window.scrollY > 600);
-      });
-    }
-
-    // ============================================
-    // SIDEBAR
-    // ============================================
-    const menuToggle = document.querySelector('.menu-toggle');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    if (menuToggle && sidebar && overlay) {
-      menuToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('open');
-        overlay.classList.toggle('active');
-        document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
-      });
-      overlay.addEventListener('click', () => {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-      });
-    }
-
-    // ============================================
-    // SMOOTH SCROLL FOR ANCHOR LINKS
-    // ============================================
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', e => {
-        const href = link.getAttribute('href');
-        if (href === '#') return;
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          if (sidebar) sidebar.classList.remove('open');
-          if (overlay) overlay.classList.remove('active');
-          document.body.style.overflow = '';
-        }
-      });
-    });
-
-    // ============================================
-    // STAT COUNTER ANIMATION
-    // ============================================
-    const statObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const target = parseInt(el.dataset.count) || 0;
-          let current = 0;
-          const step = Math.max(1, Math.floor(target / 30));
-          const timer = setInterval(() => {
-            current += step;
-            if (current >= target) { current = target; clearInterval(timer); }
-            el.textContent = current + (el.textContent.includes('+') ? '+' : '');
-          }, 30);
-          statObserver.unobserve(el);
-        }
-      });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('.stat-number[data-count]').forEach(el => statObserver.observe(el));
-
-  })();
   </script>
-
 </body>
 </html>
