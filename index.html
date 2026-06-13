@@ -807,14 +807,17 @@ body {
 }
 
 .btn-ghost {
-  background: transparent;
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
 .btn-ghost:hover {
   background: var(--bg-sunken);
-  color: var(--text-primary);
-  border-color: var(--text-tertiary);
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px var(--accent-glow);
+  transform: translateY(-2px);
 }
 
 .btn-lg { padding: 1rem 2rem; font-size: 1rem; }
@@ -1180,8 +1183,98 @@ body {
 .tag-warning { background: rgba(245,158,11,0.1); color: var(--warning); }
 
 /* ============================================
-   LECTURE CARDS
+   WEEK GROUPS
    ============================================ */
+.weeks-container { display: flex; flex-direction: column; gap: 0.75rem; }
+.week-group {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.3s var(--transition);
+}
+.week-group:hover {
+  border-color: rgba(37,99,235,0.2);
+  box-shadow: var(--shadow-md);
+}
+.week-group.expanded {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), var(--shadow-lg);
+}
+.week-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+}
+.week-header:hover { background: var(--bg-sunken); }
+.week-left { display: flex; align-items: center; gap: 1rem; }
+.week-badge {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--accent), var(--purple));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+.week-info { flex: 1; min-width: 0; }
+.week-title { font-weight: 700; color: var(--text-primary); font-size: 1.0625rem; margin-bottom: 0.25rem; }
+.week-meta { font-size: 0.875rem; color: var(--text-secondary); }
+.week-toggle {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  transition: all 0.25s var(--transition);
+  flex-shrink: 0;
+  background: var(--bg-sunken);
+}
+.week-group.expanded .week-toggle {
+  transform: rotate(180deg);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+.week-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s var(--transition);
+  padding: 0 1.5rem;
+}
+.week-group.expanded .week-content {
+  max-height: 20000px;
+  padding: 0 1.5rem 1.5rem;
+}
+.week-group .lecture-card { margin-bottom: 0.75rem; }
+.week-group .lecture-card:last-child { margin-bottom: 0; }
+
+.week-assignment { padding: 1rem 0; }
+.assignment-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--bg-sunken), var(--bg-elevated));
+  border: 1px dashed var(--accent);
+}
+.assignment-icon { font-size: 2rem; line-height: 1; }
+.assignment-content h4 { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.375rem; }
+.assignment-content p { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.75rem; }
+
 .lecture-card {
   background: var(--bg-elevated);
   border: 1px solid var(--border);
@@ -2261,11 +2354,26 @@ body {
     <div class="section-header animate-on-scroll">
       <div class="section-label">精品课程</div>
       <h2 class="section-title">MotrixLab 入门 12 讲</h2>
-      <p class="section-desc">从平台架构到实战 Demo，从配置系统到注册系统，系统掌握 MotrixLab 的完整工作流。</p>
+      <p class="section-desc">八周系统学习计划，从平台认知到 Demo 实战，再到结营作业，循序渐进掌握 MotrixLab。</p>
     </div>
 
-    <!-- Lecture 01 -->
-    <div class="lecture-card animate-on-scroll" id="lecture-01" data-lecture="lecture-01" data-section>
+    <div class="weeks-container">
+      <!-- Week 1 -->
+      <div class="week-group animate-on-scroll" id="week-1">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-badge">W1</div>
+            <div class="week-info">
+              <div class="week-title">第一周 · 平台认知</div>
+              <div class="week-meta">4 讲课程 · 建立 MotrixLab 平台整体认知，理解训练环境与奖励函数的基础关系</div>
+            </div>
+          </div>
+          <div class="week-toggle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="week-content">
+<div class="lecture-card animate-on-scroll" id="lecture-01" data-lecture="lecture-01" data-section>
       <div class="lecture-header" onclick="toggleLecture(this)">
         <div class="lecture-reading-bar"></div>
         <div class="lecture-number">01</div>
@@ -2305,9 +2413,7 @@ body {
         </div>
       </div>
     </div>
-
-    <!-- Lecture 02 -->
-    <div class="lecture-card animate-on-scroll" id="lecture-02" data-lecture="lecture-02" data-section>
+<div class="lecture-card animate-on-scroll" id="lecture-02" data-lecture="lecture-02" data-section>
       <div class="lecture-header" onclick="toggleLecture(this)">
         <div class="lecture-reading-bar"></div>
         <div class="lecture-number">02</div>
@@ -2356,9 +2462,7 @@ body {
         </div>
       </div>
     </div>
-
-    <!-- Lecture 03 -->
-    <div class="lecture-card animate-on-scroll" id="lecture-03" data-lecture="lecture-03" data-section>
+<div class="lecture-card animate-on-scroll" id="lecture-03" data-lecture="lecture-03" data-section>
       <div class="lecture-header" onclick="toggleLecture(this)">
         <div class="lecture-reading-bar"></div>
         <div class="lecture-number">03</div>
@@ -2415,9 +2519,7 @@ class CartpoleCfg:
         </div>
       </div>
     </div>
-
-    <!-- Lecture 04 -->
-    <div class="lecture-card animate-on-scroll" id="lecture-04" data-lecture="lecture-04" data-section>
+<div class="lecture-card animate-on-scroll" id="lecture-04" data-lecture="lecture-04" data-section>
       <div class="lecture-header" onclick="toggleLecture(this)">
         <div class="lecture-reading-bar"></div>
         <div class="lecture-number">04</div>
@@ -2466,8 +2568,25 @@ class CartpoleCfg:
         </div>
       </div>
     </div>
-<!-- Lecture 05 -->
-    <div class="lecture-card animate-on-scroll" id="lecture-05" data-lecture="lecture-05" data-section>
+
+        </div>
+      </div>
+      <!-- Week 2 -->
+      <div class="week-group animate-on-scroll" id="week-2">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-badge">W2</div>
+            <div class="week-info">
+              <div class="week-title">第二周 · 配置与注册</div>
+              <div class="week-meta">3 讲课程 · 梳理配置、注册和训练执行链路，理解新任务接入框架的关键步骤</div>
+            </div>
+          </div>
+          <div class="week-toggle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="week-content">
+<div class="lecture-card animate-on-scroll" id="lecture-05" data-lecture="lecture-05" data-section>
       <div class="lecture-header" onclick="toggleLecture(this)">
         <div class="lecture-reading-bar"></div>
         <div class="lecture-number">05</div>
@@ -2518,9 +2637,7 @@ class CartpoleCfg:
         </div>
       </div>
     </div>
-
-    <!-- Lecture 06 -->
-    <div class="lecture-card animate-on-scroll" id="lecture-06" data-lecture="lecture-06" data-section>
+<div class="lecture-card animate-on-scroll" id="lecture-06" data-lecture="lecture-06" data-section>
       <div class="lecture-header" onclick="toggleLecture(this)">
         <div class="lecture-reading-bar"></div>
         <div class="lecture-number">06</div>
@@ -2568,9 +2685,7 @@ obs = np.array([np.cos(theta), np.sin(theta), theta_dot])
         </div>
       </div>
     </div>
-
-    <!-- Lecture 07 -->
-    <div class="lecture-card animate-on-scroll" id="lecture-07" data-lecture="lecture-07" data-section>
+<div class="lecture-card animate-on-scroll" id="lecture-07" data-lecture="lecture-07" data-section>
       <div class="lecture-header" onclick="toggleLecture(this)">
         <div class="lecture-reading-bar"></div>
         <div class="lecture-number">07</div>
@@ -2622,8 +2737,24 @@ obs = np.array([np.cos(theta), np.sin(theta), theta_dot])
       </div>
     </div>
 
-    <!-- Lecture 08 -->
-    <div class="lecture-card animate-on-scroll" id="lecture-08" data-lecture="lecture-08" data-section>
+        </div>
+      </div>
+      <!-- Week 3 -->
+      <div class="week-group animate-on-scroll" id="week-3">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-badge">W3</div>
+            <div class="week-info">
+              <div class="week-title">第三周 · 分析方法</div>
+              <div class="week-meta">1 讲课程 · 掌握从任务目标、观测、动作、奖励、终止条件等要素分析 Demo 的方法</div>
+            </div>
+          </div>
+          <div class="week-toggle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="week-content">
+<div class="lecture-card animate-on-scroll" id="lecture-08" data-lecture="lecture-08" data-section>
       <div class="lecture-header" onclick="toggleLecture(this)">
         <div class="lecture-reading-bar"></div>
         <div class="lecture-number">08</div>
@@ -2670,8 +2801,25 @@ obs = np.array([np.cos(theta), np.sin(theta), theta_dot])
         </div>
       </div>
     </div>
-<!-- Lecture 09 -->
-    <div class="lecture-card animate-on-scroll" id="lecture-09" data-lecture="lecture-09" data-section>
+
+        </div>
+      </div>
+      <!-- Week 4 -->
+      <div class="week-group animate-on-scroll" id="week-4">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-badge">W4</div>
+            <div class="week-info">
+              <div class="week-title">第四周 · 基础控制</div>
+              <div class="week-meta">1 讲课程 · 跑通基础控制 Demo，对比经典任务的状态空间、动作空间和奖励设计</div>
+            </div>
+          </div>
+          <div class="week-toggle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="week-content">
+<div class="lecture-card animate-on-scroll" id="lecture-09" data-lecture="lecture-09" data-section>
       <div class="lecture-header" onclick="toggleLecture(this)">
         <div class="lecture-reading-bar"></div>
         <div class="lecture-number">09</div>
@@ -2731,8 +2879,24 @@ obs = np.array([np.cos(theta), np.sin(theta), theta_dot])
       </div>
     </div>
 
-    <!-- Lecture 10 -->
-    <div class="lecture-card animate-on-scroll" id="lecture-10" data-lecture="lecture-10" data-section>
+        </div>
+      </div>
+      <!-- Week 5 -->
+      <div class="week-group animate-on-scroll" id="week-5">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-badge">W5</div>
+            <div class="week-info">
+              <div class="week-title">第五周 · 机械臂与抓取</div>
+              <div class="week-meta">1 讲课程 · 理解机械臂抓取任务的奖励设计、接触控制和动作学习特点</div>
+            </div>
+          </div>
+          <div class="week-toggle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="week-content">
+<div class="lecture-card animate-on-scroll" id="lecture-10" data-lecture="lecture-10" data-section>
       <div class="lecture-header" onclick="toggleLecture(this)">
         <div class="lecture-reading-bar"></div>
         <div class="lecture-number">10</div>
@@ -2787,8 +2951,24 @@ python train.py --env cartpole --env-cfg-override max_episode_steps=500</pre></d
       </div>
     </div>
 
-    <!-- Lecture 11 -->
-    <div class="lecture-card animate-on-scroll" id="lecture-11" data-lecture="lecture-11" data-section>
+        </div>
+      </div>
+      <!-- Week 6 -->
+      <div class="week-group animate-on-scroll" id="week-6">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-badge">W6</div>
+            <div class="week-info">
+              <div class="week-title">第六周 · 运动机器人</div>
+              <div class="week-meta">1 讲课程 · 理解不同机器人构型下的运动控制任务、奖励设计和训练难点</div>
+            </div>
+          </div>
+          <div class="week-toggle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="week-content">
+<div class="lecture-card animate-on-scroll" id="lecture-11" data-lecture="lecture-11" data-section>
       <div class="lecture-header" onclick="toggleLecture(this)">
         <div class="lecture-reading-bar"></div>
         <div class="lecture-number">11</div>
@@ -2844,8 +3024,24 @@ class MyEnvPPO(PPOCfg):
       </div>
     </div>
 
-    <!-- Lecture 12 -->
-    <div class="lecture-card animate-on-scroll" id="lecture-12" data-lecture="lecture-12" data-section>
+        </div>
+      </div>
+      <!-- Week 7 -->
+      <div class="week-group animate-on-scroll" id="week-7">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-badge">W7</div>
+            <div class="week-info">
+              <div class="week-title">第七周 · 总结提升</div>
+              <div class="week-meta">1 讲课程 · 形成修改 Demo、调整奖励、开发新任务的完整实践思路</div>
+            </div>
+          </div>
+          <div class="week-toggle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="week-content">
+<div class="lecture-card animate-on-scroll" id="lecture-12" data-lecture="lecture-12" data-section>
       <div class="lecture-header" onclick="toggleLecture(this)">
         <div class="lecture-reading-bar"></div>
         <div class="lecture-number">12</div>
@@ -2906,10 +3102,42 @@ notes: 跳跃奖励权重过高会导致不稳定落地</pre></div>
         </div>
       </div>
     </div>
+
+        </div>
+      </div>
+      <!-- Week 8 -->
+      <div class="week-group animate-on-scroll" id="week-8">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <div class="week-left">
+            <div class="week-badge">W8</div>
+            <div class="week-info">
+              <div class="week-title">第八周 · 结营作业</div>
+              <div class="week-meta">实战项目 · 实现机器狗穿越 MotrixArena S1 赛季越障导航的 Section 1 部分</div>
+            </div>
+          </div>
+          <div class="week-toggle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="week-content">
+      <div class="week-assignment">
+        <div class="assignment-card">
+          <div class="assignment-icon">🎯</div>
+          <div class="assignment-content">
+            <h4>结营作业</h4>
+            <p>实现机器狗穿越 MotrixArena S1 赛季越障导航的 Section 1 部分。提交代码、实验记录、结果分析与展示材料。</p>
+            <div class="lecture-links">
+              <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp" target="_blank" class="btn btn-sm btn-secondary">查看作业要求</a>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<div class="divider"></div>
 <!-- PROJECTS SECTION -->
 <section class="section" id="projects" data-section>
   <div class="content-container">
@@ -3210,6 +3438,25 @@ window.toggleLecture = function(header) {
     // Scroll to card after expansion
     setTimeout(() => {
       card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  }
+};
+
+// ============================================
+// WEEK TOGGLE
+// ============================================
+window.toggleWeek = function(header) {
+  const group = header.closest('.week-group');
+  if (!group) return;
+  const isExpanded = group.classList.contains('expanded');
+  if (isExpanded) {
+    group.classList.remove('expanded');
+    header.setAttribute('aria-expanded', 'false');
+  } else {
+    group.classList.add('expanded');
+    header.setAttribute('aria-expanded', 'true');
+    setTimeout(() => {
+      group.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
   }
 };
