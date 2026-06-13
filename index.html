@@ -1672,10 +1672,14 @@ body {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .footer-logo {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
   font-weight: 800;
   font-size: 1.25rem;
@@ -1711,6 +1715,7 @@ body {
 .footer-copy {
   font-size: 0.875rem;
   color: var(--text-tertiary);
+  text-align: center;
 }
 
 /* ============================================
@@ -1966,22 +1971,18 @@ body {
     </div>
     <div class="nav-section">
       <div class="nav-section-title" onclick="toggleNavSection(this)">
-        <span>第四期 · 精品课程</span>
+        <span>第四期 · 八周课程</span>
         <svg class="nav-section-toggle" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <ul class="nav-items">
-        <li class="nav-item"><a href="#lecture-01"><span class="nav-item-number">01</span> 课程导论</a></li>
-        <li class="nav-item"><a href="#lecture-02"><span class="nav-item-number">02</span> 基础框架总览</a></li>
-        <li class="nav-item"><a href="#lecture-03"><span class="nav-item-number">03</span> 训练环境</a></li>
-        <li class="nav-item"><a href="#lecture-04"><span class="nav-item-number">04</span> 奖励函数</a></li>
-        <li class="nav-item"><a href="#lecture-05"><span class="nav-item-number">05</span> Demo 分析</a></li>
-        <li class="nav-item"><a href="#lecture-06"><span class="nav-item-number">06</span> 基础控制</a></li>
-        <li class="nav-item"><a href="#lecture-07"><span class="nav-item-number">07</span> 机械臂抓取</a></li>
-        <li class="nav-item"><a href="#lecture-08"><span class="nav-item-number">08</span> 运动机器人</a></li>
-        <li class="nav-item"><a href="#lecture-09"><span class="nav-item-number">09</span> 训练流程</a></li>
-        <li class="nav-item"><a href="#lecture-10"><span class="nav-item-number">10</span> 配置系统</a></li>
-        <li class="nav-item"><a href="#lecture-11"><span class="nav-item-number">11</span> 注册系统</a></li>
-        <li class="nav-item"><a href="#lecture-12"><span class="nav-item-number">12</span> 总结</a></li>
+        <li class="nav-item"><a href="#week-1"><span class="nav-item-number">W1</span> 平台认知</a></li>
+        <li class="nav-item"><a href="#week-2"><span class="nav-item-number">W2</span> 配置与注册</a></li>
+        <li class="nav-item"><a href="#week-3"><span class="nav-item-number">W3</span> 分析方法</a></li>
+        <li class="nav-item"><a href="#week-4"><span class="nav-item-number">W4</span> 基础控制</a></li>
+        <li class="nav-item"><a href="#week-5"><span class="nav-item-number">W5</span> 机械臂与抓取</a></li>
+        <li class="nav-item"><a href="#week-6"><span class="nav-item-number">W6</span> 运动机器人</a></li>
+        <li class="nav-item"><a href="#week-7"><span class="nav-item-number">W7</span> 总结</a></li>
+        <li class="nav-item"><a href="#week-8"><span class="nav-item-number">W8</span> 结营作业</a></li>
       </ul>
     </div>
     <div class="nav-section">
