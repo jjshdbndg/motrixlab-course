@@ -1666,6 +1666,7 @@ body {
   border-top: 1px solid var(--border);
   padding: 3rem 0;
   text-align: center;
+  margin-left: var(--sidebar-w);
 }
 [data-theme="dark"] .site-footer { background: var(--bg-sunken); }
 .footer-content {
@@ -1815,6 +1816,7 @@ body {
   .sidebar.open { transform: translateX(0); }
   .sidebar-overlay.active { display: block; }
   .main-content { margin-left: 0; }
+  .site-footer { margin-left: 0; }
   .menu-toggle { display: flex; }
   .github-btn span { display: none; }
   .hero-stats { grid-template-columns: repeat(2, 1fr); }
@@ -3253,6 +3255,8 @@ notes: 跳跃奖励权重过高会导致不稳定落地</pre></div>
     </p>
   </div>
 </footer>
+
+</div>
 
 <!-- BACK TO TOP -->
 <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="回到顶部">
