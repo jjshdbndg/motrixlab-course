@@ -813,117 +813,24 @@
        ============================================ */
     
     /* ============================================
-       WORLD-CLASS LECTURE SYSTEM FIXES
+       LECTURE SYSTEM FIXES
        ============================================ */
     .lecture-content {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), padding 0.4s ease;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
     }
     .lecture-card.expanded .lecture-content {
-      max-height: 999999px;
+      max-height: 1200px;
       padding: 0 1.5rem 1.5rem;
     }
-.lecture-body h2 { font-size:1.25rem; font-weight:700; color:var(--text-primary); margin:1.5rem 0 0.75rem; }
+    .lecture-body h2 { font-size:1.25rem; font-weight:700; color:var(--text-primary); margin:1.5rem 0 0.75rem; }
     .lecture-body h3 { font-size:1.0625rem; font-weight:700; color:var(--text-primary); margin:1.25rem 0 0.75rem; }
     .lecture-body h4 { font-size:0.9375rem; font-weight:600; color:var(--text-secondary); margin:1rem 0 0.5rem; }
-    .lecture-body h5 { font-size:0.875rem; font-weight:600; color:var(--text-tertiary); margin:0.75rem 0 0.5rem; }
     .lecture-body p { margin-bottom:0.75rem; font-size:0.9375rem; color:var(--text-secondary); line-height:1.8; }
     .lecture-body ul, .lecture-body ol { margin:0.75rem 0; padding-left:1.5rem; color:var(--text-secondary); line-height:1.7; }
     .lecture-body li { margin-bottom:0.5rem; }
-    .lecture-body blockquote { border-left:3px solid var(--accent); padding-left:1rem; margin:1rem 0; color:var(--text-secondary); font-style:italic; background:var(--bg-sunken); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:0.75rem 1rem; }
-    .lecture-body table { width:100%; border-collapse:collapse; font-size:0.8125rem; margin:1rem 0; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; }
-    .lecture-body th { background:var(--bg-sunken); padding:0.625rem 0.875rem; text-align:left; font-weight:600; color:var(--text-primary); border-bottom:1px solid var(--border); }
-    .lecture-body td { padding:0.625rem 0.875rem; border-bottom:1px solid var(--border-light); color:var(--text-secondary); }
-    .lecture-body tr:hover td { background:var(--bg-sunken); }
-    .lecture-body tr:last-child td { border-bottom:none; }
-
-    /* Nav Item Status Indicators */
-    .nav-item { position: relative; }
-    .nav-item.completed a { color: var(--success); }
-    .nav-item.completed .nav-item-number { background: var(--success); color: white; }
-    .nav-item.in-progress a { color: var(--accent); }
-    .nav-item.in-progress .nav-item-number { background: var(--accent); color: white; animation: pulse 2s infinite; }
-    .nav-item .status-dot {
-      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-      width: 6px; height: 6px; border-radius: 50%; background: var(--text-tertiary); opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .nav-item.in-progress .status-dot { background: var(--accent); opacity: 1; }
-    .nav-item.completed .status-dot { background: var(--success); opacity: 1; }
-
-    /* Lecture reading progress indicator on header */
-    .lecture-header { position: relative; }
-    .lecture-reading-bar {
-      position: absolute; bottom: 0; left: 0; height: 2px;
-      background: linear-gradient(90deg, var(--accent), #7c3aed);
-      width: 0%; transition: width 0.3s ease; border-radius: 1px;
-    }
-    .lecture-card.expanded .lecture-reading-bar { width: 100%; }
-    .lecture-card.read .lecture-number { background: linear-gradient(135deg, var(--success), #059669); }
-    .lecture-card.read .lecture-title { color: var(--success); }
-
-    /* Smooth scroll offset for fixed header */
-    [id] { scroll-margin-top: calc(var(--header-h) + 1rem); }
-
-    /* Active section indicator in sidebar */
-    .nav-item.active a { background: var(--accent-glow); color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
-    .nav-item.active .nav-item-number { background: linear-gradient(135deg, var(--accent), #7c3aed); color: white; }
-
-    /* Better focus states for accessibility */
-    .lecture-header:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: var(--radius-md); }
-    .tab-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-    /* Sticky phase tabs */
-    .tab-buttons { position: sticky; top: var(--header-h); z-index: 100; background: var(--bg); padding: 1rem 0; margin-bottom: 1rem; }
-    .tab-buttons::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: var(--border); }
-
-
-    .table-wrap { overflow-x:auto; margin:1rem 0; }
-    .table-wrap table { width:100%; border-collapse:collapse; font-size:0.8125rem; }
-    .table-wrap th { text-align:left; padding:0.625rem; background:var(--bg-sunken); border-bottom:1px solid var(--border); font-weight:600; }
-    .table-wrap td { padding:0.625rem; border-bottom:1px solid var(--border-light); }
-    .table-wrap tr:last-child td { border-bottom:none; }
-    .table-wrap tr:hover td { background:var(--bg-sunken); }
-    .info-box { margin-top:1rem; padding:1rem; background:var(--bg-sunken); border-radius:var(--radius-md); font-size:0.8125rem; color:var(--text-secondary); line-height:1.7; }
-    .emoji-lg { font-size:3rem; margin-bottom:1rem; }
-    .card-center { text-align:center; padding:3rem; }
-
-
-    .project-card-header { display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem; }
-    .project-avatar { width:40px; height:40px; background:linear-gradient(135deg,var(--accent),#7c3aed); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; color:white; font-weight:700; }
-    .project-avatar.phase3 { background:linear-gradient(135deg,#f59e0b,#ef4444); }
-    .project-name { font-weight:700; color:var(--text-primary); }
-    .project-status { font-size:0.75rem; color:var(--text-tertiary); }
-    .project-links { margin-top:1rem; display:flex; gap:0.75rem; }
-    .project-link { font-size:0.8125rem; color:var(--accent); text-decoration:none; font-weight:600; }
-    .project-link:hover { text-decoration:underline; }
-    .tag-group { display:flex; gap:0.5rem; flex-wrap:wrap; margin:1rem 0; }
-    .btn-group { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; }
-    .card-center { text-align:center; padding:2.5rem; }
-
-@media (max-width: 1024px) {
-      .main-content { margin-left: 0; }
-      .sidebar { transform: translateX(-100%); }
-      .sidebar.open { transform: translateX(0); }
-      .sidebar-overlay.active { display: block; }
-      .menu-toggle { display: flex; }
-      .content-container { padding: 0 1.25rem; }
-    }
-    @media (max-width: 768px) {
-      .hero-stats { flex-direction: column; gap: 1.5rem; }
-      .hero-stat-value { font-size: 2rem; }
-      .section { padding: 3rem 0; }
-      .card-grid-2, .card-grid-3 { grid-template-columns: 1fr; }
-      .lecture-header { padding: 1rem; }
-      .lecture-number { width: 36px; height: 36px; font-size: 0.875rem; }
-      .lecture-title { font-size: 0.9375rem; }
-      .header-center { display: none; }
-      .footer-content { flex-direction: column; text-align: center; }
-      .hero-cta { flex-direction: column; align-items: center; }
-      .btn { width: 100%; max-width: 280px; }
-    }
-
+    .lecture-body code { background: var(--bg-sunken); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: var(--accent); }
     /* ============================================
        UTILITY
        ============================================ */
@@ -959,13 +866,14 @@
     
   
     /* Week Group */
-    .week-group { margin-bottom: 40px; }
-    .week-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(37,99,235,0.02)); border-radius: 12px; border: 1px solid rgba(37,99,235,0.15); margin-bottom: 16px; cursor: default; }
-    .week-title { font-size: 1.2rem; font-weight: 700; color: var(--accent); }
-    .week-meta { font-size: 0.85rem; color: var(--text-tertiary); font-weight: 500; background: rgba(37,99,235,0.1); padding: 4px 12px; border-radius: 20px; }
-    .week-content { display: flex; flex-direction: column; gap: 12px; padding-left: 8px; }
+        .week-group { margin-bottom: 48px; }
+    .week-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(37,99,235,0.03)); border-radius: 14px; border: 1.5px solid rgba(37,99,235,0.2); margin-bottom: 20px; cursor: default; box-shadow: 0 2px 8px rgba(37,99,235,0.06); }
+    .week-title { display: flex; align-items: center; gap: 14px; }
+    .week-badge { font-size: 1.15rem; font-weight: 800; color: var(--accent); letter-spacing: 0.02em; }
+    .week-theme { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); padding: 4px 12px; background: rgba(37,99,235,0.08); border-radius: 20px; }
+    .week-meta { font-size: 0.85rem; font-weight: 600; color: var(--accent); background: rgba(37,99,235,0.1); padding: 6px 14px; border-radius: 20px; }
+    .week-content { display: flex; flex-direction: column; gap: 14px; padding-left: 12px; border-left: 2px solid rgba(37,99,235,0.1); margin-left: 8px; }
 
-    /* FAQ */
     .faq-list { display: flex; flex-direction: column; gap: 12px; }
     .faq-item { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; transition: box-shadow 0.3s ease; }
     .faq-item:hover { box-shadow: var(--shadow-md); }
@@ -1335,13 +1243,16 @@
         </div>
         <div class="week-group animate-on-scroll">
           <div class="week-header">
-            <div class="week-title">第一周</div>
+            <div class="week-title">
+              <span class="week-badge">第一周</span>
+              <span class="week-theme">基础入门</span>
+            </div>
             <div class="week-meta">4 讲</div>
           </div>
           <div class="week-content">
-        <!-- Lecture 01 -->
         <div class="lecture-card animate-on-scroll" id="lecture-01" data-lecture="lecture-01" data-section>
-          <div class="lecture-header" onclick="toggleLecture(this)"><div class="lecture-reading-bar"></div>
+          <div class="lecture-header" onclick="toggleLecture(this)">
+            <div class="lecture-reading-bar"></div>
             <div class="lecture-number">01</div>
             <div class="lecture-info">
               <div class="lecture-title">课程导论：MotrixLab 能做什么</div>
@@ -1354,23 +1265,24 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h3>课程概述</h3>
-<p>建立 MotrixLab 整体认知，理解其作为机器人强化学习开发平台的定位与应用场景。掌握课程学习路径与目标。</p>
-<div class="lecture-links">
-<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/01-%E8%AF%BE%E7%A8%8B%E5%AF%BC%E8%AE%BA-MotrixLab%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88.md" target="_blank" class="btn btn-primary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-查看完整教案（MD）
-</a>
-<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-Bilibili 视频
-</a>
-</div>
-</div>
+              <h3>课程概述</h3>
+              <p>建立 MotrixLab 整体认知，理解其作为机器人强化学习开发平台的定位与应用场景。掌握课程学习路径与目标。</p>
+              <div class="lecture-links">
+                <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/01-%E8%AF%BE%E7%A8%8B%E5%AF%BC%E8%AE%BA-MotrixLab%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88.md" target="_blank" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                  查看完整教案（MD）
+                </a>
+                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Bilibili 视频
+                </a>
+              </div>
+            </div>
           </div>
-        </div>        <!-- Lecture 02 -->
+        </div>
         <div class="lecture-card animate-on-scroll" id="lecture-02" data-lecture="lecture-02" data-section>
-          <div class="lecture-header" onclick="toggleLecture(this)"><div class="lecture-reading-bar"></div>
+          <div class="lecture-header" onclick="toggleLecture(this)">
+            <div class="lecture-reading-bar"></div>
             <div class="lecture-number">02</div>
             <div class="lecture-info">
               <div class="lecture-title">基础框架总览：分层架构怎么看</div>
@@ -1383,23 +1295,24 @@ Bilibili 视频
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h3>课程概述</h3>
-<p>理解 MotrixLab 的四层分层架构：用户接口层、训练算法层、环境实现层、物理仿真层。掌握各层职责与协作关系。</p>
-<div class="lecture-links">
-<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/02-%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6%E6%80%BB%E8%A7%88-%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84%E6%80%8E%E4%B9%88%E7%9C%8B.md" target="_blank" class="btn btn-primary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-查看完整教案（MD）
-</a>
-<a href="https://www.bilibili.com/video/BV1T9Vm6UEiw" target="_blank" class="btn btn-secondary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-Bilibili 视频
-</a>
-</div>
-</div>
+              <h3>课程概述</h3>
+              <p>理解 MotrixLab 的四层分层架构：用户接口层、训练算法层、环境实现层、物理仿真层。掌握各层职责与协作关系。</p>
+              <div class="lecture-links">
+                <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/02-%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6%E6%80%BB%E8%A7%88-%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84%E6%80%8E%E4%B9%88%E7%9C%8B.md" target="_blank" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                  查看完整教案（MD）
+                </a>
+                <a href="https://www.bilibili.com/video/BV1T9Vm6UEiw" target="_blank" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Bilibili 视频
+                </a>
+              </div>
+            </div>
           </div>
-        </div>        <!-- Lecture 03 -->
+        </div>
         <div class="lecture-card animate-on-scroll" id="lecture-03" data-lecture="lecture-03" data-section>
-          <div class="lecture-header" onclick="toggleLecture(this)"><div class="lecture-reading-bar"></div>
+          <div class="lecture-header" onclick="toggleLecture(this)">
+            <div class="lecture-reading-bar"></div>
             <div class="lecture-number">03</div>
             <div class="lecture-info">
               <div class="lecture-title">训练环境：EnvCfg、Env、Reward 的关系</div>
@@ -1412,23 +1325,24 @@ Bilibili 视频
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h3>课程概述</h3>
-<p>掌握 EnvCfg、Env、Reward 三位一体的核心概念。理解参数配置与逻辑分离的设计思想。</p>
-<div class="lecture-links">
-<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/03-%E8%AE%AD%E7%BB%83%E7%8E%AF%E5%A2%83-EnvCfg-Env-Reward%E7%9A%84%E5%85%B3%E7%B3%BB.md" target="_blank" class="btn btn-primary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-查看完整教案（MD）
-</a>
-<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-Bilibili 视频
-</a>
-</div>
-</div>
+              <h3>课程概述</h3>
+              <p>掌握 EnvCfg、Env、Reward 三位一体的核心概念。理解参数配置与逻辑分离的设计思想。</p>
+              <div class="lecture-links">
+                <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/03-%E8%AE%AD%E7%BB%83%E7%8E%AF%E5%A2%83-EnvCfg-Env-Reward%E7%9A%84%E5%85%B3%E7%B3%BB.md" target="_blank" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                  查看完整教案（MD）
+                </a>
+                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Bilibili 视频
+                </a>
+              </div>
+            </div>
           </div>
-        </div>        <!-- Lecture 04 -->
+        </div>
         <div class="lecture-card animate-on-scroll" id="lecture-04" data-lecture="lecture-04" data-section>
-          <div class="lecture-header" onclick="toggleLecture(this)"><div class="lecture-reading-bar"></div>
+          <div class="lecture-header" onclick="toggleLecture(this)">
+            <div class="lecture-reading-bar"></div>
             <div class="lecture-number">04</div>
             <div class="lecture-info">
               <div class="lecture-title">奖励函数：为什么奖励决定训练成败</div>
@@ -1441,31 +1355,35 @@ Bilibili 视频
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h3>课程概述</h3>
-<p>深入理解奖励函数的设计原则：目标一致、信号密度、尺度合理、防止漏洞。掌握常见奖励结构与加权组合。</p>
-<div class="lecture-links">
-<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/04-%E5%A5%96%E5%8A%B1%E5%87%BD%E6%95%B0-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A5%96%E5%8A%B1%E5%86%B3%E5%AE%9A%E8%AE%AD%E7%BB%83%E6%88%90%E8%B4%A5.md" target="_blank" class="btn btn-primary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-查看完整教案（MD）
-</a>
-<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-Bilibili 视频
-</a>
-</div>
-</div>
+              <h3>课程概述</h3>
+              <p>深入理解奖励函数的设计原则：目标一致、信号密度、尺度合理、防止漏洞。掌握常见奖励结构与加权组合。</p>
+              <div class="lecture-links">
+                <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/04-%E5%A5%96%E5%8A%B1%E5%87%BD%E6%95%B0-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A5%96%E5%8A%B1%E5%86%B3%E5%AE%9A%E8%AE%AD%E7%BB%83%E6%88%90%E8%B4%A5.md" target="_blank" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                  查看完整教案（MD）
+                </a>
+                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Bilibili 视频
+                </a>
+              </div>
+            </div>
           </div>
-        </div>          </div>
+        </div>
+          </div>
         </div>
         <div class="week-group animate-on-scroll">
           <div class="week-header">
-            <div class="week-title">第二周</div>
+            <div class="week-title">
+              <span class="week-badge">第二周</span>
+              <span class="week-theme">系统配置</span>
+            </div>
             <div class="week-meta">3 讲</div>
           </div>
           <div class="week-content">
-        <!-- Lecture 05 -->
         <div class="lecture-card animate-on-scroll" id="lecture-05" data-lecture="lecture-05" data-section>
-          <div class="lecture-header" onclick="toggleLecture(this)"><div class="lecture-reading-bar"></div>
+          <div class="lecture-header" onclick="toggleLecture(this)">
+            <div class="lecture-reading-bar"></div>
             <div class="lecture-number">05</div>
             <div class="lecture-info">
               <div class="lecture-title">配置系统：环境配置与训练配置怎么协作</div>
@@ -1478,23 +1396,24 @@ Bilibili 视频
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h3>课程概述</h3>
-<p>理解环境配置与训练配置的协作机制。掌握双层注册表、配置覆盖与命令行参数解析。</p>
-<div class="lecture-links">
-<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/10-%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E8%AE%AD%E7%BB%83%E9%85%8D%E7%BD%AE%E6%80%8E%E4%B9%88%E5%8D%8F%E4%BD%9C.md" target="_blank" class="btn btn-primary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-查看完整教案（MD）
-</a>
-<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-Bilibili 视频
-</a>
-</div>
-</div>
+              <h3>课程概述</h3>
+              <p>理解环境配置与训练配置的协作机制。掌握双层注册表、配置覆盖与命令行参数解析。</p>
+              <div class="lecture-links">
+                <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/10-%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E8%AE%AD%E7%BB%83%E9%85%8D%E7%BD%AE%E6%80%8E%E4%B9%88%E5%8D%8F%E4%BD%9C.md" target="_blank" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                  查看完整教案（MD）
+                </a>
+                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Bilibili 视频
+                </a>
+              </div>
+            </div>
           </div>
-        </div>        <!-- Lecture 06 -->
+        </div>
         <div class="lecture-card animate-on-scroll" id="lecture-06" data-lecture="lecture-06" data-section>
-          <div class="lecture-header" onclick="toggleLecture(this)"><div class="lecture-reading-bar"></div>
+          <div class="lecture-header" onclick="toggleLecture(this)">
+            <div class="lecture-reading-bar"></div>
             <div class="lecture-number">06</div>
             <div class="lecture-info">
               <div class="lecture-title">注册系统：新环境如何接入框架</div>
@@ -1507,23 +1426,24 @@ Bilibili 视频
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h3>课程概述</h3>
-<p>掌握新环境接入框架的方法：注册装饰器、基类继承、环境实现规范与集成流程。</p>
-<div class="lecture-links">
-<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/11-%E6%B3%A8%E5%86%8C%E7%B3%BB%E7%BB%9F-%E6%96%B0%E7%8E%AF%E5%A2%83%E5%A6%82%E4%BD%95%E6%8E%A5%E5%85%A5%E6%A1%86%E6%9E%B6.md" target="_blank" class="btn btn-primary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-查看完整教案（MD）
-</a>
-<a href="https://www.bilibili.com/video/BV1NfVm6LEv7" target="_blank" class="btn btn-secondary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-Bilibili 视频
-</a>
-</div>
-</div>
+              <h3>课程概述</h3>
+              <p>掌握新环境接入框架的方法：注册装饰器、基类继承、环境实现规范与集成流程。</p>
+              <div class="lecture-links">
+                <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/11-%E6%B3%A8%E5%86%8C%E7%B3%BB%E7%BB%9F-%E6%96%B0%E7%8E%AF%E5%A2%83%E5%A6%82%E4%BD%95%E6%8E%A5%E5%85%A5%E6%A1%86%E6%9E%B6.md" target="_blank" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                  查看完整教案（MD）
+                </a>
+                <a href="https://www.bilibili.com/video/BV1NfVm6LEv7" target="_blank" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Bilibili 视频
+                </a>
+              </div>
+            </div>
           </div>
-        </div>        <!-- Lecture 07 -->
+        </div>
         <div class="lecture-card animate-on-scroll" id="lecture-07" data-lecture="lecture-07" data-section>
-          <div class="lecture-header" onclick="toggleLecture(this)"><div class="lecture-reading-bar"></div>
+          <div class="lecture-header" onclick="toggleLecture(this)">
+            <div class="lecture-reading-bar"></div>
             <div class="lecture-number">07</div>
             <div class="lecture-info">
               <div class="lecture-title">训练流程：从 train.py 到模型保存</div>
@@ -1536,31 +1456,35 @@ Bilibili 视频
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h3>课程概述</h3>
-<p>从 train.py 到模型保存的完整训练流程。理解配置解析、环境创建、SKRL 包装与 PPO 训练循环。</p>
-<div class="lecture-links">
-<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/09-%E8%AE%AD%E7%BB%83%E6%B5%81%E7%A8%8B-%E4%BB%8Etrain.py%E5%88%B0%E6%A8%A1%E5%9E%8B%E4%BF%9D%E5%AD%98.md" target="_blank" class="btn btn-primary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-查看完整教案（MD）
-</a>
-<a href="https://www.bilibili.com/video/BV1xfVm6LETE" target="_blank" class="btn btn-secondary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-Bilibili 视频
-</a>
-</div>
-</div>
+              <h3>课程概述</h3>
+              <p>从 train.py 到模型保存的完整训练流程。理解配置解析、环境创建、SKRL 包装与 PPO 训练循环。</p>
+              <div class="lecture-links">
+                <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/09-%E8%AE%AD%E7%BB%83%E6%B5%81%E7%A8%8B-%E4%BB%8Etrain.py%E5%88%B0%E6%A8%A1%E5%9E%8B%E4%BF%9D%E5%AD%98.md" target="_blank" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                  查看完整教案（MD）
+                </a>
+                <a href="https://www.bilibili.com/video/BV1xfVm6LETE" target="_blank" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Bilibili 视频
+                </a>
+              </div>
+            </div>
           </div>
-        </div>          </div>
+        </div>
+          </div>
         </div>
         <div class="week-group animate-on-scroll">
           <div class="week-header">
-            <div class="week-title">第三周</div>
+            <div class="week-title">
+              <span class="week-badge">第三周</span>
+              <span class="week-theme">分析方法</span>
+            </div>
             <div class="week-meta">1 讲</div>
           </div>
           <div class="week-content">
-        <!-- Lecture 08 -->
         <div class="lecture-card animate-on-scroll" id="lecture-08" data-lecture="lecture-08" data-section>
-          <div class="lecture-header" onclick="toggleLecture(this)"><div class="lecture-reading-bar"></div>
+          <div class="lecture-header" onclick="toggleLecture(this)">
+            <div class="lecture-reading-bar"></div>
             <div class="lecture-number">08</div>
             <div class="lecture-info">
               <div class="lecture-title">Demo 分析方法：如何读懂一个案例</div>
@@ -1573,31 +1497,35 @@ Bilibili 视频
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h3>课程概述</h3>
-<p>学会通用的 Demo 分析方法：从任务了解、要素分解到深入代码。掌握 MotrixLab 的模块化开发规范。</p>
-<div class="lecture-links">
-<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/05-Demo%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95-%E5%A6%82%E4%BD%95%E8%AF%BB%E6%87%82%E4%B8%80%E4%B8%AA%E6%A1%88%E4%BE%8B.md" target="_blank" class="btn btn-primary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-查看完整教案（MD）
-</a>
-<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-Bilibili 视频
-</a>
-</div>
-</div>
+              <h3>课程概述</h3>
+              <p>学会通用的 Demo 分析方法：从任务了解、要素分解到深入代码。掌握 MotrixLab 的模块化开发规范。</p>
+              <div class="lecture-links">
+                <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/05-Demo%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95-%E5%A6%82%E4%BD%95%E8%AF%BB%E6%87%82%E4%B8%80%E4%B8%AA%E6%A1%88%E4%BE%8B.md" target="_blank" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                  查看完整教案（MD）
+                </a>
+                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Bilibili 视频
+                </a>
+              </div>
+            </div>
           </div>
-        </div>          </div>
+        </div>
+          </div>
         </div>
         <div class="week-group animate-on-scroll">
           <div class="week-header">
-            <div class="week-title">第四周</div>
+            <div class="week-title">
+              <span class="week-badge">第四周</span>
+              <span class="week-theme">基础控制</span>
+            </div>
             <div class="week-meta">1 讲</div>
           </div>
           <div class="week-content">
-        <!-- Lecture 09 -->
         <div class="lecture-card animate-on-scroll" id="lecture-09" data-lecture="lecture-09" data-section>
-          <div class="lecture-header" onclick="toggleLecture(this)"><div class="lecture-reading-bar"></div>
+          <div class="lecture-header" onclick="toggleLecture(this)">
+            <div class="lecture-reading-bar"></div>
             <div class="lecture-number">09</div>
             <div class="lecture-info">
               <div class="lecture-title">基础控制 Demo：倒立摆 / 单摆 / 双连杆</div>
@@ -1610,31 +1538,35 @@ Bilibili 视频
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h3>课程概述</h3>
-<p>剖析倒立摆、单摆、双连杆三个基础控制任务。掌握小规模状态空间与动作空间的设计思路。</p>
-<div class="lecture-links">
-<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/06-%E5%9F%BA%E7%A1%80%E6%8E%A7%E5%88%B6Demo%E8%AE%B2%E8%A7%A3-%E5%80%92%E7%AB%8B%E6%91%86%E5%8D%95%E6%91%86%E5%8F%8C%E8%BF%9E%E6%9D%86.md" target="_blank" class="btn btn-primary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-查看完整教案（MD）
-</a>
-<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-Bilibili 视频
-</a>
-</div>
-</div>
+              <h3>课程概述</h3>
+              <p>剖析倒立摆、单摆、双连杆三个基础控制任务。掌握小规模状态空间与动作空间的设计思路。</p>
+              <div class="lecture-links">
+                <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/06-%E5%9F%BA%E7%A1%80%E6%8E%A7%E5%88%B6Demo%E8%AE%B2%E8%A7%A3-%E5%80%92%E7%AB%8B%E6%91%86%E5%8D%95%E6%91%86%E5%8F%8C%E8%BF%9E%E6%9D%86.md" target="_blank" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                  查看完整教案（MD）
+                </a>
+                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Bilibili 视频
+                </a>
+              </div>
+            </div>
           </div>
-        </div>          </div>
+        </div>
+          </div>
         </div>
         <div class="week-group animate-on-scroll">
           <div class="week-header">
-            <div class="week-title">第五周</div>
+            <div class="week-title">
+              <span class="week-badge">第五周</span>
+              <span class="week-theme">机械臂</span>
+            </div>
             <div class="week-meta">1 讲</div>
           </div>
           <div class="week-content">
-        <!-- Lecture 10 -->
         <div class="lecture-card animate-on-scroll" id="lecture-10" data-lecture="lecture-10" data-section>
-          <div class="lecture-header" onclick="toggleLecture(this)"><div class="lecture-reading-bar"></div>
+          <div class="lecture-header" onclick="toggleLecture(this)">
+            <div class="lecture-reading-bar"></div>
             <div class="lecture-number">10</div>
             <div class="lecture-info">
               <div class="lecture-title">机械臂与抓取 Demo 讲解</div>
@@ -1647,31 +1579,35 @@ Bilibili 视频
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h3>课程概述</h3>
-<p>深入讲解 Franka 机械臂抓取立方体任务。理解机械臂控制中的观测空间、动作空间与多阶段奖励设计。</p>
-<div class="lecture-links">
-<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/07-%E6%9C%BA%E6%A2%B0%E8%87%82%E4%B8%8E%E6%8A%93%E5%8F%96Demo%E8%AE%B2%E8%A7%A3.md" target="_blank" class="btn btn-primary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-查看完整教案（MD）
-</a>
-<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-Bilibili 视频
-</a>
-</div>
-</div>
+              <h3>课程概述</h3>
+              <p>深入讲解 Franka 机械臂抓取立方体任务。理解机械臂控制中的观测空间、动作空间与多阶段奖励设计。</p>
+              <div class="lecture-links">
+                <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/07-%E6%9C%BA%E6%A2%B0%E8%87%82%E4%B8%8E%E6%8A%93%E5%8F%96Demo%E8%AE%B2%E8%A7%A3.md" target="_blank" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                  查看完整教案（MD）
+                </a>
+                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Bilibili 视频
+                </a>
+              </div>
+            </div>
           </div>
-        </div>          </div>
+        </div>
+          </div>
         </div>
         <div class="week-group animate-on-scroll">
           <div class="week-header">
-            <div class="week-title">第六周</div>
+            <div class="week-title">
+              <span class="week-badge">第六周</span>
+              <span class="week-theme">运动机器人</span>
+            </div>
             <div class="week-meta">1 讲</div>
           </div>
           <div class="week-content">
-        <!-- Lecture 11 -->
         <div class="lecture-card animate-on-scroll" id="lecture-11" data-lecture="lecture-11" data-section>
-          <div class="lecture-header" onclick="toggleLecture(this)"><div class="lecture-reading-bar"></div>
+          <div class="lecture-header" onclick="toggleLecture(this)">
+            <div class="lecture-reading-bar"></div>
             <div class="lecture-number">11</div>
             <div class="lecture-info">
               <div class="lecture-title">运动机器人 Demo：Walker / GO1 / Humanoid</div>
@@ -1684,31 +1620,35 @@ Bilibili 视频
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h3>课程概述</h3>
-<p>对比 Walker、GO1、Humanoid 三种运动机器人的训练过程。理解形态差异、奖励结构与终止条件设计。</p>
-<div class="lecture-links">
-<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/08-%E8%BF%90%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BADemo%E8%AE%B2%E8%A7%A3-Walker-GO1-Humanoid.md" target="_blank" class="btn btn-primary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-查看完整教案（MD）
-</a>
-<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-Bilibili 视频
-</a>
-</div>
-</div>
+              <h3>课程概述</h3>
+              <p>对比 Walker、GO1、Humanoid 三种运动机器人的训练过程。理解形态差异、奖励结构与终止条件设计。</p>
+              <div class="lecture-links">
+                <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/08-%E8%BF%90%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BADemo%E8%AE%B2%E8%A7%A3-Walker-GO1-Humanoid.md" target="_blank" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                  查看完整教案（MD）
+                </a>
+                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Bilibili 视频
+                </a>
+              </div>
+            </div>
           </div>
-        </div>          </div>
+        </div>
+          </div>
         </div>
         <div class="week-group animate-on-scroll">
           <div class="week-header">
-            <div class="week-title">第七周</div>
+            <div class="week-title">
+              <span class="week-badge">第七周</span>
+              <span class="week-theme">总结</span>
+            </div>
             <div class="week-meta">1 讲</div>
           </div>
           <div class="week-content">
-        <!-- Lecture 12 -->
         <div class="lecture-card animate-on-scroll" id="lecture-12" data-lecture="lecture-12" data-section>
-          <div class="lecture-header" onclick="toggleLecture(this)"><div class="lecture-reading-bar"></div>
+          <div class="lecture-header" onclick="toggleLecture(this)">
+            <div class="lecture-reading-bar"></div>
             <div class="lecture-number">12</div>
             <div class="lecture-info">
               <div class="lecture-title">总结：如何自己改 Demo 调奖励做新任务</div>
@@ -1721,31 +1661,35 @@ Bilibili 视频
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h3>课程概述</h3>
-<p>综合运用所学知识，掌握修改 Demo、调整奖励、开发新任务的完整方法论。</p>
-<div class="lecture-links">
-<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/12-%E6%80%BB%E7%BB%93-%E5%A6%82%E4%BD%95%E8%87%AA%E5%B7%B1%E6%94%B9Demo%E8%B0%83%E5%A5%96%E5%8A%B1%E5%81%9A%E6%96%B0%E4%BB%BB%E5%8A%A1.md" target="_blank" class="btn btn-primary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-查看完整教案（MD）
-</a>
-<a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-Bilibili 视频
-</a>
-</div>
-</div>
+              <h3>课程概述</h3>
+              <p>综合运用所学知识，掌握修改 Demo、调整奖励、开发新任务的完整方法论。</p>
+              <div class="lecture-links">
+                <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/12-%E6%80%BB%E7%BB%93-%E5%A6%82%E4%BD%95%E8%87%AA%E5%B7%B1%E6%94%B9Demo%E8%B0%83%E5%A5%96%E5%8A%B1%E5%81%9A%E6%96%B0%E4%BB%BB%E5%8A%A1.md" target="_blank" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                  查看完整教案（MD）
+                </a>
+                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  Bilibili 视频
+                </a>
+              </div>
+            </div>
           </div>
-        </div>          </div>
+        </div>
+          </div>
         </div>
         <div class="week-group animate-on-scroll">
           <div class="week-header">
-            <div class="week-title">第八周</div>
+            <div class="week-title">
+              <span class="week-badge">第八周</span>
+              <span class="week-theme">结营作业</span>
+            </div>
             <div class="week-meta">1 讲</div>
           </div>
           <div class="week-content">
-        <!-- 结营作业 -->
         <div class="lecture-card animate-on-scroll" id="lecture-final" data-lecture="lecture-final" data-section>
-          <div class="lecture-header" onclick="toggleLecture(this)"><div class="lecture-reading-bar"></div>
+          <div class="lecture-header" onclick="toggleLecture(this)">
+            <div class="lecture-reading-bar"></div>
             <div class="lecture-number" style="background:linear-gradient(135deg,#10b981,#34d399);color:#fff">★</div>
             <div class="lecture-info">
               <div class="lecture-title">结营作业：实现机器狗穿越 MotrixArena S1 赛季越障导航</div>
@@ -1758,17 +1702,18 @@ Bilibili 视频
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-<h3>作业概述</h3>
-<p>完成结营作业：实现机器狗穿越 MotrixArena S1 赛季越障导航的 section1 部分。综合运用前七周所学知识，从环境配置、奖励设计到训练调试，完成端到端的机器人强化学习任务。</p>
-<div class="lecture-links">
-<a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp" target="_blank" class="btn btn-primary">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-查看仓库
-</a>
-</div>
-</div>
+              <h3>作业概述</h3>
+              <p>完成结营作业：实现机器狗穿越 MotrixArena S1 赛季越障导航的 section1 部分。综合运用前七周所学知识，从环境配置、奖励设计到训练调试，完成端到端的机器人强化学习任务。</p>
+              <div class="lecture-links">
+                <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp" target="_blank" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                  查看仓库
+                </a>
+              </div>
+            </div>
           </div>
-        </div>          </div>
+        </div>
+          </div>
         </div>
       </div>
     </section>
