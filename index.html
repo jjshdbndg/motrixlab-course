@@ -956,18 +956,14 @@
           <svg class="nav-section-toggle" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
         <ul class="nav-items">
-          <li class="nav-item"><a href="#lecture-01"><span class="nav-item-number">01</span> 课程导论</a></li>
-          <li class="nav-item"><a href="#lecture-02"><span class="nav-item-number">02</span> 基础框架总览</a></li>
-          <li class="nav-item"><a href="#lecture-03"><span class="nav-item-number">03</span> 训练环境</a></li>
-          <li class="nav-item"><a href="#lecture-04"><span class="nav-item-number">04</span> 奖励函数</a></li>
-          <li class="nav-item"><a href="#lecture-05"><span class="nav-item-number">05</span> 配置系统</a></li>
-          <li class="nav-item"><a href="#lecture-06"><span class="nav-item-number">06</span> 注册系统</a></li>
-          <li class="nav-item"><a href="#lecture-07"><span class="nav-item-number">07</span> 训练流程</a></li>
-          <li class="nav-item"><a href="#lecture-08"><span class="nav-item-number">08</span> Demo 分析</a></li>
-          <li class="nav-item"><a href="#lecture-09"><span class="nav-item-number">09</span> 基础控制</a></li>
-          <li class="nav-item"><a href="#lecture-10"><span class="nav-item-number">10</span> 机械臂抓取</a></li>
-          <li class="nav-item"><a href="#lecture-11"><span class="nav-item-number">11</span> 运动机器人</a></li>
-          <li class="nav-item"><a href="#lecture-12"><span class="nav-item-number">12</span> 总结</a></li>
+          <li class="nav-item"><a href="#week-1"><span class="nav-item-number">1</span> 第一周：基础入门</a></li>
+          <li class="nav-item"><a href="#week-2"><span class="nav-item-number">2</span> 第二周：系统配置</a></li>
+          <li class="nav-item"><a href="#week-3"><span class="nav-item-number">3</span> 第三周：分析方法</a></li>
+          <li class="nav-item"><a href="#week-4"><span class="nav-item-number">4</span> 第四周：基础控制</a></li>
+          <li class="nav-item"><a href="#week-5"><span class="nav-item-number">5</span> 第五周：机械臂</a></li>
+          <li class="nav-item"><a href="#week-6"><span class="nav-item-number">6</span> 第六周：运动机器人</a></li>
+          <li class="nav-item"><a href="#week-7"><span class="nav-item-number">7</span> 第七周：总结</a></li>
+          <li class="nav-item"><a href="#week-8"><span class="nav-item-number">8</span> 第八周：结营作业</a></li>
         </ul>
       </div>
       <div class="nav-section">
@@ -1241,7 +1237,7 @@
           <h2 class="section-title">第四期：强化学习与 MotrixLab 入门</h2>
           <p class="section-desc">8 周完整课程，从理论到实战，点击卡片展开查看详细内容与课程资料</p>
         </div>
-        <div class="week-group animate-on-scroll">
+        <div class="week-group animate-on-scroll" id="week-1">
           <div class="week-header">
             <div class="week-title">
               <span class="week-badge">第一周</span>
@@ -1372,7 +1368,7 @@
         </div>
           </div>
         </div>
-        <div class="week-group animate-on-scroll">
+        <div class="week-group animate-on-scroll" id="week-2">
           <div class="week-header">
             <div class="week-title">
               <span class="week-badge">第二周</span>
@@ -1473,7 +1469,7 @@
         </div>
           </div>
         </div>
-        <div class="week-group animate-on-scroll">
+        <div class="week-group animate-on-scroll" id="week-3">
           <div class="week-header">
             <div class="week-title">
               <span class="week-badge">第三周</span>
@@ -1514,7 +1510,7 @@
         </div>
           </div>
         </div>
-        <div class="week-group animate-on-scroll">
+        <div class="week-group animate-on-scroll" id="week-4">
           <div class="week-header">
             <div class="week-title">
               <span class="week-badge">第四周</span>
@@ -1555,7 +1551,7 @@
         </div>
           </div>
         </div>
-        <div class="week-group animate-on-scroll">
+        <div class="week-group animate-on-scroll" id="week-5">
           <div class="week-header">
             <div class="week-title">
               <span class="week-badge">第五周</span>
@@ -1596,7 +1592,7 @@
         </div>
           </div>
         </div>
-        <div class="week-group animate-on-scroll">
+        <div class="week-group animate-on-scroll" id="week-6">
           <div class="week-header">
             <div class="week-title">
               <span class="week-badge">第六周</span>
@@ -1637,7 +1633,7 @@
         </div>
           </div>
         </div>
-        <div class="week-group animate-on-scroll">
+        <div class="week-group animate-on-scroll" id="week-7">
           <div class="week-header">
             <div class="week-title">
               <span class="week-badge">第七周</span>
@@ -1678,7 +1674,7 @@
         </div>
           </div>
         </div>
-        <div class="week-group animate-on-scroll">
+        <div class="week-group animate-on-scroll" id="week-8">
           <div class="week-header">
             <div class="week-title">
               <span class="week-badge">第八周</span>
@@ -2385,7 +2381,7 @@ gym.spaces.Box(-np.ones(n), np.ones(n), ...)</code></pre>
     updateNavStatus();
 
     // FAQ toggle
-    function toggleFaq(el) {
+    window.toggleFaq = function(el) {
       const item = el.closest('.faq-item');
       item.classList.toggle('active');
     }
