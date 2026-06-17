@@ -822,7 +822,7 @@
       transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
     }
     .lecture-card.expanded .lecture-content {
-      max-height: 1200px;
+      max-height: 30000px;
       padding: 0 1.5rem 1.5rem;
     }
     .lecture-body h2 { font-size:1.25rem; font-weight:700; color:var(--text-primary); margin:1.5rem 0 0.75rem; }
@@ -1364,8 +1364,20 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-              <h3>课程概述</h3>
-              <p>建立 MotrixLab 整体认知，理解其作为机器人强化学习开发平台的定位与应用场景。掌握课程学习路径与目标。</p>
+              <h3>学习重点</h3>
+              <ul>
+<li>MotrixLab 的定位与应用场景</li>
+<li>机器人强化学习平台的核心价值</li>
+<li>课程学习路径与目标</li>
+              </ul>
+              <h3>课程作业</h3>
+              <ol>
+<li>结合课程内容，用自己的话解释 MotrixLab 的定位：它是一个什么样的平台？主要解决什么问题？</li>
+<li>说明机器人强化学习平台相比从零写训练代码的核心价值，至少列出 3 点。</li>
+<li>结合课程学习路径图，简要规划自己的学习目标和预期产出。</li>
+              </ol>
+              <h3>交付要求</h3>
+              <p><strong>形成一份学习文档，包含以上问题的回答和本节课程总结。</strong></p>
               <div class="lecture-links">
                 <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/01-%E8%AF%BE%E7%A8%8B%E5%AF%BC%E8%AE%BA-MotrixLab%E8%83%BD%E5%81%9A%E4%BB%80%E4%B9%88.md" target="_blank" class="btn btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -1394,8 +1406,20 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-              <h3>课程概述</h3>
-              <p>理解 MotrixLab 的四层分层架构：用户接口层、训练算法层、环境实现层、物理仿真层。掌握各层职责与协作关系。</p>
+              <h3>学习重点</h3>
+              <ul>
+<li>MotrixLab 的整体分层设计</li>
+<li>用户接口层、训练算法层、环境实现层、物理仿真层</li>
+<li>各层之间的关系与职责划分</li>
+              </ul>
+              <h3>课程作业</h3>
+              <ol>
+<li>画出 MotrixLab 的四层分层架构示意图，并用文字描述每一层的职责。</li>
+<li>思考为什么要把架构分成多层，说明分层设计的至少 2 个好处。</li>
+<li>选择一个熟悉的机器人任务，分析它在架构各层中如何被支持。</li>
+              </ol>
+              <h3>交付要求</h3>
+              <p><strong>形成一份学习文档，包含架构图、各层说明、分层好处分析和本节课程总结。</strong></p>
               <div class="lecture-links">
                 <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/02-%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6%E6%80%BB%E8%A7%88-%E5%88%86%E5%B1%82%E6%9E%B6%E6%9E%84%E6%80%8E%E4%B9%88%E7%9C%8B.md" target="_blank" class="btn btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -1424,14 +1448,27 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-              <h3>课程概述</h3>
-              <p>掌握 EnvCfg、Env、Reward 三位一体的核心概念。理解参数配置与逻辑分离的设计思想。</p>
+              <h3>学习重点</h3>
+              <ul>
+<li>训练环境的组成</li>
+<li>EnvCfg 如何定义环境参数</li>
+<li>Env 如何实现任务逻辑</li>
+<li>Reward 如何驱动学习</li>
+              </ul>
+              <h3>课程作业</h3>
+              <ol>
+<li>分别说明 EnvCfg、Env、Reward 三个类在 MotrixLab 中的角色，并用一句话概括每个类的核心职责。</li>
+<li>以 CartPole 为例，尝试写出 EnvCfg 中至少需要定义哪些参数，例如观测维度、动作维度等。</li>
+<li>思考为什么要把环境配置和环境实现分开设计。</li>
+              </ol>
+              <h3>交付要求</h3>
+              <p><strong>形成一份学习文档，包含三个类的角色说明、CartPole 配置参数示例、对"分离设计"的理解和本节课程总结。</strong></p>
               <div class="lecture-links">
                 <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/03-%E8%AE%AD%E7%BB%83%E7%8E%AF%E5%A2%83-EnvCfg-Env-Reward%E7%9A%84%E5%85%B3%E7%B3%BB.md" target="_blank" class="btn btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                   查看完整教案（MD）
                 </a>
-                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                <a href="https://www.bilibili.com/video/BV1NfVm6LE82" target="_blank" class="btn btn-secondary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                   Bilibili 视频
                 </a>
@@ -1454,14 +1491,27 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-              <h3>课程概述</h3>
-              <p>深入理解奖励函数的设计原则：目标一致、信号密度、尺度合理、防止漏洞。掌握常见奖励结构与加权组合。</p>
+              <h3>学习重点</h3>
+              <ul>
+<li>奖励函数在强化学习中的作用</li>
+<li>奖励设计的基本原则</li>
+<li>常见奖励结构与设计思路</li>
+<li>奖励不合理会带来的问题</li>
+              </ul>
+              <h3>课程作业</h3>
+              <ol>
+<li>列举奖励函数的 3 个常见设计原则，并说明每条原则为什么重要。</li>
+<li>对比"奖励稀疏"和"奖励稠密"。如果倒立摆任务只在倒下时给 -1、不倒时给 0，训练会有什么问题？</li>
+<li>为一个简单任务设计奖励函数框架，例如让机器人走到目标点。</li>
+              </ol>
+              <h3>交付要求</h3>
+              <p><strong>形成一份学习文档，包含奖励设计原则、稀疏/稠密奖励对比、奖励函数框架和本节课程总结。</strong></p>
               <div class="lecture-links">
                 <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/04-%E5%A5%96%E5%8A%B1%E5%87%BD%E6%95%B0-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A5%96%E5%8A%B1%E5%86%B3%E5%AE%9A%E8%AE%AD%E7%BB%83%E6%88%90%E8%B4%A5.md" target="_blank" class="btn btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                   查看完整教案（MD）
                 </a>
-                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                <a href="https://www.bilibili.com/video/BV1NfVm6LE3m" target="_blank" class="btn btn-secondary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                   Bilibili 视频
                 </a>
@@ -1495,14 +1545,25 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-              <h3>课程概述</h3>
-              <p>理解环境配置与训练配置的协作机制。掌握双层注册表、配置覆盖与命令行参数解析。</p>
+              <h3>学习重点</h3>
+              <ul>
+<li>EnvCfg 与 RLCfg 的分工</li>
+<li>参数继承、覆盖与管理方式</li>
+<li>如何通过配置灵活控制实验行为</li>
+              </ul>
+              <h3>课程作业</h3>
+              <ol>
+<li>阐明 EnvCfg 与 RLCfg 在 MotrixLab 框架中的职责分工，理解它们之间为什么是"解耦"的。</li>
+<li>思考为什么课程中强调"用配置类默认值 + 注册机制"来管理实验，而不是直接在训练脚本里写死参数。</li>
+              </ol>
+              <h3>交付要求</h3>
+              <p><strong>形成一份学习文档，包含以上问题的回答和本节课程总结。</strong></p>
               <div class="lecture-links">
                 <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/10-%E9%85%8D%E7%BD%AE%E7%B3%BB%E7%BB%9F-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E8%AE%AD%E7%BB%83%E9%85%8D%E7%BD%AE%E6%80%8E%E4%B9%88%E5%8D%8F%E4%BD%9C.md" target="_blank" class="btn btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                   查看完整教案（MD）
                 </a>
-                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                <a href="https://www.bilibili.com/video/BV1xfVm6LEVa" target="_blank" class="btn btn-secondary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                   Bilibili 视频
                 </a>
@@ -1525,8 +1586,20 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-              <h3>课程概述</h3>
-              <p>掌握新环境接入框架的方法：注册装饰器、基类继承、环境实现规范与集成流程。</p>
+              <h3>学习重点</h3>
+              <ul>
+<li>注册系统的作用</li>
+<li>环境配置、环境实现、RL 配置的注册方式</li>
+<li>如何让新任务被框架自动识别</li>
+              </ul>
+              <h3>课程作业</h3>
+              <ol>
+<li>阐明 MotrixLab 中两套注册表 motrix_envs.registry 和 motrix_rl.registry 的分工与协作关系。</li>
+<li>结合代码检查逻辑说明：如果没有先注册 @registry.envcfg，就注册 @registry.env，会发生什么？</li>
+<li>假设要让一个名为 simple_walker 的新环境接入 MotrixLab 框架，请写出：cfg.py 核心代码框架、simple_walker_np.py 类定义头部和装饰器、以及 import 链修改方案。</li>
+              </ol>
+              <h3>交付要求</h3>
+              <p><strong>形成一份学习文档，包含以上问题的回答、代码框架和本节课程总结。</strong></p>
               <div class="lecture-links">
                 <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/11-%E6%B3%A8%E5%86%8C%E7%B3%BB%E7%BB%9F-%E6%96%B0%E7%8E%AF%E5%A2%83%E5%A6%82%E4%BD%95%E6%8E%A5%E5%85%A5%E6%A1%86%E6%9E%B6.md" target="_blank" class="btn btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -1555,8 +1628,19 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-              <h3>课程概述</h3>
-              <p>从 train.py 到模型保存的完整训练流程。理解配置解析、环境创建、SKRL 包装与 PPO 训练循环。</p>
+              <h3>学习重点</h3>
+              <ul>
+<li>命令行启动训练的完整流程</li>
+<li>配置解析、环境创建、训练执行</li>
+<li>模型保存、日志记录与结果输出</li>
+              </ul>
+              <h3>课程作业</h3>
+              <ol>
+<li>假设运行命令 uv run scripts/train.py --env cartpole，绘制从 train.py 执行到 trainer.train() 的简化流程图。</li>
+<li>使用默认配置训练 CartPole，并分析训练结果。写出完整训练命令，训练完成后启动 TensorBoard 并分析曲线。</li>
+              </ol>
+              <h3>交付要求</h3>
+              <p><strong>形成一份学习文档，包含训练流程图、训练命令和结果分析。</strong></p>
               <div class="lecture-links">
                 <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/09-%E8%AE%AD%E7%BB%83%E6%B5%81%E7%A8%8B-%E4%BB%8Etrain.py%E5%88%B0%E6%A8%A1%E5%9E%8B%E4%BF%9D%E5%AD%98.md" target="_blank" class="btn btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
@@ -1596,14 +1680,25 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-              <h3>课程概述</h3>
-              <p>学会通用的 Demo 分析方法：从任务了解、要素分解到深入代码。掌握 MotrixLab 的模块化开发规范。</p>
+              <h3>学习重点</h3>
+              <ul>
+<li>分析一个 Demo 的通用方法</li>
+<li>任务目标、观测、动作、奖励、终止条件</li>
+<li>如何从案例中提炼可复用的设计思路</li>
+              </ul>
+              <h3>课程作业</h3>
+              <ol>
+<li>整理本节课内容，重点理解强化学习通用流程和 8 个要素，研究 MotrixLab 的对应实现方法。</li>
+<li>结合官方文档，独立完成对 CartPole 任务环境的 8 个强化学习要素分析和对应 MotrixLab 实现的代码分析。</li>
+              </ol>
+              <h3>交付要求</h3>
+              <p><strong>形成一份学习体会、CartPole 要素分析和代码分析文档。</strong></p>
               <div class="lecture-links">
                 <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/05-Demo%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95-%E5%A6%82%E4%BD%95%E8%AF%BB%E6%87%82%E4%B8%80%E4%B8%AA%E6%A1%88%E4%BE%8B.md" target="_blank" class="btn btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                   查看完整教案（MD）
                 </a>
-                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                <a href="https://www.bilibili.com/video/BV1fGVU6vEA3" target="_blank" class="btn btn-secondary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                   Bilibili 视频
                 </a>
@@ -1637,14 +1732,26 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-              <h3>课程概述</h3>
-              <p>剖析倒立摆、单摆、双连杆三个基础控制任务。掌握小规模状态空间与动作空间的设计思路。</p>
+              <h3>学习重点</h3>
+              <ul>
+<li>经典控制任务的特点</li>
+<li>小规模状态空间与动作空间分析</li>
+<li>基础强化学习训练流程示例</li>
+              </ul>
+              <h3>课程作业</h3>
+              <ol>
+<li>跑通三个基础控制 Demo，整理三个任务强化学习 8 个要素的相同点和不同点。</li>
+<li>修改 MotrixLab 源代码中单摆任务奖励函数的能量部分，对比修改前后单摆最后竖直的效果。</li>
+<li>自行探索双关节机械臂控制任务，整理强化学习 8 个要素。</li>
+              </ol>
+              <h3>交付要求</h3>
+              <p><strong>三个经典任务跑通视频、单摆奖励函数修改前后对比视频、三个 Demo 对比文档和双关节机械臂控制任务分析文档。</strong></p>
               <div class="lecture-links">
                 <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/06-%E5%9F%BA%E7%A1%80%E6%8E%A7%E5%88%B6Demo%E8%AE%B2%E8%A7%A3-%E5%80%92%E7%AB%8B%E6%91%86%E5%8D%95%E6%91%86%E5%8F%8C%E8%BF%9E%E6%9D%86.md" target="_blank" class="btn btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                   查看完整教案（MD）
                 </a>
-                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                <a href="https://www.bilibili.com/video/BV1hKVm6DE5q" target="_blank" class="btn btn-secondary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                   Bilibili 视频
                 </a>
@@ -1678,14 +1785,25 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-              <h3>课程概述</h3>
-              <p>深入讲解 Franka 机械臂抓取立方体任务。理解机械臂控制中的观测空间、动作空间与多阶段奖励设计。</p>
+              <h3>学习重点</h3>
+              <ul>
+<li>机械臂控制任务的核心难点</li>
+<li>抓取、到达、操作类任务的奖励设计</li>
+<li>接触控制与精细动作学习</li>
+              </ul>
+              <h3>课程作业</h3>
+              <ol>
+<li>结合课程内容，修改 MotrixLab 源代码中 franka-lift-cube 任务奖励函数，并尝试增大训练步数，实现更优抓取效果。</li>
+<li>自行研究 Franka 打开抽屉任务，整理强化学习 8 个要素，并和 franka-lift-cube 做对比分析。</li>
+              </ol>
+              <h3>交付要求</h3>
+              <p><strong>franka-lift-cube 奖励函数修改前后对比视频、franka-lift-cube 和打开抽屉任务的强化学习要素对比文档。</strong></p>
               <div class="lecture-links">
                 <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/07-%E6%9C%BA%E6%A2%B0%E8%87%82%E4%B8%8E%E6%8A%93%E5%8F%96Demo%E8%AE%B2%E8%A7%A3.md" target="_blank" class="btn btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                   查看完整教案（MD）
                 </a>
-                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                <a href="https://www.bilibili.com/video/BV1F2V26vExQ" target="_blank" class="btn btn-secondary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                   Bilibili 视频
                 </a>
@@ -1719,14 +1837,24 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-              <h3>课程概述</h3>
-              <p>对比 Walker、GO1、Humanoid 三种运动机器人的训练过程。理解形态差异、奖励结构与终止条件设计。</p>
+              <h3>学习重点</h3>
+              <ul>
+<li>机器人行走任务的共性与差异</li>
+<li>稳定性、接触、平衡与协调控制</li>
+<li>复杂运动任务中的训练挑战</li>
+              </ul>
+              <h3>课程作业</h3>
+              <ol>
+<li>根据课程教案和学习视频，理解不同奖励设计对策略的影响，理解不同机器人构型导致的训练难度差异，逐步建立奖励函数到训练后动作的大致映射感。</li>
+              </ol>
+              <h3>交付要求</h3>
+              <p><strong>三个任务的 baseline 跑通视频，以及观测空间、奖励函数、训练超参数的理解文档。</strong></p>
               <div class="lecture-links">
                 <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/08-%E8%BF%90%E5%8A%A8%E6%9C%BA%E5%99%A8%E4%BA%BADemo%E8%AE%B2%E8%A7%A3-Walker-GO1-Humanoid.md" target="_blank" class="btn btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                   查看完整教案（MD）
                 </a>
-                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                <a href="https://www.bilibili.com/video/BV1ZQV26cEUS" target="_blank" class="btn btn-secondary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                   Bilibili 视频
                 </a>
@@ -1760,14 +1888,25 @@
           </div>
           <div class="lecture-content">
             <div class="lecture-body">
-              <h3>课程概述</h3>
-              <p>综合运用所学知识，掌握修改 Demo、调整奖励、开发新任务的完整方法论。</p>
+              <h3>学习重点</h3>
+              <ul>
+<li>修改现有 Demo 的思路</li>
+<li>如何调整奖励和配置参数</li>
+<li>如何基于框架开发新任务</li>
+<li>后续学习与实践建议</li>
+              </ul>
+              <h3>课程作业</h3>
+              <ol>
+<li>训练一个新的 GO1 步态，跑通修改 Demo 的完整流程。</li>
+              </ol>
+              <h3>交付要求</h3>
+              <p><strong>输出训练新步态的视频，以及奖励函数修改记录文档。</strong></p>
               <div class="lecture-links">
                 <a href="https://github.com/Xbotics-Embodied-AI-club/Motphys-Xbotics-Robot-Rl-Sim-Training-Camp/blob/main/docs/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8EMotrixLab%E5%85%A5%E9%97%A8/%E7%BA%BF%E4%B8%8A%E8%A7%86%E9%A2%91%E6%95%99%E6%A1%88/12-%E6%80%BB%E7%BB%93-%E5%A6%82%E4%BD%95%E8%87%AA%E5%B7%B1%E6%94%B9Demo%E8%B0%83%E5%A5%96%E5%8A%B1%E5%81%9A%E6%96%B0%E4%BB%BB%E5%8A%A1.md" target="_blank" class="btn btn-primary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                   查看完整教案（MD）
                 </a>
-                <a href="https://www.bilibili.com/video/BV1t9Vm6UEVX" target="_blank" class="btn btn-secondary">
+                <a href="https://www.bilibili.com/video/BV1ESV26YEzX" target="_blank" class="btn btn-secondary">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                   Bilibili 视频
                 </a>
