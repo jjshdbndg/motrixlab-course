@@ -889,6 +889,16 @@
     .faq-a-content ol, .faq-a-content ul { margin-left: 20px; margin-bottom: 12px; }
     .faq-a-content li { margin-bottom: 6px; }
     .faq-a-content code { background: var(--bg-sunken); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; color: var(--accent); }
+
+    /* Sidebar states */
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-overlay.active { display: block; }
+
+    @media (max-width: 1024px) {
+      .menu-toggle { display: flex; align-items: center; justify-content: center; }
+      .sidebar { transform: translateX(-100%); }
+      .main-content { margin-left: 0; }
+    }
 </style>
 </head>
 <body>
