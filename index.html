@@ -2432,7 +2432,7 @@ gym.spaces.Box(-np.ones(n), np.ones(n), ...)</code></pre>
   window.switchTab = function(tabId) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
-    const btn = document.querySelector('.tab-btn[onclick*="' + tabId + '"]);
+    const btn = document.querySelector('.tab-btn[onclick*="' + tabId + '"]');
     const panel = document.getElementById('panel-' + tabId);
     if (btn) btn.classList.add('active');
     if (panel) {
@@ -2491,7 +2491,7 @@ gym.spaces.Box(-np.ones(n), np.ones(n), ...)</code></pre>
     }).catch(() => {
       // Fallback
       const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-      const orig = btn.innerHTML; btn.innerHTML = '已复制'; btn.classList.add('copied'); setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000;
+      const orig = btn.innerHTML; btn.innerHTML = '已复制'; btn.classList.add('copied'); setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
     });
   };
 
