@@ -165,12 +165,16 @@ body {
 }
 
 .animate-on-scroll {
-  opacity: 0;
-  transform: translateY(28px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.7s var(--transition-smooth), transform 0.7s var(--transition-smooth), filter 0.7s var(--transition-smooth);
   filter: blur(0px);
 }
-.animate-on-scroll.visible {
+.js .animate-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+}
+.js .animate-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1060,9 +1064,19 @@ button:focus-visible, a:focus-visible { outline-color: var(--accent); }
   .hero-orb, .hero-grid-bg { animation: none; }
 }
 </style>
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <!-- Reading Progress -->
+  <noscript>
+    <style>
+      .animate-on-scroll { opacity: 1 !important; transform: none !important; filter: none !important; }
+      .lecture-content { max-height: none !important; padding: 1.5rem !important; }
+      .faq-answer { max-height: none !important; }
+      .tab-panel { display: block !important; }
+      .back-to-top { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
   <div class="reading-progress">
     <div class="reading-progress-bar"></div>
   </div>
