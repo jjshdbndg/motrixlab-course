@@ -1330,12 +1330,15 @@ button:focus-visible, a:focus-visible { outline-color: var(--accent); }
 
 /* Section title gradient */
 #honor-roll .section-title {
+  color: var(--text-primary);
   background: linear-gradient(135deg, var(--text-primary), var(--accent-primary), var(--accent-secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   background-size: 200% 200%;
   animation: titleGradient 4s ease-in-out infinite;
+  text-shadow: none;
+  font-weight: 900;
 }
 
 @keyframes titleGradient {
