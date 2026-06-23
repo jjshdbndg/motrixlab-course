@@ -1440,6 +1440,152 @@ button:focus-visible, a:focus-visible { outline-color: var(--accent); }
   font-family: var(--font-mono);
   word-break: break-all;
 }
+
+/* Admin Button */
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+}
+.btn-ghost:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+.btn-small {
+  padding: 0.5rem 0.875rem;
+  font-size: 0.8rem;
+}
+
+/* Admin Modal */
+#admin-login-panel p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.admin-info-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.admin-info-bar strong {
+  color: var(--text-primary);
+}
+
+.admin-user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.admin-user-list::-webkit-scrollbar {
+  width: 4px;
+}
+.admin-user-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.admin-user-list::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 2px;
+}
+
+.admin-user-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-user-item:hover {
+  background: var(--bg-card);
+  border-color: var(--border-medium);
+}
+
+.admin-user-item img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.admin-user-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-user-item-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  word-break: break-all;
+}
+
+.admin-user-item-username {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  word-break: break-all;
+}
+
+.admin-user-item-date {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+.admin-user-item-delete {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.admin-user-item-delete:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.admin-user-item-delete svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 768px) {
+  .admin-user-item {
+    padding: 0.5rem 0.625rem;
+  }
+  .admin-user-item-info {
+    min-width: 0;
+  }
+  .admin-user-item-date {
+    display: none;
+  }
+}
 </style>
 <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -1828,6 +1974,152 @@ button:focus-visible, a:focus-visible { outline-color: var(--accent); }
   color: var(--text-muted);
   font-family: var(--font-mono);
   word-break: break-all;
+}
+
+/* Admin Button */
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+}
+.btn-ghost:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+.btn-small {
+  padding: 0.5rem 0.875rem;
+  font-size: 0.8rem;
+}
+
+/* Admin Modal */
+#admin-login-panel p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.admin-info-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.admin-info-bar strong {
+  color: var(--text-primary);
+}
+
+.admin-user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.admin-user-list::-webkit-scrollbar {
+  width: 4px;
+}
+.admin-user-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.admin-user-list::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 2px;
+}
+
+.admin-user-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-user-item:hover {
+  background: var(--bg-card);
+  border-color: var(--border-medium);
+}
+
+.admin-user-item img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.admin-user-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-user-item-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  word-break: break-all;
+}
+
+.admin-user-item-username {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  word-break: break-all;
+}
+
+.admin-user-item-date {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+.admin-user-item-delete {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.admin-user-item-delete:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.admin-user-item-delete svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 768px) {
+  .admin-user-item {
+    padding: 0.5rem 0.625rem;
+  }
+  .admin-user-item-info {
+    min-width: 0;
+  }
+  .admin-user-item-date {
+    display: none;
+  }
 }
 </style>
   </noscript>
@@ -2932,6 +3224,10 @@ gym.spaces.Box(-np.ones(n), np.ones(n), ...)</code></pre>
             <svg class="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
             前往 GitHub 登录
           </a>
+          <button class="btn btn-ghost btn-small" onclick="openAdminModal()" title="管理员入口">
+            <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.17 15 1.65 1.65 0 0 0 3 14.09V14a2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 6.6 10.4a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            管理
+          </button>
         </div>
       </div>
     </section>
@@ -3565,6 +3861,178 @@ gym.spaces.Box(-np.ones(n), np.ones(n), ...)</code></pre>
     }
   });
 
+
+  // ============================================
+  // ADMIN PANEL
+  // ============================================
+  const ADMIN_USER = 'xbotics';
+  const ADMIN_PASS = '88888888';
+  const ADMIN_SESSION_KEY = 'motrixlab_admin_session';
+
+  function openAdminModal() {
+    const modal = document.getElementById('admin-modal');
+    if (!modal) return;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Check if already logged in
+    if (localStorage.getItem(ADMIN_SESSION_KEY) === '1') {
+      showAdminPanel();
+    } else {
+      showAdminLogin();
+    }
+    
+    setTimeout(() => document.getElementById('admin-username')?.focus(), 100);
+  }
+
+  function closeAdminModal(event) {
+    if (event && event.target !== event.currentTarget && event.type === 'click') return;
+    const modal = document.getElementById('admin-modal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    clearAdminError();
+  }
+
+  function showAdminLogin() {
+    const loginPanel = document.getElementById('admin-login-panel');
+    const managePanel = document.getElementById('admin-manage-panel');
+    if (loginPanel) loginPanel.style.display = 'block';
+    if (managePanel) managePanel.style.display = 'none';
+    
+    const userInput = document.getElementById('admin-username');
+    const passInput = document.getElementById('admin-password');
+    if (userInput) userInput.value = '';
+    if (passInput) passInput.value = '';
+  }
+
+  function showAdminPanel() {
+    const loginPanel = document.getElementById('admin-login-panel');
+    const managePanel = document.getElementById('admin-manage-panel');
+    if (loginPanel) loginPanel.style.display = 'none';
+    if (managePanel) managePanel.style.display = 'block';
+    renderAdminUserList();
+  }
+
+  function adminLogin() {
+    const userInput = document.getElementById('admin-username');
+    const passInput = document.getElementById('admin-password');
+    const errorDiv = document.getElementById('admin-error');
+    
+    const username = (userInput?.value || '').trim();
+    const password = (passInput?.value || '').trim();
+    
+    if (username !== ADMIN_USER || password !== ADMIN_PASS) {
+      if (errorDiv) {
+        errorDiv.textContent = '用户名或密码错误';
+        errorDiv.style.display = 'flex';
+      }
+      return;
+    }
+    
+    clearAdminError();
+    localStorage.setItem(ADMIN_SESSION_KEY, '1');
+    showAdminPanel();
+  }
+
+  function adminLogout() {
+    localStorage.removeItem(ADMIN_SESSION_KEY);
+    showAdminLogin();
+  }
+
+  function clearAdminError() {
+    const errorDiv = document.getElementById('admin-error');
+    if (errorDiv) {
+      errorDiv.textContent = '';
+      errorDiv.style.display = 'none';
+    }
+  }
+
+  function renderAdminUserList() {
+    const listContainer = document.getElementById('admin-user-list');
+    const emptyDiv = document.getElementById('admin-empty');
+    if (!listContainer) return;
+    
+    let users = [];
+    try {
+      users = JSON.parse(localStorage.getItem(HONOR_STORAGE_KEY) || '[]');
+    } catch (e) { users = []; }
+    
+    listContainer.innerHTML = '';
+    
+    if (users.length === 0) {
+      if (emptyDiv) emptyDiv.style.display = 'block';
+      return;
+    }
+    if (emptyDiv) emptyDiv.style.display = 'none';
+    
+    users.forEach((user, index) => {
+      const item = document.createElement('div');
+      item.className = 'admin-user-item';
+      item.innerHTML = `
+        <img src="${escapeHtml(user.avatar_url || 'https://github.com/github.png')}" alt="${escapeHtml(user.name || user.username)}" onerror="this.src='https://github.com/github.png'">
+        <div class="admin-user-item-info">
+          <div class="admin-user-item-name">${escapeHtml(user.name || user.username)}</div>
+          <div class="admin-user-item-username">@${escapeHtml(user.username)}</div>
+        </div>
+        <div class="admin-user-item-date">${escapeHtml(user.date || '')}</div>
+        <button class="admin-user-item-delete" onclick="adminDeleteUser('${escapeHtml(user.username)}')" title="删除">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </button>
+      `;
+      listContainer.appendChild(item);
+    });
+  }
+
+  function adminDeleteUser(username) {
+    if (!confirm('确定要删除用户 @' + username + ' 吗？此操作不可撤销。')) return;
+    
+    let users = [];
+    try {
+      users = JSON.parse(localStorage.getItem(HONOR_STORAGE_KEY) || '[]');
+    } catch (e) { users = []; }
+    
+    const filtered = users.filter(u => u.username !== username);
+    localStorage.setItem(HONOR_STORAGE_KEY, JSON.stringify(filtered));
+    
+    // Refresh admin list
+    renderAdminUserList();
+    
+    // Refresh honor grid in background
+    const grid = document.getElementById('honor-grid');
+    const placeholder = document.getElementById('honor-placeholder');
+    if (grid) {
+      // Remove deleted card
+      const card = grid.querySelector('[data-id="' + username + '"]');
+      if (card) card.remove();
+      
+      // Show placeholder if empty
+      if (filtered.length === 0 && placeholder) {
+        placeholder.style.display = 'flex';
+      }
+    }
+    
+    // Update progress if any
+    updateProgress();
+  }
+
+  // Enter key for admin login
+  document.addEventListener('DOMContentLoaded', () => {
+    const adminPass = document.getElementById('admin-password');
+    if (adminPass) {
+      adminPass.addEventListener('keydown', e => {
+        if (e.key === 'Enter') adminLogin();
+      });
+    }
+  });
+
+  window.openAdminModal = openAdminModal;
+  window.closeAdminModal = closeAdminModal;
+  window.adminLogin = adminLogin;
+  window.adminLogout = adminLogout;
+  window.adminDeleteUser = adminDeleteUser;
+
   // ============================================
   // HONOR ROLL
   // ============================================
@@ -3764,6 +4232,42 @@ gym.spaces.Box(-np.ones(n), np.ones(n), ...)</code></pre>
 })();
 </script>
 
+
+
+<!-- Admin Modal -->
+<div class="modal-overlay" id="admin-modal" onclick="closeAdminModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3>🔒 管理员面板</h3>
+      <button class="modal-close" onclick="closeAdminModal()" aria-label="关闭">&times;</button>
+    </div>
+    <div class="modal-body">
+      <!-- Login Panel -->
+      <div id="admin-login-panel">
+        <p>请输入管理员凭据以管理荣誉榜上榜学员。</p>
+        <div class="honor-input-group" style="margin-top:1rem;">
+          <input type="text" id="admin-username" placeholder="用户名" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="honor-input-group">
+          <input type="password" id="admin-password" placeholder="密码" autocomplete="off">
+        </div>
+        <div id="admin-error" class="honor-error" style="display:none;"></div>
+        <button class="btn btn-primary" style="width:100%;margin-top:0.5rem;" onclick="adminLogin()">登录</button>
+      </div>
+      <!-- Management Panel -->
+      <div id="admin-manage-panel" style="display:none;">
+        <div class="admin-info-bar">
+          <span>已登录：<strong>xbotics</strong></span>
+          <button class="btn btn-ghost btn-small" onclick="adminLogout()">退出登录</button>
+        </div>
+        <div class="admin-user-list" id="admin-user-list"></div>
+        <div id="admin-empty" style="display:none;text-align:center;padding:2rem;color:var(--text-muted);">
+          <p>暂无上榜学员</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Honor Roll Modal -->
 <div class="modal-overlay" id="honor-modal" onclick="closeHonorModal(event)">
