@@ -1328,19 +1328,36 @@ button:focus-visible, a:focus-visible { outline-color: var(--accent); }
   50% { box-shadow: 0 2px 15px rgba(245, 158, 11, 0.7), 0 0 30px rgba(245, 158, 11, 0.5); }
 }
 
-/* Section title gradient */
+/* Section title glow effect */
 #honor-roll .section-title {
   color: var(--text-primary);
-  background: linear-gradient(135deg, var(--text-primary), var(--accent-primary), var(--accent-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-size: 200% 200%;
-  animation: titleGradient 4s ease-in-out infinite;
-  text-shadow: none;
   font-weight: 900;
+  letter-spacing: 0.05em;
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 0 30px rgba(37, 99, 235, 0.2), 0 0 60px rgba(99, 102, 241, 0.1);
 }
 
+#honor-roll .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 2px;
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+  animation: underlinePulse 3s ease-in-out infinite;
+}
+
+@keyframes underlinePulse {
+  0%, 100% { width: 60px; opacity: 1; box-shadow: 0 0 15px rgba(37, 99, 235, 0.4); }
+  50% { width: 100px; opacity: 0.8; box-shadow: 0 0 25px rgba(37, 99, 235, 0.6); }
+}
+
+/* Remove old titleGradient animation if it causes issues */
 @keyframes titleGradient {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
