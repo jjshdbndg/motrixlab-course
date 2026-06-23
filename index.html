@@ -1082,12 +1082,13 @@ button:focus-visible, a:focus-visible { outline-color: var(--accent); }
   align-items: center;
   padding: 1.5rem 1rem 1.25rem;
   background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  border: 2px solid transparent;
   border-radius: var(--radius-lg);
+  background-clip: padding-box;
   transition: transform 0.4s var(--transition-smooth), box-shadow 0.4s var(--transition-smooth), border-color 0.4s var(--transition-smooth);
   cursor: default;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .honor-card::before {
@@ -1122,12 +1123,13 @@ button:focus-visible, a:focus-visible { outline-color: var(--accent); }
 .honor-card:hover::after {
   width: 80%;
   opacity: 1;
+  box-shadow: 0 0 15px 3px rgba(37, 99, 235, 0.4);
 }
 
 .honor-card:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: var(--shadow-xl), 0 0 0 1px var(--border-focus), 0 0 30px rgba(37, 99, 235, 0.15);
-  border-color: var(--border-focus);
+  box-shadow: var(--shadow-xl), 0 0 0 2px rgba(37, 99, 235, 0.3), 0 0 30px rgba(37, 99, 235, 0.2), 0 0 60px rgba(99, 102, 241, 0.1);
+  border-color: var(--accent-primary);
 }
 
 .honor-avatar {
@@ -1142,9 +1144,9 @@ button:focus-visible, a:focus-visible { outline-color: var(--accent); }
 }
 
 .honor-card:hover .honor-avatar {
-  transform: scale(1.1) rotate(3deg);
+  transform: scale(1.12) rotate(5deg);
   border-color: var(--accent-primary);
-  box-shadow: 0 6px 24px rgba(37, 99, 235, 0.2), 0 0 0 6px rgba(37, 99, 235, 0.08);
+  box-shadow: 0 0 20px 4px rgba(37, 99, 235, 0.35), 0 0 40px 8px rgba(99, 102, 241, 0.2), 0 0 60px 12px rgba(37, 99, 235, 0.1);
 }
 
 .honor-name {
@@ -1222,25 +1224,123 @@ button:focus-visible, a:focus-visible { outline-color: var(--accent); }
 }
 
 
-/* Honor Glow Effect */
+/* Honor Glow Effect - Stronger */
 .honor-card .honor-avatar {
-  animation: honorPulse 3s ease-in-out infinite;
+  animation: honorAvatarGlow 3s ease-in-out infinite;
 }
 
-@keyframes honorPulse {
-  0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.1), 0 0 0 4px rgba(37, 99, 235, 0.05); }
-  50% { box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15), 0 0 0 6px rgba(37, 99, 235, 0.08); }
+@keyframes honorAvatarGlow {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 25px 5px rgba(37, 99, 235, 0.4), 0 0 50px 10px rgba(99, 102, 241, 0.25);
+    transform: scale(1.03);
+  }
 }
 
 .honor-card:hover .honor-avatar {
   animation: none;
+  transform: scale(1.12) rotate(5deg);
+  box-shadow: 0 0 30px 6px rgba(37, 99, 235, 0.4), 0 0 60px 12px rgba(99, 102, 241, 0.2);
 }
 
+/* Card border glow on hover */
+.honor-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius-lg) + 2px);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
+  background-size: 200% 200%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  animation: borderGlow 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes borderGlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.honor-card:hover::before {
+  opacity: 0.6;
+}
+
+/* Top light bar */
+.honor-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent-primary), var(--accent-secondary), transparent);
+  border-radius: 2px;
+  opacity: 0.8;
+  transition: width 0.4s ease, opacity 0.4s ease;
+  box-shadow: 0 0 10px 2px rgba(37, 99, 235, 0.3);
+}
+
+.honor-card:hover::after {
+  width: 70%;
+  opacity: 1;
+  background: linear-gradient(90deg, transparent, var(--accent-primary), var(--accent-secondary), var(--accent-primary), transparent);
+}
+
+/* Star badge */
+.honor-card .honor-star {
+  position: absolute;
+  top: -10px;
+  right: -6px;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #f59e0b, #fbbf24, #f59e0b);
+  background-size: 200% 200%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.5), 0 0 20px rgba(245, 158, 11, 0.3);
+  z-index: 2;
+  animation: starPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, starGlow 2s ease-in-out infinite 0.6s;
+}
+
+.honor-card .honor-star svg {
+  width: 14px;
+  height: 14px;
+  fill: white;
+  stroke: none;
+}
+
+@keyframes starPop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes starGlow {
+  0%, 100% { box-shadow: 0 2px 10px rgba(245, 158, 11, 0.5), 0 0 20px rgba(245, 158, 11, 0.3); }
+  50% { box-shadow: 0 2px 15px rgba(245, 158, 11, 0.7), 0 0 30px rgba(245, 158, 11, 0.5); }
+}
+
+/* Section title gradient */
 #honor-roll .section-title {
-  background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
+  background: linear-gradient(135deg, var(--text-primary), var(--accent-primary), var(--accent-secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  background-size: 200% 200%;
+  animation: titleGradient 4s ease-in-out infinite;
+}
+
+@keyframes titleGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 @media (max-width: 768px) {
@@ -1631,560 +1731,6 @@ button:focus-visible, a:focus-visible { outline-color: var(--accent); }
       .tab-panel { display: block !important; }
       .back-to-top { opacity: 1 !important; transform: none !important; }
     
-/* ============================================
-   HONOR ROLL SECTION
-   ============================================ */
-.honor-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 1.75rem;
-  margin: 2.5rem 0;
-  min-height: 180px;
-  padding: 0.5rem;
-}
-
-.honor-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1.5rem 1rem 1.25rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  transition: transform 0.4s var(--transition-smooth), box-shadow 0.4s var(--transition-smooth), border-color 0.4s var(--transition-smooth);
-  cursor: default;
-  position: relative;
-  overflow: hidden;
-}
-
-.honor-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.12) 0%, transparent 60%),
-              radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.06) 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-
-.honor-card:hover::before {
-  opacity: 1;
-}
-
-.honor-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
-  opacity: 0.6;
-  transition: width 0.4s ease, opacity 0.4s ease;
-}
-
-.honor-card:hover::after {
-  width: 80%;
-  opacity: 1;
-}
-
-.honor-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: var(--shadow-xl), 0 0 0 1px var(--border-focus), 0 0 30px rgba(37, 99, 235, 0.15);
-  border-color: var(--border-focus);
-}
-
-.honor-avatar {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--border-subtle);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1), 0 0 0 4px rgba(37, 99, 235, 0.05);
-  transition: transform 0.4s var(--transition-smooth), border-color 0.4s ease, box-shadow 0.4s ease;
-  background: var(--bg-tertiary);
-}
-
-.honor-card:hover .honor-avatar {
-  transform: scale(1.1) rotate(3deg);
-  border-color: var(--accent-primary);
-  box-shadow: 0 6px 24px rgba(37, 99, 235, 0.2), 0 0 0 6px rgba(37, 99, 235, 0.08);
-}
-
-.honor-name {
-  margin-top: 1rem;
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--text-primary);
-  text-align: center;
-  word-break: break-all;
-  line-height: 1.3;
-  max-width: 100%;
-  letter-spacing: 0.02em;
-}
-
-.honor-username {
-  margin-top: 0.35rem;
-  font-size: 0.78rem;
-  color: var(--accent-primary);
-  text-align: center;
-  font-family: var(--font-mono);
-  word-break: break-all;
-  font-weight: 500;
-  opacity: 0.8;
-}
-
-.honor-card:hover .honor-username {
-  opacity: 1;
-  color: var(--accent-secondary);
-}
-
-.honor-date {
-  margin-top: 0.5rem;
-  font-size: 0.72rem;
-  color: var(--text-tertiary);
-  text-align: center;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-}
-
-.honor-placeholder {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 2rem;
-  color: var(--text-muted);
-  border: 2px dashed var(--border-subtle);
-  border-radius: var(--radius-lg);
-  background: var(--bg-tertiary);
-  transition: border-color 0.3s ease, background 0.3s ease;
-}
-
-.honor-placeholder:hover {
-  border-color: var(--border-focus);
-  background: var(--bg-card);
-}
-
-.honor-placeholder-icon {
-  margin-bottom: 1rem;
-  opacity: 0.5;
-}
-
-.honor-placeholder p {
-  font-size: 0.95rem;
-  text-align: center;
-}
-
-.honor-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 1rem;
-}
-
-
-/* Honor Glow Effect */
-.honor-card .honor-avatar {
-  animation: honorPulse 3s ease-in-out infinite;
-}
-
-@keyframes honorPulse {
-  0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.1), 0 0 0 4px rgba(37, 99, 235, 0.05); }
-  50% { box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15), 0 0 0 6px rgba(37, 99, 235, 0.08); }
-}
-
-.honor-card:hover .honor-avatar {
-  animation: none;
-}
-
-#honor-roll .section-title {
-  background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-@media (max-width: 768px) {
-  .honor-grid {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 1rem;
-  }
-  .honor-card {
-    padding: 1rem 0.5rem;
-  }
-  .honor-avatar {
-    width: 52px;
-    height: 52px;
-  }
-  .honor-name {
-    font-size: 0.8rem;
-  }
-  .honor-actions {
-    flex-direction: column;
-    align-items: center;
-  }
-  .honor-actions .btn {
-    width: 100%;
-    max-width: 280px;
-  }
-}
-
-/* Honor Modal */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.modal-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.modal-content {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-xl);
-  width: 90%;
-  max-width: 420px;
-  max-height: 90vh;
-  overflow: auto;
-  transform: translateY(20px) scale(0.96);
-  transition: transform 0.3s var(--transition-smooth);
-}
-
-.modal-overlay.active .modal-content {
-  transform: translateY(0) scale(1);
-}
-
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.modal-header h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-.modal-close {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: var(--bg-tertiary);
-  color: var(--text-muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  line-height: 1;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.modal-close:hover {
-  background: var(--accent-primary);
-  color: white;
-}
-
-.modal-body {
-  padding: 1.5rem;
-}
-
-.modal-body > p {
-  color: var(--text-secondary);
-  margin-bottom: 1.25rem;
-  font-size: 0.875rem;
-  line-height: 1.6;
-}
-
-.honor-input-group {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.honor-input-group input {
-  flex: 1;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
-  font-size: 0.875rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.honor-input-group input:focus {
-  outline: none;
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.honor-input-group input::placeholder {
-  color: var(--text-tertiary);
-}
-
-.honor-input-group button {
-  padding: 0.75rem 1.25rem;
-  white-space: nowrap;
-}
-
-.honor-help {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.25rem 0.5rem;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 0.75rem;
-}
-
-.honor-help a {
-  color: var(--accent-primary);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-.honor-help a:hover {
-  color: var(--accent-secondary);
-  text-decoration: underline;
-}
-
-.honor-error {
-  color: #ef4444;
-  font-size: 0.8rem;
-  margin-top: 0.75rem;
-  min-height: 1.2em;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.honor-loading {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-muted);
-  font-size: 0.875rem;
-  margin-top: 0.75rem;
-}
-
-.honor-loading::after {
-  content: '';
-  width: 14px;
-  height: 14px;
-  border: 2px solid var(--border-subtle);
-  border-top-color: var(--accent-primary);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-/* Preview in modal */
-.honor-preview {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  background: var(--bg-tertiary);
-  border-radius: var(--radius-lg);
-  margin-top: 1rem;
-  border: 1px solid var(--border-subtle);
-}
-
-.honor-preview img {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 2px solid var(--accent-primary);
-}
-
-.honor-preview-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.honor-preview-name {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: 0.9rem;
-  word-break: break-all;
-}
-
-.honor-preview-username {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  word-break: break-all;
-}
-
-/* Admin Button */
-.btn-ghost {
-  background: transparent;
-  color: var(--text-muted);
-  border: 1px solid var(--border-subtle);
-}
-.btn-ghost:hover {
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
-  border-color: var(--border-medium);
-}
-.btn-small {
-  padding: 0.5rem 0.875rem;
-  font-size: 0.8rem;
-}
-
-/* Admin Modal */
-#admin-login-panel p {
-  color: var(--text-secondary);
-  font-size: 0.875rem;
-  line-height: 1.6;
-}
-
-.admin-info-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1rem;
-  background: var(--bg-tertiary);
-  border-radius: var(--radius-md);
-  margin-bottom: 1rem;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-}
-
-.admin-info-bar strong {
-  color: var(--text-primary);
-}
-
-.admin-user-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  max-height: 320px;
-  overflow-y: auto;
-  padding-right: 0.25rem;
-}
-
-.admin-user-list::-webkit-scrollbar {
-  width: 4px;
-}
-.admin-user-list::-webkit-scrollbar-track {
-  background: transparent;
-}
-.admin-user-list::-webkit-scrollbar-thumb {
-  background: var(--border-medium);
-  border-radius: 2px;
-}
-
-.admin-user-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.625rem 0.75rem;
-  background: var(--bg-tertiary);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-.admin-user-item:hover {
-  background: var(--bg-card);
-  border-color: var(--border-medium);
-}
-
-.admin-user-item img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid var(--border-subtle);
-  flex-shrink: 0;
-}
-
-.admin-user-item-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.admin-user-item-name {
-  font-weight: 600;
-  font-size: 0.85rem;
-  color: var(--text-primary);
-  word-break: break-all;
-}
-
-.admin-user-item-username {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  word-break: break-all;
-}
-
-.admin-user-item-date {
-  font-size: 0.7rem;
-  color: var(--text-tertiary);
-  white-space: nowrap;
-}
-
-.admin-user-item-delete {
-  width: 28px;
-  height: 28px;
-  border-radius: var(--radius-md);
-  border: none;
-  background: rgba(239, 68, 68, 0.08);
-  color: #ef4444;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease, color 0.2s ease;
-  flex-shrink: 0;
-}
-
-.admin-user-item-delete:hover {
-  background: #ef4444;
-  color: white;
-}
-
-.admin-user-item-delete svg {
-  width: 14px;
-  height: 14px;
-}
-
-@media (max-width: 768px) {
-  .admin-user-item {
-    padding: 0.5rem 0.625rem;
-  }
-  .admin-user-item-info {
-    min-width: 0;
-  }
-  .admin-user-item-date {
-    display: none;
-  }
-}
 </style>
   </noscript>
   <div class="reading-progress">
@@ -4121,13 +3667,16 @@ gym.spaces.Box(-np.ones(n), np.ones(n), ...)</code></pre>
     
     if (placeholder) placeholder.style.display = 'none';
     
-    users.forEach((user, index) => {
+    users.forEach((user) => {
       const card = document.createElement('div');
       card.className = 'honor-card animate-on-scroll';
       card.dataset.id = user.username;
       
       card.innerHTML = `
-        <img class="honor-avatar" src="${user.avatar_url || 'https://github.com/github.png'}" alt="${user.name || user.username}" loading="lazy" onerror="this.src='https://github.com/github.png'">
+        <div class="honor-star">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <img class="honor-avatar" src="${user.avatar_url || 'https://github.com/github.png'}" alt="${user.name || user.username}" loading="eager" onerror="handleAvatarError(this, '${user.username}')" onload="this.style.opacity=1;this.style.filter='none'" style="opacity:0;filter:blur(8px);transition:opacity 0.5s ease,filter 0.5s ease">
         <div class="honor-name">${escapeHtml(user.name || user.username)}</div>
         <div class="honor-username">@${escapeHtml(user.username)}</div>
         <div class="honor-date">${escapeHtml(user.date || '')}</div>
@@ -4138,7 +3687,56 @@ gym.spaces.Box(-np.ones(n), np.ones(n), ...)</code></pre>
     // Trigger animation for newly added cards
     if (window.__io) {
       grid.querySelectorAll('.honor-card').forEach(el => window.__io.observe(el));
+    } else {
+      // Fallback: immediately show all cards
+      grid.querySelectorAll('.honor-card').forEach(el => el.classList.add('visible'));
     }
+    
+    // Refresh avatars from GitHub in background (one at a time to avoid rate limit)
+    refreshAvatarsAsync(users);
+  }
+
+  async function refreshAvatarsAsync(users) {
+    for (const user of users) {
+      try {
+        const resp = await fetch(GITHUB_API_BASE + encodeURIComponent(user.username), { cache: 'no-store' });
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data.avatar_url && data.avatar_url !== user.avatar_url) {
+            user.avatar_url = data.avatar_url;
+            user.name = data.name || user.name;
+            // Update localStorage
+            let allUsers = JSON.parse(localStorage.getItem(HONOR_STORAGE_KEY) || '[]');
+            const idx = allUsers.findIndex(u => u.username === user.username);
+            if (idx >= 0) {
+              allUsers[idx] = user;
+              localStorage.setItem(HONOR_STORAGE_KEY, JSON.stringify(allUsers));
+            }
+            // Update DOM image
+            const card = document.querySelector('.honor-card[data-id="' + user.username + '"]');
+            if (card) {
+              const img = card.querySelector('.honor-avatar');
+              if (img) {
+                img.style.opacity = '0';
+                img.style.filter = 'blur(8px)';
+                img.src = data.avatar_url;
+                img.onload = () => { img.style.opacity = '1'; img.style.filter = 'none'; };
+              }
+              const nameEl = card.querySelector('.honor-name');
+              if (nameEl && data.name) nameEl.textContent = data.name;
+            }
+          }
+        }
+      } catch (e) { /* silent fail */ }
+      // Small delay between requests to avoid rate limit
+      await new Promise(r => setTimeout(r, 300));
+    }
+  }
+
+  function handleAvatarError(img, username) {
+    img.src = 'https://github.com/github.png';
+    img.style.opacity = '1';
+    img.style.filter = 'none';
   }
 
   function openHonorModal() {
@@ -4232,7 +3830,7 @@ gym.spaces.Box(-np.ones(n), np.ones(n), ...)</code></pre>
       // Show preview
       previewArea.innerHTML = `
         <div class="honor-preview">
-          <img src="${userInfo.avatar_url}" alt="${userInfo.name}" onerror="this.src='https://github.com/github.png'">
+          <img src="${userInfo.avatar_url}" alt="${userInfo.name}" onerror="handleAvatarError(this, '${userInfo.username}')" onload="this.style.opacity=1;this.style.filter='none'" style="opacity:0;filter:blur(8px);transition:opacity 0.5s ease,filter 0.5s ease">
           <div class="honor-preview-info">
             <div class="honor-preview-name">${escapeHtml(userInfo.name)}</div>
             <div class="honor-preview-username">@${escapeHtml(userInfo.username)}</div>
@@ -4251,7 +3849,10 @@ gym.spaces.Box(-np.ones(n), np.ones(n), ...)</code></pre>
         card.className = 'honor-card animate-on-scroll visible';
         card.dataset.id = userInfo.username;
         card.innerHTML = `
-          <img class="honor-avatar" src="${userInfo.avatar_url}" alt="${userInfo.name}" loading="lazy" onerror="this.src='https://github.com/github.png'">
+          <div class="honor-star">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <img class="honor-avatar" src="${userInfo.avatar_url}" alt="${userInfo.name}" loading="eager" onerror="handleAvatarError(this, '${userInfo.username}')" onload="this.style.opacity=1;this.style.filter='none'" style="opacity:0;filter:blur(8px);transition:opacity 0.5s ease,filter 0.5s ease">
           <div class="honor-name">${escapeHtml(userInfo.name)}</div>
           <div class="honor-username">@${escapeHtml(userInfo.username)}</div>
           <div class="honor-date">${escapeHtml(userInfo.date)}</div>
