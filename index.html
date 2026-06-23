@@ -1063,6 +1063,383 @@ button:focus-visible, a:focus-visible { outline-color: var(--accent); }
   html { scroll-behavior: auto; }
   .hero-orb, .hero-grid-bg { animation: none; }
 }
+
+/* ============================================
+   HONOR ROLL SECTION
+   ============================================ */
+.honor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  min-height: 160px;
+}
+
+.honor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition: transform 0.3s var(--transition-smooth), box-shadow 0.3s var(--transition-smooth), border-color 0.3s var(--transition-smooth);
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.honor-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.honor-card:hover::before {
+  opacity: 1;
+}
+
+.honor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), 0 0 0 1px var(--border-focus);
+  border-color: var(--border-focus);
+}
+
+.honor-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border-subtle);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.3s var(--transition-smooth), border-color 0.3s ease;
+  background: var(--bg-tertiary);
+}
+
+.honor-card:hover .honor-avatar {
+  transform: scale(1.08);
+  border-color: var(--accent-primary);
+}
+
+.honor-name {
+  margin-top: 0.75rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  text-align: center;
+  word-break: break-all;
+  line-height: 1.3;
+  max-width: 100%;
+}
+
+.honor-username {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-family: var(--font-mono);
+  word-break: break-all;
+}
+
+.honor-date {
+  margin-top: 0.375rem;
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+.honor-rank {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.4);
+}
+
+.honor-rank.gold { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.honor-rank.silver { background: linear-gradient(135deg, #9ca3af, #6b7280); }
+.honor-rank.bronze { background: linear-gradient(135deg, #b45309, #92400e); }
+
+.honor-placeholder {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  color: var(--text-muted);
+  border: 2px dashed var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--bg-tertiary);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.honor-placeholder:hover {
+  border-color: var(--border-focus);
+  background: var(--bg-card);
+}
+
+.honor-placeholder-icon {
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.honor-placeholder p {
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.honor-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .honor-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+  }
+  .honor-card {
+    padding: 1rem 0.5rem;
+  }
+  .honor-avatar {
+    width: 52px;
+    height: 52px;
+  }
+  .honor-name {
+    font-size: 0.8rem;
+  }
+  .honor-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  .honor-actions .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+/* Honor Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  width: 90%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow: auto;
+  transform: translateY(20px) scale(0.96);
+  transition: transform 0.3s var(--transition-smooth);
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0) scale(1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.modal-header h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.modal-close:hover {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-body > p {
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.honor-input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.honor-input-group input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.honor-input-group input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.honor-input-group input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.honor-input-group button {
+  padding: 0.75rem 1.25rem;
+  white-space: nowrap;
+}
+
+.honor-help {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+}
+
+.honor-help a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.honor-help a:hover {
+  color: var(--accent-secondary);
+  text-decoration: underline;
+}
+
+.honor-error {
+  color: #ef4444;
+  font-size: 0.8rem;
+  margin-top: 0.75rem;
+  min-height: 1.2em;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.honor-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-top: 0.75rem;
+}
+
+.honor-loading::after {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border-subtle);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Preview in modal */
+.honor-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-lg);
+  margin-top: 1rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.honor-preview img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-primary);
+}
+
+.honor-preview-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.honor-preview-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+
+.honor-preview-username {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  word-break: break-all;
+}
 </style>
 <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -1075,7 +1452,384 @@ button:focus-visible, a:focus-visible { outline-color: var(--accent); }
       .faq-answer { max-height: none !important; }
       .tab-panel { display: block !important; }
       .back-to-top { opacity: 1 !important; transform: none !important; }
-    </style>
+    
+/* ============================================
+   HONOR ROLL SECTION
+   ============================================ */
+.honor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  min-height: 160px;
+}
+
+.honor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition: transform 0.3s var(--transition-smooth), box-shadow 0.3s var(--transition-smooth), border-color 0.3s var(--transition-smooth);
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.honor-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.honor-card:hover::before {
+  opacity: 1;
+}
+
+.honor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), 0 0 0 1px var(--border-focus);
+  border-color: var(--border-focus);
+}
+
+.honor-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border-subtle);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.3s var(--transition-smooth), border-color 0.3s ease;
+  background: var(--bg-tertiary);
+}
+
+.honor-card:hover .honor-avatar {
+  transform: scale(1.08);
+  border-color: var(--accent-primary);
+}
+
+.honor-name {
+  margin-top: 0.75rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  text-align: center;
+  word-break: break-all;
+  line-height: 1.3;
+  max-width: 100%;
+}
+
+.honor-username {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-family: var(--font-mono);
+  word-break: break-all;
+}
+
+.honor-date {
+  margin-top: 0.375rem;
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+.honor-rank {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.4);
+}
+
+.honor-rank.gold { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.honor-rank.silver { background: linear-gradient(135deg, #9ca3af, #6b7280); }
+.honor-rank.bronze { background: linear-gradient(135deg, #b45309, #92400e); }
+
+.honor-placeholder {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  color: var(--text-muted);
+  border: 2px dashed var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--bg-tertiary);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.honor-placeholder:hover {
+  border-color: var(--border-focus);
+  background: var(--bg-card);
+}
+
+.honor-placeholder-icon {
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.honor-placeholder p {
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.honor-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .honor-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+  }
+  .honor-card {
+    padding: 1rem 0.5rem;
+  }
+  .honor-avatar {
+    width: 52px;
+    height: 52px;
+  }
+  .honor-name {
+    font-size: 0.8rem;
+  }
+  .honor-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  .honor-actions .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+/* Honor Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  width: 90%;
+  max-width: 420px;
+  max-height: 90vh;
+  overflow: auto;
+  transform: translateY(20px) scale(0.96);
+  transition: transform 0.3s var(--transition-smooth);
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0) scale(1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.modal-header h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.modal-close:hover {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-body > p {
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.honor-input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.honor-input-group input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.honor-input-group input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.honor-input-group input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.honor-input-group button {
+  padding: 0.75rem 1.25rem;
+  white-space: nowrap;
+}
+
+.honor-help {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+}
+
+.honor-help a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.honor-help a:hover {
+  color: var(--accent-secondary);
+  text-decoration: underline;
+}
+
+.honor-error {
+  color: #ef4444;
+  font-size: 0.8rem;
+  margin-top: 0.75rem;
+  min-height: 1.2em;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.honor-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-top: 0.75rem;
+}
+
+.honor-loading::after {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border-subtle);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Preview in modal */
+.honor-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-lg);
+  margin-top: 1rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.honor-preview img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-primary);
+}
+
+.honor-preview-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.honor-preview-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+
+.honor-preview-username {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  word-break: break-all;
+}
+</style>
   </noscript>
   <div class="reading-progress">
     <div class="reading-progress-bar"></div>
@@ -2153,6 +2907,35 @@ gym.spaces.Box(-np.ones(n), np.ones(n), ...)</code></pre>
       </div>
     </section>
 
+    <!-- HONOR ROLL SECTION -->
+    <section class="section" id="honor-roll" data-section>
+      <div class="content-container">
+        <div class="section-header animate-on-scroll">
+          <div class="section-label">学员荣誉</div>
+          <h2 class="section-title">荣誉榜</h2>
+          <p class="section-desc">记录每一位完成训练营学习并提交优秀成果的学员，点击上榜展示你的 GitHub 身份</p>
+        </div>
+        <div class="honor-grid" id="honor-grid">
+          <div class="honor-placeholder" id="honor-placeholder">
+            <div class="honor-placeholder-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <p>还没有学员上榜，快来成为第一个！</p>
+          </div>
+        </div>
+        <div class="honor-actions animate-on-scroll">
+          <button class="btn btn-primary btn-large" onclick="openHonorModal()">
+            <svg class="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+            我要上榜
+          </button>
+          <a href="https://github.com/login" target="_blank" rel="noopener" class="btn btn-secondary" onclick="event.stopPropagation();">
+            <svg class="btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            前往 GitHub 登录
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- Q&A SECTION -->
     <section class="section" id="qa" data-section>
       <div class="content-container">
@@ -2781,8 +3564,231 @@ gym.spaces.Box(-np.ones(n), np.ones(n), ...)</code></pre>
       e.preventDefault(); searchInput?.focus();
     }
   });
+
+  // ============================================
+  // HONOR ROLL
+  // ============================================
+  const HONOR_STORAGE_KEY = 'motrixlab_honor_roll';
+  const GITHUB_API_BASE = 'https://api.github.com/users/';
+
+  function loadHonorRoll() {
+    const grid = document.getElementById('honor-grid');
+    const placeholder = document.getElementById('honor-placeholder');
+    if (!grid) return;
+    
+    let users = [];
+    try {
+      users = JSON.parse(localStorage.getItem(HONOR_STORAGE_KEY) || '[]');
+    } catch (e) { users = []; }
+    
+    if (users.length === 0) {
+      if (placeholder) placeholder.style.display = 'flex';
+      return;
+    }
+    
+    if (placeholder) placeholder.style.display = 'none';
+    
+    users.forEach((user, index) => {
+      const card = document.createElement('div');
+      card.className = 'honor-card animate-on-scroll';
+      card.dataset.id = user.username;
+      
+      const rankClass = index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : '';
+      
+      card.innerHTML = `
+        <div class="honor-rank ${rankClass}">${index + 1}</div>
+        <img class="honor-avatar" src="${user.avatar_url || 'https://github.com/github.png'}" alt="${user.name || user.username}" loading="lazy" onerror="this.src='https://github.com/github.png'">
+        <div class="honor-name">${escapeHtml(user.name || user.username)}</div>
+        <div class="honor-username">@${escapeHtml(user.username)}</div>
+        <div class="honor-date">${escapeHtml(user.date || '')}</div>
+      `;
+      grid.appendChild(card);
+    });
+    
+    // Trigger animation for newly added cards
+    if (window.__io) {
+      grid.querySelectorAll('.honor-card').forEach(el => window.__io.observe(el));
+    }
+  }
+
+  function openHonorModal() {
+    const modal = document.getElementById('honor-modal');
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => document.getElementById('honor-username')?.focus(), 100);
+    }
+  }
+
+  function closeHonorModal(event) {
+    if (event && event.target !== event.currentTarget && event.type === 'click') return;
+    const modal = document.getElementById('honor-modal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    // Clear inputs and preview
+    const input = document.getElementById('honor-username');
+    if (input) input.value = '';
+    const error = document.getElementById('honor-error');
+    if (error) { error.textContent = ''; error.style.display = 'none'; }
+    const preview = document.getElementById('honor-preview-area');
+    if (preview) preview.innerHTML = '';
+  }
+
+  async function addToHonor() {
+    const input = document.getElementById('honor-username');
+    const errorDiv = document.getElementById('honor-error');
+    const previewArea = document.getElementById('honor-preview-area');
+    if (!input || !errorDiv) return;
+    
+    const username = input.value.trim().replace(/^@/, '');
+    if (!username) {
+      errorDiv.textContent = '请输入 GitHub 用户名';
+      errorDiv.style.display = 'flex';
+      return;
+    }
+    
+    // Validate username format (GitHub allows alphanumeric and hyphens, no leading hyphen, max 39 chars)
+    if (!/^[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,37}[a-zA-Z0-9])?$/.test(username)) {
+      errorDiv.textContent = '用户名格式不正确';
+      errorDiv.style.display = 'flex';
+      return;
+    }
+    
+    // Check if already in honor roll
+    let users = [];
+    try {
+      users = JSON.parse(localStorage.getItem(HONOR_STORAGE_KEY) || '[]');
+    } catch (e) { users = []; }
+    
+    if (users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+      errorDiv.textContent = '该用户已上榜';
+      errorDiv.style.display = 'flex';
+      return;
+    }
+    
+    errorDiv.textContent = '';
+    errorDiv.style.display = 'none';
+    
+    // Show loading
+    previewArea.innerHTML = '<div class="honor-loading">正在获取 GitHub 信息...</div>';
+    
+    try {
+      const response = await fetch(GITHUB_API_BASE + encodeURIComponent(username));
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error('GitHub 用户不存在');
+        } else if (response.status === 403) {
+          throw new Error('API 请求次数受限，请稍后再试');
+        } else {
+          throw new Error('获取用户信息失败 (' + response.status + ')');
+        }
+      }
+      
+      const data = await response.json();
+      
+      const userInfo = {
+        username: data.login,
+        name: data.name || data.login,
+        avatar_url: data.avatar_url,
+        profile_url: data.html_url,
+        date: new Date().toLocaleDateString('zh-CN')
+      };
+      
+      users.push(userInfo);
+      localStorage.setItem(HONOR_STORAGE_KEY, JSON.stringify(users));
+      
+      // Show preview
+      previewArea.innerHTML = `
+        <div class="honor-preview">
+          <img src="${userInfo.avatar_url}" alt="${userInfo.name}" onerror="this.src='https://github.com/github.png'">
+          <div class="honor-preview-info">
+            <div class="honor-preview-name">${escapeHtml(userInfo.name)}</div>
+            <div class="honor-preview-username">@${escapeHtml(userInfo.username)}</div>
+          </div>
+        </div>
+      `;
+      
+      // Add to grid immediately
+      const grid = document.getElementById('honor-grid');
+      const placeholder = document.getElementById('honor-placeholder');
+      if (grid && placeholder) {
+        placeholder.style.display = 'none';
+        
+        const index = users.length - 1;
+        const rankClass = index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : '';
+        
+        const card = document.createElement('div');
+        card.className = 'honor-card animate-on-scroll visible';
+        card.dataset.id = userInfo.username;
+        card.innerHTML = `
+          <div class="honor-rank ${rankClass}">${index + 1}</div>
+          <img class="honor-avatar" src="${userInfo.avatar_url}" alt="${userInfo.name}" loading="lazy" onerror="this.src='https://github.com/github.png'">
+          <div class="honor-name">${escapeHtml(userInfo.name)}</div>
+          <div class="honor-username">@${escapeHtml(userInfo.username)}</div>
+          <div class="honor-date">${escapeHtml(userInfo.date)}</div>
+        `;
+        grid.appendChild(card);
+        
+        if (window.__io) window.__io.observe(card);
+      }
+      
+      // Close modal after delay
+      setTimeout(() => closeHonorModal(), 1500);
+      
+    } catch (err) {
+      previewArea.innerHTML = '';
+      errorDiv.textContent = err.message || '获取失败，请检查用户名或网络';
+      errorDiv.style.display = 'flex';
+    }
+  }
+
+  // Allow Enter key to submit
+  document.addEventListener('DOMContentLoaded', () => {
+    const honorInput = document.getElementById('honor-username');
+    if (honorInput) {
+      honorInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') addToHonor();
+      });
+    }
+  });
+
+  // Expose to window
+  window.openHonorModal = openHonorModal;
+  window.closeHonorModal = closeHonorModal;
+  window.addToHonor = addToHonor;
+
+  // Load existing honor roll on init
+  loadHonorRoll();
 })();
 </script>
+
+
+<!-- Honor Roll Modal -->
+<div class="modal-overlay" id="honor-modal" onclick="closeHonorModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h3>🏆 加入荣誉榜</h3>
+      <button class="modal-close" onclick="closeHonorModal()" aria-label="关闭">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>输入你的 GitHub 用户名，我们将自动获取你的头像和昵称。需要先登录 <a href="https://github.com/login" target="_blank" rel="noopener">GitHub</a> 才能获取公开信息。</p>
+      <div class="honor-input-group">
+        <input type="text" id="honor-username" placeholder="GitHub 用户名，例如: octocat" maxlength="39" autocomplete="off" spellcheck="false">
+        <button class="btn btn-primary" onclick="addToHonor()">确认上榜</button>
+      </div>
+      <div class="honor-help">
+        <span>没有账号？</span>
+        <a href="https://github.com/signup" target="_blank" rel="noopener">注册 GitHub</a>
+        <span>·</span>
+        <a href="https://github.com/login" target="_blank" rel="noopener">登录</a>
+      </div>
+      <div id="honor-error" class="honor-error" style="display:none;"></div>
+      <div id="honor-preview-area"></div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
